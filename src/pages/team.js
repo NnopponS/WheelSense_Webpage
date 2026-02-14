@@ -1,17 +1,18 @@
-﻿// Team Page
+﻿// Team page
 import { createNavbar } from '../components/navbar.js';
 import { createFooter } from '../components/footer.js';
 import { initSmoothScroll } from '../components/smooth-scroll.js';
 import { initScrollAnimations } from '../components/scroll-animations.js';
+import { applyPageOverrides } from '../components/page-content.js';
 
 const teamMembers = [
     {
         id: 'darawadee-panich',
-        nameEn: 'Miss. Darawadee Panich',
-        nameTh: 'นางสาวดาราวดี พานิช',
-        role: 'Student Researcher (Medical Engineering)',
-        gradient: 'linear-gradient(135deg, #1a1b3e, #0E1018)',
-        bio: 'Contributes to assistive technology development by combining medical-engineering knowledge with practical wheelchair innovation workflow.',
+        name: 'Miss Darawadee Panich',
+        role: 'Student Researcher - Medical Engineering',
+        subtitle: 'Faculty of Engineering, Thammasat University',
+        gradient: 'linear-gradient(135deg, #1a1b3e, #0e1018)',
+        bio: 'Contributes to assistive technology development by combining medical engineering knowledge with practical wheelchair innovation workflows.',
         details: [
             { label: 'Student ID', value: '6610300318' },
             { label: 'Program', value: 'Medical Engineering' },
@@ -24,11 +25,11 @@ const teamMembers = [
     },
     {
         id: 'teerapat-thongtae',
-        nameEn: 'Mr. Teerapat Thongtae',
-        nameTh: 'นายธีรภัทร ทองแท้',
-        role: 'Student Researcher (Sport and Exercise Science)',
-        gradient: 'linear-gradient(135deg, #1a3e1b, #0E1018)',
-        bio: 'Supports sport and exercise-science integration in wheelchair physical activity systems and user engagement experiments.',
+        name: 'Mr Teerapat Thongtae',
+        role: 'Student Researcher - Sport and Exercise Science',
+        subtitle: 'Faculty of Allied Health Sciences, Thammasat University',
+        gradient: 'linear-gradient(135deg, #1a3e1b, #0e1018)',
+        bio: 'Supports sport and exercise science integration in wheelchair physical-activity systems and user engagement experiments.',
         details: [
             { label: 'Student ID', value: '6612614146' },
             { label: 'Program', value: 'Sport and Exercise Science (SS)' },
@@ -41,11 +42,11 @@ const teamMembers = [
     },
     {
         id: 'suppawit-ausawalaithong',
-        nameEn: 'Mr. Suppawit Ausawalaithong',
-        nameTh: 'นายศุภวิชญ์ อัศวลายทอง',
-        role: 'Student Researcher (Electrical Engineering)',
-        gradient: 'linear-gradient(135deg, #3e1a1b, #0E1018)',
-        bio: 'Works on electrical engineering implementation for sensing, control, and device-level integration in wheelchair systems.',
+        name: 'Mr Suppawit Ausawalaithong',
+        role: 'Student Researcher - Electrical Engineering',
+        subtitle: 'Faculty of Engineering, Thammasat University',
+        gradient: 'linear-gradient(135deg, #3e1a1b, #0e1018)',
+        bio: 'Works on electrical-engineering implementation for sensing, control, and device-level integration in wheelchair systems.',
         details: [
             { label: 'Student ID', value: '6510610147' },
             { label: 'Program', value: 'Electrical Engineering' },
@@ -57,10 +58,10 @@ const teamMembers = [
     },
     {
         id: 'worapon-sangsasri',
-        nameEn: 'Mr. Worapon Sangsasri',
-        nameTh: 'นายวรพล แสงสระศรี',
-        role: 'Student Researcher (Electrical Engineering)',
-        gradient: 'linear-gradient(135deg, #1a2e3e, #0E1018)',
+        name: 'Mr Worapon Sangsasri',
+        role: 'Student Researcher - Electrical Engineering',
+        subtitle: 'Faculty of Engineering, Thammasat University',
+        gradient: 'linear-gradient(135deg, #1a2e3e, #0e1018)',
         bio: 'Contributes to electronics and system architecture for wearable sensing, communication modules, and integrated assistive platforms.',
         details: [
             { label: 'Student ID', value: '6510680371' },
@@ -74,14 +75,14 @@ const teamMembers = [
     },
     {
         id: 'sairag-saadprai',
-        nameEn: 'Associate Professor Sairag Saadprai, Ph.D.',
-        nameTh: 'รองศาสตราจารย์ ดร.สายรัก สอาดไพร',
+        name: 'Associate Professor Sairag Saadprai, Ph.D.',
         role: 'Research Advisor',
+        subtitle: 'Sport and Exercise Innovation',
         gradient: 'linear-gradient(135deg, #1a1b3e, #141726)',
-        bio: 'Leads research direction in sport and exercise innovation, guiding interdisciplinary translation from concept to validated assistive systems.',
+        bio: 'Guides interdisciplinary research direction and supports translation from concept to validated assistive systems.',
         details: [
             { label: 'Expertise', value: 'Sport and Exercise Innovation' },
-            { label: 'Research Interests', value: 'Sport and Exercise Innovation' },
+            { label: 'Research Interest', value: 'Sport and Exercise Innovation' },
             { label: 'Email', value: 'sairag.saa@allied.tu.ac.th' },
         ],
         focus: ['Research Strategy', 'Exercise Innovation', 'Interdisciplinary Supervision'],
@@ -89,16 +90,16 @@ const teamMembers = [
     },
     {
         id: 'supachai-vorapojpisut',
-        nameEn: 'Asst. Prof. Dr. Supachai Vorapojpisut',
-        nameTh: 'ผศ.ดร.ศุภชัย วรพจน์พิศุทธิ์',
+        name: 'Asst. Prof. Dr. Supachai Vorapojpisut',
         role: 'Head of Department and Control Engineering Advisor',
+        subtitle: 'Faculty of Engineering, Thammasat University',
         gradient: 'linear-gradient(135deg, #222d52, #101524)',
         bio: 'Provides control-engineering and systems expertise for robust assistive technology deployment and academic research quality.',
         details: [
             { label: 'Position', value: 'Head of Department' },
-            { label: 'Office', value: 'อาคารปฏิบัติการและวิจัย ชั้น 4 ห้อง 412-1' },
+            { label: 'Office', value: '4th Floor, Research and Laboratory Building, Room 412-1' },
             { label: 'Email', value: 'vsupacha@engr.tu.ac.th' },
-            { label: 'Phone', value: '0-2564-3001-9 ต่อ 3061' },
+            { label: 'Phone', value: '0-2564-3001-9 ext. 3061' },
             { label: 'Research Area', value: 'Control Engineering' },
         ],
         focus: ['Control Engineering', 'Systems Engineering', 'Academic Leadership'],
@@ -145,9 +146,9 @@ function renderDetailSection(member) {
       <div class="profile-detail__hero">
         <div class="profile-detail__portrait" style="background: ${member.gradient};"></div>
         <div class="profile-detail__header">
-          <h1>${member.nameEn}</h1>
+          <h1>${member.name}</h1>
           <p>${member.role}</p>
-          <p class="profile-detail__thai-name">${member.nameTh}</p>
+          <p class="profile-detail__secondary-name">${member.subtitle}</p>
         </div>
       </div>
 
@@ -172,7 +173,7 @@ function renderDetailSection(member) {
   `;
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
     const loader = document.getElementById('loader');
     setTimeout(() => {
         loader.classList.add('is-hidden');
@@ -193,14 +194,15 @@ document.addEventListener('DOMContentLoaded', () => {
         <div class="team-profile__image-gradient" style="background: ${member.gradient};"></div>
       </div>
       <div class="team-profile__info">
-        <h3 class="team-profile__name">${member.nameEn}</h3>
+        <h3 class="team-profile__name">${member.name}</h3>
         <p class="team-profile__role">${member.role}</p>
-        <p class="team-profile__subtitle">${member.nameTh}</p>
+        <p class="team-profile__subtitle">${member.subtitle}</p>
       </div>
     `;
         grid.appendChild(card);
     });
 
+    await applyPageOverrides('team');
     initScrollAnimations();
 
     const detail = document.getElementById('profileDetail');
@@ -214,7 +216,17 @@ document.addEventListener('DOMContentLoaded', () => {
         const member = teamMembers.find((entry) => entry.id === card.dataset.memberId);
         if (!member) return;
 
-        detailContent.innerHTML = renderDetailSection(member);
+        const cardName = card.querySelector('.team-profile__name')?.textContent?.trim() || member.name;
+        const cardRole = card.querySelector('.team-profile__role')?.textContent?.trim() || member.role;
+        const cardSubtitle = card.querySelector('.team-profile__subtitle')?.textContent?.trim() || member.subtitle;
+
+        detailContent.innerHTML = renderDetailSection({
+            ...member,
+            name: cardName,
+            role: cardRole,
+            subtitle: cardSubtitle,
+        });
+
         detail.classList.add('is-open');
         document.body.style.overflow = 'hidden';
     });

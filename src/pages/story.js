@@ -1,11 +1,12 @@
-﻿// Our Story Page - Scrollytelling
+﻿// Story page scrollytelling
 import { createNavbar } from '../components/navbar.js';
 import { createFooter } from '../components/footer.js';
 import { initSmoothScroll } from '../components/smooth-scroll.js';
 import { initScrollAnimations, ScrollTrigger } from '../components/scroll-animations.js';
 import { WebGLWheel } from '../components/webgl-wheel.js';
+import { applyPageOverrides } from '../components/page-content.js';
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
     const loader = document.getElementById('loader');
     setTimeout(() => {
         loader.classList.add('is-hidden');
@@ -57,19 +58,19 @@ document.addEventListener('DOMContentLoaded', () => {
             text: 'Particles gather into a wheel and mark the first promise: mobility should be measurable and intelligent.',
         },
         {
-            eyebrow: 'Yes Wheelchair',
+            eyebrow: 'YES Wheelchair',
             title: 'A neon wireframe starts reading every movement',
             text: 'IoT sensors translate physical effort into data points for health, safety, and daily activity tracking.',
         },
         {
             eyebrow: 'ALL Wheelchair',
             title: 'Motion turns into game control',
-            text: 'Fiber-like links and interactive feedback represent how rehabilitation becomes an engaging experience.',
+            text: 'Fiber links and interactive feedback represent how rehabilitation becomes an engaging experience.',
         },
         {
             eyebrow: 'Marathon and Racing',
             title: 'Telemetry escapes the room',
-            text: 'Speed lines and live coordinates visualize long-range GPS + 4G tracking across real-world race routes.',
+            text: 'Speed lines and live coordinates visualize long-range GPS and 4G tracking across real-world race routes.',
         },
         {
             eyebrow: 'WheelSense',
@@ -128,7 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         if (storyVisual) {
-            phaseClasses.forEach(cls => storyVisual.classList.remove(cls));
+            phaseClasses.forEach((name) => storyVisual.classList.remove(name));
             storyVisual.classList.add(phaseClasses[index]);
         }
 
@@ -163,6 +164,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     activatePhase(0);
+    await applyPageOverrides('story');
     initScrollAnimations();
 
     window.addEventListener('beforeunload', () => {

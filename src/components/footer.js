@@ -1,4 +1,4 @@
-// Footer Component
+﻿// Footer Component
 export function createFooter() {
   const footer = document.createElement('footer');
   footer.className = 'footer';
@@ -24,3 +24,4 @@ export function createFooter() {
 
   document.body.appendChild(footer);
 }
+

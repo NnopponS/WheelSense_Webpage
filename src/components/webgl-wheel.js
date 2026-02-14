@@ -176,7 +176,7 @@ export class WebGLWheel {
                 targetPositions[i3 + 1] = r2 * Math.sin(angle);
                 targetPositions[i3 + 2] = (Math.random() - 0.5) * 0.3;
             } else if (shape === 'sensorWheel') {
-                // Yes WheelChair: Wheel with pulsing inner spokes + sensor ring
+                // YES Wheelchair: Wheel with pulsing inner spokes and sensor ring
                 if (Math.random() > 0.3) {
                     // Outer ring (Sensor Ring)
                     const angle = Math.random() * Math.PI * 2;
