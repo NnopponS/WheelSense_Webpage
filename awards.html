@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
+        content="Awards & Achievements — Omniwheel's journey of recognition across Yes WheelChair, All WheelChair, and WheelSense innovations." />
+    <title>Awards & Achievements — Omniwheel</title>
+    <link rel="stylesheet" href="/src/styles/global.css" />
+    <link rel="stylesheet" href="/src/styles/components.css" />
+    <link rel="stylesheet" href="/src/styles/awards.css" />
+</head>
+
+<body>
+    <!-- Loader -->
+    <div class="loader" id="loader">
+        <div class="loader__spinner"></div>
+    </div>
+
+    <!-- Page Content -->
+    <main id="main">
+
+        <!-- Hero Section -->
+        <section class="awards-hero" id="awardsHero">
+            <div class="awards-hero__bg"></div>
+            <div class="awards-hero__content reveal">
+                <p class="awards-hero__label">Recognition</p>
+                <h1 class="awards-hero__title">Awards &<br>Achievements</h1>
+                <p class="awards-hero__subtitle">Five years of innovation, recognized worldwide.</p>
+                <div class="awards-hero__stats">
+                    <div class="awards-hero__stat">
+                        <span class="awards-hero__stat-number" data-counter="15" data-suffix="+">0</span>
+                        <span class="awards-hero__stat-label">Awards Won</span>
+                    </div>
+                    <div class="awards-hero__stat">
+                        <span class="awards-hero__stat-number" data-counter="4" data-suffix="">0</span>
+                        <span class="awards-hero__stat-label">Project Eras</span>
+                    </div>
+                    <div class="awards-hero__stat">
+                        <span class="awards-hero__stat-number" data-counter="3" data-suffix="">0</span>
+                        <span class="awards-hero__stat-label">Publications</span>
+                    </div>
+                </div>
+            </div>
+            <div class="scroll-indicator">
+                <div class="scroll-indicator__line"></div>
+                <span class="scroll-indicator__text">Explore</span>
+            </div>
+        </section>
+
+        <!-- Filter Section -->
+        <section class="section" id="awardsSection">
+            <div class="container container-wide">
+                <div class="reveal" style="text-align: center; margin-bottom: var(--space-3xl);">
+                    <p class="text-small text-tertiary"
+                        style="letter-spacing: var(--tracking-wider); text-transform: uppercase; margin-bottom: var(--space-sm);">
+                        Browse by Project</p>
+                    <h2 class="h2" style="margin-bottom: var(--space-xl);">Our Recognition</h2>
+
+                    <!-- Filter Tabs -->
+                    <div class="awards-filter" id="awardsFilter">
+                        <button class="awards-filter__tab is-active" data-filter="all">
+                            <span class="awards-filter__dot awards-filter__dot--all"></span>
+                            All
+                        </button>
+                        <button class="awards-filter__tab" data-filter="yes-wheelchair">
+                            <span class="awards-filter__dot awards-filter__dot--era1"></span>
+                            Yes WheelChair
+                        </button>
+                        <button class="awards-filter__tab" data-filter="all-wheelchair">
+                            <span class="awards-filter__dot awards-filter__dot--era2"></span>
+                            All WheelChair
+                        </button>
+                        <button class="awards-filter__tab" data-filter="wheelsense">
+                            <span class="awards-filter__dot awards-filter__dot--era4"></span>
+                            WheelSense
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Awards Grid (rendered by JS) -->
+                <div class="awards-grid" id="awardsGrid"></div>
+            </div>
+        </section>
+
+        <!-- Certificates Section -->
+        <section class="section" id="certificatesSection">
+            <div class="container container-wide">
+                <div class="reveal" style="text-align: center; margin-bottom: var(--space-3xl);">
+                    <p class="text-small text-tertiary"
+                        style="letter-spacing: var(--tracking-wider); text-transform: uppercase; margin-bottom: var(--space-sm);">
+                        Official Recognition</p>
+                    <h2 class="h2">Certificates & Documents</h2>
+                </div>
+                <div class="cert-gallery stagger-children" id="certGallery"></div>
+            </div>
+        </section>
+
+        <!-- Publications Section -->
+        <section class="section" id="publicationsSection">
+            <div class="container">
+                <div class="reveal" style="text-align: center; margin-bottom: var(--space-3xl);">
+                    <p class="text-small text-tertiary"
+                        style="letter-spacing: var(--tracking-wider); text-transform: uppercase; margin-bottom: var(--space-sm);">
+                        Research</p>
+                    <h2 class="h2">Publications & Papers</h2>
+                </div>
+                <div class="publications-grid stagger-children" id="publicationsGrid"></div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="section cta-section" id="finalCta">
+            <div class="container reveal">
+                <h2 class="cta-section__title">See What We're Building Next.</h2>
+                <div class="hero__cta-group">
+                    <a href="/projects.html" class="btn btn-primary">View Projects</a>
+                    <a href="/contact.html" class="btn btn-secondary">Contact Us</a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox__close" id="lightboxClose">&times;</button>
+        <img class="lightbox__img" id="lightboxImg" src="" alt="Certificate" />
+    </div>
+
+    <script type="module" src="/src/pages/awards.js"></script>
+</body>
+
+</html>

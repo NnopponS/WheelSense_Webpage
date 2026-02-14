@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
+        content="Omniwheel Projects — Four generations of wheelchair innovation, from IoT sensors to AI-powered smart environments." />
+    <title>Projects — Omniwheel</title>
+    <link rel="stylesheet" href="/src/styles/global.css" />
+    <link rel="stylesheet" href="/src/styles/components.css" />
+    <style>
+        .projects-hero {
+            min-height: 50vh;
+            display: flex;
+            align-items: flex-end;
+            padding-bottom: var(--space-3xl);
+            text-align: center;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-md);
+        }
+
+        .project-card {
+            position: relative;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            background: var(--color-bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            transition: all var(--duration-normal) var(--ease-out-quart);
+            cursor: pointer;
+        }
+
+        .project-card:hover {
+            border-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-4px);
+            box-shadow: 0 24px 64px rgba(0, 0, 0, 0.5);
+        }
+
+        .project-card__visual {
+            width: 100%;
+            height: 280px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card__gradient {
+            position: absolute;
+            inset: 0;
+            opacity: 0.15;
+        }
+
+        .project-card__era {
+            position: absolute;
+            top: var(--space-md);
+            left: var(--space-md);
+            font-size: var(--text-caption);
+            font-weight: 500;
+            letter-spacing: var(--tracking-wider);
+            text-transform: uppercase;
+            padding: 4px 12px;
+            border-radius: var(--radius-full);
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+        }
+
+        .project-card__body {
+            padding: var(--space-lg);
+        }
+
+        .project-card__title {
+            font-family: var(--font-display);
+            font-size: var(--text-h3);
+            font-weight: 600;
+            margin-bottom: var(--space-xs);
+        }
+
+        .project-card__subtitle {
+            font-size: var(--text-body);
+            color: var(--color-text-secondary);
+            margin-bottom: var(--space-md);
+        }
+
+        .project-card__tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .project-card__tag {
+            font-size: var(--text-caption);
+            color: var(--color-text-tertiary);
+            padding: 4px 10px;
+            border-radius: var(--radius-full);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        /* Project Detail Modal / Expandable */
+        .project-detail {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: var(--z-modal);
+            background: var(--color-bg);
+            overflow-y: auto;
+        }
+
+        .project-detail.is-open {
+            display: block;
+        }
+
+        .project-detail__close {
+            position: fixed;
+            top: var(--space-md);
+            right: var(--space-md);
+            z-index: var(--z-modal);
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            color: var(--color-text-secondary);
+            transition: all var(--duration-fast);
+            cursor: pointer;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .project-detail__close:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--color-text-primary);
+        }
+
+        .project-detail__hero {
+            min-height: 50vh;
+            display: flex;
+            align-items: flex-end;
+            padding: var(--space-3xl) 0;
+            position: relative;
+        }
+
+        .project-detail__hero-bg {
+            position: absolute;
+            inset: 0;
+            opacity: 0.2;
+        }
+
+        .project-detail__hero-bg::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, var(--color-bg), transparent 70%);
+        }
+
+        .project-detail__sections {
+            padding: var(--space-2xl) 0;
+        }
+
+        @media (max-width: 768px) {
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .project-card__visual {
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="loader" id="loader">
+        <div class="loader__spinner"></div>
+    </div>
+
+    <main id="main">
+        <section class="projects-hero section-full">
+            <div class="container" style="text-align: center; width: 100%;">
+                <div class="reveal">
+                    <p class="text-small text-tertiary"
+                        style="letter-spacing: var(--tracking-wider); text-transform: uppercase; margin-bottom: var(--space-sm);">
+                        Portfolio</p>
+                    <h1 class="h1" style="margin-bottom: var(--space-md);">Our Projects</h1>
+                    <p class="text-body-lg text-secondary" style="max-width: 600px; margin: 0 auto;">Four generations of
+                        wheelchair innovation, each building upon the last.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container container-wide">
+                <div class="projects-grid stagger-children" id="projectsGrid">
+                    <!-- Yes WheelChair -->
+                    <div class="project-card" data-project="yes-wheelchair">
+                        <div class="project-card__visual">
+                            <div class="project-card__gradient"
+                                style="background: linear-gradient(135deg, var(--color-era-1), transparent);"></div>
+                            <span class="project-card__era" style="color: var(--color-era-1);">Era 01</span>
+                        </div>
+                        <div class="project-card__body">
+                            <h3 class="project-card__title">Yes WheelChair</h3>
+                            <p class="project-card__subtitle">IoT-enabled wheelchair with health metrics and fall
+                                detection system.</p>
+                            <div class="project-card__tags">
+                                <span class="project-card__tag">IoT</span>
+                                <span class="project-card__tag">Sensors</span>
+                                <span class="project-card__tag">Safety</span>
+                                <span class="project-card__tag">Health Monitoring</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- All Wheelchair -->
+                    <div class="project-card" data-project="all-wheelchair">
+                        <div class="project-card__visual">
+                            <div class="project-card__gradient"
+                                style="background: linear-gradient(135deg, var(--color-era-2), transparent);"></div>
+                            <span class="project-card__era" style="color: var(--color-era-2);">Era 02</span>
+                        </div>
+                        <div class="project-card__body">
+                            <h3 class="project-card__title">All Wheelchair</h3>
+                            <p class="project-card__subtitle">Motion-controlled exergaming for wheelchair
+                                rehabilitation.</p>
+                            <div class="project-card__tags">
+                                <span class="project-card__tag">Motion Tracking</span>
+                                <span class="project-card__tag">Exergaming</span>
+                                <span class="project-card__tag">Rehabilitation</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Marathon & Racing -->
+                    <div class="project-card" data-project="marathon-racing">
+                        <div class="project-card__visual">
+                            <div class="project-card__gradient"
+                                style="background: linear-gradient(135deg, var(--color-era-3), transparent);"></div>
+                            <span class="project-card__era" style="color: var(--color-era-3);">Era 03</span>
+                        </div>
+                        <div class="project-card__body">
+                            <h3 class="project-card__title">Marathon & Racing</h3>
+                            <p class="project-card__subtitle">GPS-enabled real-time telemetry for wheelchair racing and
+                                marathons.</p>
+                            <div class="project-card__tags">
+                                <span class="project-card__tag">GPS</span>
+                                <span class="project-card__tag">4G LTE</span>
+                                <span class="project-card__tag">Telemetry</span>
+                                <span class="project-card__tag">Racing</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- WheelSense -->
+                    <div class="project-card" data-project="wheelsense">
+                        <div class="project-card__visual">
+                            <div class="project-card__gradient"
+                                style="background: linear-gradient(135deg, var(--color-era-4), transparent);"></div>
+                            <span class="project-card__era" style="color: var(--color-era-4);">Era 04</span>
+                        </div>
+                        <div class="project-card__body">
+                            <h3 class="project-card__title">WheelSense</h3>
+                            <p class="project-card__subtitle">AI-powered smart environment with computer vision and
+                                voice control.</p>
+                            <div class="project-card__tags">
+                                <span class="project-card__tag">AI</span>
+                                <span class="project-card__tag">Computer Vision</span>
+                                <span class="project-card__tag">Smart Home</span>
+                                <span class="project-card__tag">Voice Control</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Project Detail Modal -->
+        <div class="project-detail" id="projectDetail">
+            <button class="project-detail__close" id="projectDetailClose">✕</button>
+            <div id="projectDetailContent"></div>
+        </div>
+    </main>
+
+    <script type="module" src="/src/pages/projects.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
+        content="The Omniwheel journey — from digitizing wheelchair motion to creating intelligent assistive ecosystems." />
+    <title>Our Story — Omniwheel</title>
+    <link rel="stylesheet" href="/src/styles/global.css" />
+    <link rel="stylesheet" href="/src/styles/components.css" />
+    <style>
+        .story-layout {
+            display: flex;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        .story-visual {
+            position: sticky;
+            top: 0;
+            width: 50%;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .story-visual__canvas {
+            position: absolute;
+            inset: 0;
+        }
+
+        .story-visual__label {
+            position: absolute;
+            bottom: 3rem;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: var(--text-caption);
+            color: var(--color-text-muted);
+            letter-spacing: var(--tracking-wider);
+            text-transform: uppercase;
+            white-space: nowrap;
+            transition: all 0.6s var(--ease-out-expo);
+        }
+
+        .story-narrative {
+            width: 50%;
+            padding: 0 var(--space-xl);
+        }
+
+        .story-phase {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: var(--space-3xl) 0;
+            opacity: 0.3;
+            transition: opacity 0.8s var(--ease-out-expo);
+        }
+
+        .story-phase.is-active {
+            opacity: 1;
+        }
+
+        .story-phase__number {
+            font-family: var(--font-display);
+            font-size: var(--text-caption);
+            font-weight: 500;
+            letter-spacing: var(--tracking-wider);
+            text-transform: uppercase;
+            margin-bottom: var(--space-sm);
+        }
+
+        .story-phase__accent {
+            width: 40px;
+            height: 2px;
+            border-radius: 1px;
+            margin-bottom: var(--space-lg);
+        }
+
+        .story-phase__title {
+            font-family: var(--font-display);
+            font-size: var(--text-h2);
+            font-weight: 700;
+            letter-spacing: var(--tracking-tight);
+            margin-bottom: var(--space-xs);
+        }
+
+        .story-phase__subtitle {
+            font-size: var(--text-h4);
+            color: var(--color-text-secondary);
+            margin-bottom: var(--space-lg);
+        }
+
+        .story-phase__text {
+            font-size: var(--text-body-lg);
+            color: var(--color-text-secondary);
+            line-height: var(--leading-relaxed);
+            max-width: 500px;
+            margin-bottom: var(--space-md);
+        }
+
+        .story-phase__specs {
+            display: flex;
+            gap: var(--space-lg);
+            margin-top: var(--space-lg);
+            padding-top: var(--space-md);
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .story-phase__spec-label {
+            font-size: var(--text-caption);
+            color: var(--color-text-muted);
+            letter-spacing: var(--tracking-wider);
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .story-phase__spec-value {
+            font-size: var(--text-small);
+            font-weight: 500;
+        }
+
+        .story-ending {
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: var(--space-3xl) var(--space-lg);
+        }
+
+        .story-ending__title {
+            font-family: var(--font-display);
+            font-size: var(--text-h1);
+            font-weight: 700;
+            margin-bottom: var(--space-lg);
+        }
+
+        .story-ending__cta-group {
+            display: flex;
+            gap: var(--space-md);
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        @media (max-width: 768px) {
+            .story-layout {
+                flex-direction: column;
+            }
+
+            .story-visual {
+                width: 100%;
+                height: 40vh;
+                position: sticky;
+                top: 0;
+                z-index: 1;
+            }
+
+            .story-narrative {
+                width: 100%;
+                padding: 0 var(--space-md);
+                position: relative;
+                z-index: 2;
+            }
+
+            .story-phase {
+                min-height: 80vh;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="loader" id="loader">
+        <div class="loader__spinner"></div>
+    </div>
+
+    <main id="main">
+        <!-- Story Hero -->
+        <section class="hero" style="min-height: 60vh;">
+            <div class="hero__content">
+                <p class="text-small text-tertiary"
+                    style="letter-spacing: var(--tracking-wider); text-transform: uppercase; margin-bottom: var(--space-sm);">
+                    Our Story</p>
+                <h1 class="h1">It started with a simple rotation.</h1>
+                <p class="hero__description" style="margin-top: var(--space-md);">Scroll to journey through four eras of
+                    innovation.</p>
+            </div>
+            <div class="scroll-indicator">
+                <div class="scroll-indicator__line"></div>
+                <span class="scroll-indicator__text">Scroll</span>
+            </div>
+        </section>
+
+        <!-- Scrollytelling Layout -->
+        <div class="story-layout" id="storyLayout">
+            <!-- Sticky Visual -->
+            <div class="story-visual">
+                <div class="story-visual__canvas" id="storyCanvas"></div>
+                <div class="story-visual__label" id="storyVisualLabel">Phase 0 — Origin</div>
+            </div>
+
+            <!-- Narrative Panels -->
+            <div class="story-narrative">
+                <!-- Phase 0: Origin -->
+                <div class="story-phase" data-phase="0" data-color="#ffffff">
+                    <p class="story-phase__number" style="color: var(--color-text-tertiary);">Phase 00</p>
+                    <div class="story-phase__accent" style="background: rgba(255,255,255,0.2);"></div>
+                    <h2 class="story-phase__title">The Origin</h2>
+                    <p class="story-phase__subtitle">A simple rotation, an infinite vision</p>
+                    <p class="story-phase__text">
+                        It began with a question: what if a wheelchair could be more than metal and wheels? What if
+                        every rotation could tell a story — of distance traveled, of challenges overcome, of lives
+                        transformed?
+                    </p>
+                    <p class="story-phase__text">
+                        From that single spark of imagination, Omniwheel was born. Not as a company, but as a conviction
+                        that technology should serve the overlooked and underserved with the same precision and passion
+                        as any breakthrough product.
+                    </p>
+                </div>
+
+                <!-- Phase 1: Digitization -->
+                <div class="story-phase" data-phase="1" data-color="#34D399">
+                    <p class="story-phase__number" style="color: var(--color-era-1);">Phase 01 — Digitization</p>
+                    <div class="story-phase__accent" style="background: var(--color-era-1);"></div>
+                    <h2 class="story-phase__title">Yes WheelChair</h2>
+                    <p class="story-phase__subtitle">Physical → Digital</p>
+                    <p class="story-phase__text">
+                        We didn't see the wheelchair as merely equipment. We saw it as a source of data. Yes WheelChair
+                        was our first step — embedding IoT sensors to transform every movement into measurable science:
+                        distance, calories, and a fall detection system that watches over safety.
+                    </p>
+                    <p class="story-phase__text">
+                        For the first time, the wheelchair could speak — in the language of data.
+                    </p>
+                    <div class="story-phase__specs">
+                        <div>
+                            <p class="story-phase__spec-label">Core</p>
+                            <p class="story-phase__spec-value">IoT Sensors</p>
+                        </div>
+                        <div>
+                            <p class="story-phase__spec-label">Feature</p>
+                            <p class="story-phase__spec-value">Health Metrics & Safety</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phase 2: Interaction -->
+                <div class="story-phase" data-phase="2" data-color="#A78BFA">
+                    <p class="story-phase__number" style="color: var(--color-era-2);">Phase 02 — Interaction</p>
+                    <div class="story-phase__accent" style="background: var(--color-era-2);"></div>
+                    <h2 class="story-phase__title">All Wheelchair</h2>
+                    <p class="story-phase__subtitle">Digital → Interaction</p>
+                    <p class="story-phase__text">
+                        Data alone isn't enough. Inspiration is what matters. All Wheelchair transformed the wheelchair
+                        into a game controller — merging physical therapy with exergaming so users exercise through joy,
+                        tearing down the walls of monotonous training.
+                    </p>
+                    <p class="story-phase__text">
+                        Rehabilitation became an experience, not an obligation.
+                    </p>
+                    <div class="story-phase__specs">
+                        <div>
+                            <p class="story-phase__spec-label">Core</p>
+                            <p class="story-phase__spec-value">Motion Tracking</p>
+                        </div>
+                        <div>
+                            <p class="story-phase__spec-label">Feature</p>
+                            <p class="story-phase__spec-value">Controller Integration</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phase 3: Expansion -->
+                <div class="story-phase" data-phase="3" data-color="#FB923C">
+                    <p class="story-phase__number" style="color: var(--color-era-3);">Phase 03 — Expansion</p>
+                    <div class="story-phase__accent" style="background: var(--color-era-3);"></div>
+                    <h2 class="story-phase__title">Marathon & Racing</h2>
+                    <p class="story-phase__subtitle">Room → World</p>
+                    <p class="story-phase__text">
+                        From indoor rooms to worldwide racetracks. We gave the heart of Yes WheelChair wings with GPS
+                        and 4G modules. Distance barriers shattered. Real-time telemetry for wheelchair marathon
+                        competitions — tracking position and speed with precision, no matter where on the course.
+                    </p>
+                    <div class="story-phase__specs">
+                        <div>
+                            <p class="story-phase__spec-label">Core</p>
+                            <p class="story-phase__spec-value">GPS / 4G LTE</p>
+                        </div>
+                        <div>
+                            <p class="story-phase__spec-label">Feature</p>
+                            <p class="story-phase__spec-value">Long-range Telemetry</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phase 4: Intelligence -->
+                <div class="story-phase" data-phase="4" data-color="#60A5FA">
+                    <p class="story-phase__number" style="color: var(--color-era-4);">Phase 04 — Intelligence</p>
+                    <div class="story-phase__accent" style="background: var(--color-era-4);"></div>
+                    <h2 class="story-phase__title">WheelSense</h2>
+                    <p class="story-phase__subtitle">Vehicle → Companion</p>
+                    <p class="story-phase__text">
+                        The ultimate evolution: a wheelchair that thinks. WheelSense fuses AI and computer vision with
+                        smart home ecosystems. It doesn't just carry you — it understands your context, controls your
+                        home by voice, and watches over you like a personal assistant.
+                    </p>
+                    <p class="story-phase__text">
+                        This is the new definition of assistive technology.
+                    </p>
+                    <div class="story-phase__specs">
+                        <div>
+                            <p class="story-phase__spec-label">Core</p>
+                            <p class="story-phase__spec-value">AI / Computer Vision</p>
+                        </div>
+                        <div>
+                            <p class="story-phase__spec-label">Feature</p>
+                            <p class="story-phase__spec-value">Smart Home Ecosystem</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Progress Indicator -->
+        <div class="story-progress" id="storyProgress">
+            <div class="story-progress__dot is-active" data-label="Origin" data-index="0"></div>
+            <div class="story-progress__line"></div>
+            <div class="story-progress__dot" data-label="Digitization" data-index="1"></div>
+            <div class="story-progress__line"></div>
+            <div class="story-progress__dot" data-label="Interaction" data-index="2"></div>
+            <div class="story-progress__line"></div>
+            <div class="story-progress__dot" data-label="Expansion" data-index="3"></div>
+            <div class="story-progress__line"></div>
+            <div class="story-progress__dot" data-label="Intelligence" data-index="4"></div>
+        </div>
+
+        <!-- Ending -->
+        <section class="story-ending" id="storyEnding">
+            <div class="reveal">
+                <p class="text-small text-tertiary"
+                    style="letter-spacing: var(--tracking-wider); text-transform: uppercase; margin-bottom: var(--space-md);">
+                    The Next Step</p>
+                <h2 class="story-ending__title">The wheel keeps turning.</h2>
+                <div class="story-ending__cta-group">
+                    <a href="/projects.html" class="btn btn-primary">Explore Our Projects</a>
+                    <a href="/team.html" class="btn btn-secondary">Meet the Team</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script type="module" src="/src/pages/story.js"></script>
+</body>
+
+</html>
