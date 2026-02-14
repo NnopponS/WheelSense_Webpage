@@ -15,7 +15,7 @@ export function createNavbar(activePage = '') {
 
   nav.innerHTML = `
     <div class="navbar__inner">
-      <a href="/" class="navbar__logo">Omniwheel</a>
+      <a href="/" class="navbar__logo">WheelSense</a>
       <div class="navbar__links">
         ${links.map(l => `
           <a href="${l.href}" class="navbar__link ${activePage === l.label.toLowerCase() ? 'is-active' : ''}">${l.label}</a>

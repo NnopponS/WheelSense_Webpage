@@ -1,4 +1,4 @@
-// Team Page
+﻿// Team Page
 import { createNavbar } from '../components/navbar.js';
 import { createFooter } from '../components/footer.js';
 import { initSmoothScroll } from '../components/smooth-scroll.js';
@@ -6,66 +6,171 @@ import { initScrollAnimations } from '../components/scroll-animations.js';
 
 const teamMembers = [
     {
-        id: 'member-1',
-        name: 'Team Lead',
-        role: 'Project Director & Researcher',
-        quote: 'Technology should serve those who need it most, with precision and compassion.',
+        id: 'darawadee-panich',
+        nameEn: 'Miss. Darawadee Panich',
+        nameTh: 'นางสาวดาราวดี พานิช',
+        role: 'Student Researcher (Medical Engineering)',
         gradient: 'linear-gradient(135deg, #1a1b3e, #0E1018)',
-        about: 'Leading the Omniwheel collective from concept to reality. Overseeing research direction, team coordination, and strategic partnerships across all four eras of innovation.',
-        skills: ['Project Management', 'Research Methodology', 'IoT Architecture', 'Team Leadership', 'Academic Publishing'],
-        projects: ['Yes WheelChair', 'All Wheelchair', 'Marathon & Racing', 'WheelSense'],
+        bio: 'Contributes to assistive technology development by combining medical-engineering knowledge with practical wheelchair innovation workflow.',
+        details: [
+            { label: 'Student ID', value: '6610300318' },
+            { label: 'Program', value: 'Medical Engineering' },
+            { label: 'Faculty', value: 'Faculty of Engineering' },
+            { label: 'Phone', value: '093-5989235' },
+            { label: 'Email', value: 'darawadeemookpanich@gmail.com' },
+        ],
+        focus: ['Assistive Technology', 'Medical Engineering', 'Prototype Validation'],
+        projects: ['YES Wheelchair', 'ALL Wheelchair', 'WheelSense'],
     },
     {
-        id: 'member-2',
-        name: 'Hardware Lead',
-        role: 'IoT & Embedded Systems Engineer',
-        quote: 'Every sensor we embed is a conversation starter between human and machine.',
+        id: 'teerapat-thongtae',
+        nameEn: 'Mr. Teerapat Thongtae',
+        nameTh: 'นายธีรภัทร ทองแท้',
+        role: 'Student Researcher (Sport and Exercise Science)',
         gradient: 'linear-gradient(135deg, #1a3e1b, #0E1018)',
-        about: 'Designing and building the hardware foundation of every Omniwheel product. From sensor arrays to communication modules, ensuring reliability and precision in every circuit.',
-        skills: ['ESP32 Development', 'PCB Design', 'Sensor Integration', 'Firmware Programming', 'PlatformIO'],
-        projects: ['Yes WheelChair', 'Marathon & Racing', 'WheelSense'],
+        bio: 'Supports sport and exercise-science integration in wheelchair physical activity systems and user engagement experiments.',
+        details: [
+            { label: 'Student ID', value: '6612614146' },
+            { label: 'Program', value: 'Sport and Exercise Science (SS)' },
+            { label: 'Faculty', value: 'Faculty of Allied Health Sciences' },
+            { label: 'Phone', value: '0630827936' },
+            { label: 'Email', value: 'chokun07teerapat2547@gmail.com' },
+        ],
+        focus: ['Exercise Innovation', 'User Testing', 'Rehabilitation Activity'],
+        projects: ['ALL Wheelchair', 'WheelSense'],
     },
     {
-        id: 'member-3',
-        name: 'Software Lead',
-        role: 'Full-Stack Developer',
-        quote: 'Great software disappears — you only notice the experience it enables.',
+        id: 'suppawit-ausawalaithong',
+        nameEn: 'Mr. Suppawit Ausawalaithong',
+        nameTh: 'นายศุภวิชญ์ อัศวลายทอง',
+        role: 'Student Researcher (Electrical Engineering)',
         gradient: 'linear-gradient(135deg, #3e1a1b, #0E1018)',
-        about: 'Building the digital experiences that connect users to their wheelchairs. From mobile apps to web dashboards, creating interfaces that are as intuitive as they are powerful.',
-        skills: ['React / Next.js', 'Node.js', 'Python', 'Flutter', 'Firebase', 'Docker'],
-        projects: ['All Wheelchair', 'WheelSense v2.0'],
+        bio: 'Works on electrical engineering implementation for sensing, control, and device-level integration in wheelchair systems.',
+        details: [
+            { label: 'Student ID', value: '6510610147' },
+            { label: 'Program', value: 'Electrical Engineering' },
+            { label: 'Faculty', value: 'Faculty of Engineering' },
+            { label: 'Phone', value: '092-8808015' },
+        ],
+        focus: ['Embedded Systems', 'Electrical Design', 'Hardware Integration'],
+        projects: ['YES Wheelchair', 'ALL Wheelchair'],
     },
     {
-        id: 'member-4',
-        name: 'AI Engineer',
-        role: 'Computer Vision & ML Specialist',
-        quote: 'Intelligence is not about seeing — it is about understanding what you see.',
-        gradient: 'linear-gradient(135deg, #1a1b3e, #0E1018)',
-        about: 'Developing the AI brain behind WheelSense. Object detection, activity recognition, and predictive analytics that transform a wheelchair into an aware, responsive companion.',
-        skills: ['YOLOv8', 'TensorFlow', 'TinyML', 'Computer Vision', 'NLP', 'Edge AI'],
-        projects: ['WheelSense', 'WheelSense v2.0'],
-    },
-    {
-        id: 'member-5',
-        name: 'UX Designer',
-        role: 'User Experience & Interaction Design',
-        quote: 'Accessibility is not an afterthought — it is the starting point.',
-        gradient: 'linear-gradient(135deg, #3e1a3e, #0E1018)',
-        about: 'Ensuring every Omniwheel product is not just functional, but delightful. Conducting user research with wheelchair users and therapists to create truly inclusive experiences.',
-        skills: ['UI/UX Design', 'User Research', 'Prototyping', 'Figma', 'Accessibility Standards'],
-        projects: ['All Wheelchair', 'WheelSense v2.0'],
-    },
-    {
-        id: 'member-6',
-        name: 'Systems Architect',
-        role: 'Infrastructure & DevOps',
-        quote: 'The best infrastructure is the one nobody has to think about.',
+        id: 'worapon-sangsasri',
+        nameEn: 'Mr. Worapon Sangsasri',
+        nameTh: 'นายวรพล แสงสระศรี',
+        role: 'Student Researcher (Electrical Engineering)',
         gradient: 'linear-gradient(135deg, #1a2e3e, #0E1018)',
-        about: 'Building the invisible backbone that keeps everything running. Cloud services, deployment pipelines, and the communication protocols that tie hardware to software.',
-        skills: ['Docker', 'MQTT', 'Node-RED', 'Home Assistant', 'Linux', 'Networking'],
-        projects: ['Marathon & Racing', 'WheelSense v2.0'],
+        bio: 'Contributes to electronics and system architecture for wearable sensing, communication modules, and integrated assistive platforms.',
+        details: [
+            { label: 'Student ID', value: '6510680371' },
+            { label: 'Program', value: 'Electrical Engineering' },
+            { label: 'Faculty', value: 'Faculty of Engineering' },
+            { label: 'Phone', value: '097-2546749' },
+            { label: 'Email', value: 'worapon.sangs@gmail.com' },
+        ],
+        focus: ['System Integration', 'Sensor Platforms', 'IoT Engineering'],
+        projects: ['YES Wheelchair', 'ALL Wheelchair', 'WheelSense'],
+    },
+    {
+        id: 'sairag-saadprai',
+        nameEn: 'Associate Professor Sairag Saadprai, Ph.D.',
+        nameTh: 'รองศาสตราจารย์ ดร.สายรัก สอาดไพร',
+        role: 'Research Advisor',
+        gradient: 'linear-gradient(135deg, #1a1b3e, #141726)',
+        bio: 'Leads research direction in sport and exercise innovation, guiding interdisciplinary translation from concept to validated assistive systems.',
+        details: [
+            { label: 'Expertise', value: 'Sport and Exercise Innovation' },
+            { label: 'Research Interests', value: 'Sport and Exercise Innovation' },
+            { label: 'Email', value: 'sairag.saa@allied.tu.ac.th' },
+        ],
+        focus: ['Research Strategy', 'Exercise Innovation', 'Interdisciplinary Supervision'],
+        projects: ['ALL Wheelchair', 'WheelSense'],
+    },
+    {
+        id: 'supachai-vorapojpisut',
+        nameEn: 'Asst. Prof. Dr. Supachai Vorapojpisut',
+        nameTh: 'ผศ.ดร.ศุภชัย วรพจน์พิศุทธิ์',
+        role: 'Head of Department and Control Engineering Advisor',
+        gradient: 'linear-gradient(135deg, #222d52, #101524)',
+        bio: 'Provides control-engineering and systems expertise for robust assistive technology deployment and academic research quality.',
+        details: [
+            { label: 'Position', value: 'Head of Department' },
+            { label: 'Office', value: 'อาคารปฏิบัติการและวิจัย ชั้น 4 ห้อง 412-1' },
+            { label: 'Email', value: 'vsupacha@engr.tu.ac.th' },
+            { label: 'Phone', value: '0-2564-3001-9 ต่อ 3061' },
+            { label: 'Research Area', value: 'Control Engineering' },
+        ],
+        focus: ['Control Engineering', 'Systems Engineering', 'Academic Leadership'],
+        education: [
+            'D.Eng. (Control Engineering), Tokyo Institute of Technology, Japan',
+            'M.Eng. (Electrical Engineering), Chulalongkorn University',
+            'B.Eng. (Electrical Engineering), Chulalongkorn University',
+        ],
+        projects: ['YES Wheelchair', 'ALL Wheelchair', 'WheelSense'],
     },
 ];
+
+function renderDetailSection(member) {
+    const detailsMarkup = member.details
+        .map((entry) => `
+      <div class="profile-meta-item">
+        <p class="profile-meta-item__label">${entry.label}</p>
+        <p class="profile-meta-item__value">${entry.value}</p>
+      </div>
+    `)
+        .join('');
+
+    const focusMarkup = member.focus
+        .map((item) => `<span class="skill-tag">${item}</span>`)
+        .join('');
+
+    const projectsMarkup = (member.projects || [])
+        .map((item) => `<span class="skill-tag">${item}</span>`)
+        .join('');
+
+    const educationSection = member.education
+        ? `
+      <div class="profile-detail__section">
+        <p class="profile-detail__section-label">Education</p>
+        <div class="profile-education-list">
+          ${member.education.map((item) => `<p class="profile-education-list__item">${item}</p>`).join('')}
+        </div>
+      </div>
+    `
+        : '';
+
+    return `
+    <div class="container">
+      <div class="profile-detail__hero">
+        <div class="profile-detail__portrait" style="background: ${member.gradient};"></div>
+        <div class="profile-detail__header">
+          <h1>${member.nameEn}</h1>
+          <p>${member.role}</p>
+          <p class="profile-detail__thai-name">${member.nameTh}</p>
+        </div>
+      </div>
+
+      <div class="profile-detail__section">
+        <p class="profile-detail__section-label">Profile</p>
+        <p class="text-body-lg text-secondary" style="line-height: var(--leading-relaxed); max-width: 760px; margin-bottom: var(--space-md);">${member.bio}</p>
+        <div class="profile-meta-grid">${detailsMarkup}</div>
+      </div>
+
+      <div class="profile-detail__section">
+        <p class="profile-detail__section-label">Focus Areas</p>
+        <div class="skill-tags">${focusMarkup}</div>
+      </div>
+
+      <div class="profile-detail__section">
+        <p class="profile-detail__section-label">Project Involvement</p>
+        <div class="skill-tags">${projectsMarkup}</div>
+      </div>
+
+      ${educationSection}
+    </div>
+  `;
+}
 
 document.addEventListener('DOMContentLoaded', () => {
     const loader = document.getElementById('loader');
@@ -78,10 +183,9 @@ document.addEventListener('DOMContentLoaded', () => {
     createFooter();
     initSmoothScroll();
 
-    // Render team grid
     const grid = document.getElementById('teamPageGrid');
-    teamMembers.forEach(member => {
-        const card = document.createElement('div');
+    teamMembers.forEach((member) => {
+        const card = document.createElement('article');
         card.className = 'team-profile';
         card.dataset.memberId = member.id;
         card.innerHTML = `
@@ -89,9 +193,9 @@ document.addEventListener('DOMContentLoaded', () => {
         <div class="team-profile__image-gradient" style="background: ${member.gradient};"></div>
       </div>
       <div class="team-profile__info">
-        <h3 class="team-profile__name">${member.name}</h3>
+        <h3 class="team-profile__name">${member.nameEn}</h3>
         <p class="team-profile__role">${member.role}</p>
-        <p class="team-profile__quote">"${member.quote}"</p>
+        <p class="team-profile__subtitle">${member.nameTh}</p>
       </div>
     `;
         grid.appendChild(card);
@@ -99,50 +203,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     initScrollAnimations();
 
-    // Profile detail
     const detail = document.getElementById('profileDetail');
     const detailContent = document.getElementById('profileDetailContent');
     const detailClose = document.getElementById('profileDetailClose');
 
-    grid.addEventListener('click', (e) => {
-        const card = e.target.closest('.team-profile');
+    grid.addEventListener('click', (event) => {
+        const card = event.target.closest('.team-profile');
         if (!card) return;
 
-        const member = teamMembers.find(m => m.id === card.dataset.memberId);
+        const member = teamMembers.find((entry) => entry.id === card.dataset.memberId);
         if (!member) return;
 
-        detailContent.innerHTML = `
-      <div class="container">
-        <div class="profile-detail__hero">
-          <div class="profile-detail__portrait" style="background: ${member.gradient};"></div>
-          <div class="profile-detail__header">
-            <h1>${member.name}</h1>
-            <p>${member.role}</p>
-            <p style="font-style: italic; color: var(--color-text-tertiary);">"${member.quote}"</p>
-          </div>
-        </div>
-
-        <div class="profile-detail__section">
-          <p class="profile-detail__section-label">About</p>
-          <p class="text-body-lg text-secondary" style="line-height: var(--leading-relaxed); max-width: 700px;">${member.about}</p>
-        </div>
-
-        <div class="profile-detail__section">
-          <p class="profile-detail__section-label">Core Skills</p>
-          <div class="skill-tags">
-            ${member.skills.map(s => `<span class="skill-tag">${s}</span>`).join('')}
-          </div>
-        </div>
-
-        <div class="profile-detail__section">
-          <p class="profile-detail__section-label">Projects</p>
-          <div class="skill-tags">
-            ${member.projects.map(p => `<span class="skill-tag">${p}</span>`).join('')}
-          </div>
-        </div>
-      </div>
-    `;
-
+        detailContent.innerHTML = renderDetailSection(member);
         detail.classList.add('is-open');
         document.body.style.overflow = 'hidden';
     });
@@ -152,8 +224,8 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.style.overflow = '';
     });
 
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') {
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') {
             detail.classList.remove('is-open');
             document.body.style.overflow = '';
         }

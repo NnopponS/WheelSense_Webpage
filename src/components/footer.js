@@ -6,7 +6,7 @@ export function createFooter() {
   footer.innerHTML = `
     <div class="container">
       <div class="footer__inner">
-        <div class="footer__logo">Omniwheel</div>
+        <div class="footer__logo">WheelSense</div>
         <div class="footer__links">
           <a href="/" class="footer__link">Home</a>
           <a href="/story.html" class="footer__link">Our Story</a>
@@ -16,7 +16,7 @@ export function createFooter() {
           <a href="/contact.html" class="footer__link">Contact</a>
         </div>
         <div class="footer__copyright">
-          © ${new Date().getFullYear()} Omniwheel. All rights reserved.
+          © ${new Date().getFullYear()} WheelSense. All rights reserved.
         </div>
       </div>
     </div>
