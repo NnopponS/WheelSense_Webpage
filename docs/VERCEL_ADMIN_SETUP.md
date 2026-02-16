@@ -5,6 +5,9 @@ Set these in your Vercel project settings:
 - `ADMIN_MODE_TOKEN`: optional override token used to authenticate admin edits.
 - `UPSTASH_REDIS_REST_URL`: Upstash Redis REST URL.
 - `UPSTASH_REDIS_REST_TOKEN`: Upstash Redis REST token.
+- `RESEND_API_KEY`: required for contact form email delivery.
+- `CONTACT_RECEIVER_EMAIL`: optional recipient email (default: `sairag.saa@allied.tu.ac.th`).
+- `CONTACT_SENDER_EMAIL`: optional sender email used with Resend (default: `WheelSense Contact <onboarding@resend.dev>`).
 
 If `ADMIN_MODE_TOKEN` is not set, the API accepts this default token:
 - `TheWheelsWillHaveNoSenseWithoutWheelSense`

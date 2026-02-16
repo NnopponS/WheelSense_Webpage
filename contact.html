@@ -97,6 +97,18 @@
             margin-top: var(--space-xl);
         }
 
+        .form-error {
+            display: none;
+            margin-top: var(--space-sm);
+            font-size: var(--text-small);
+            color: #fca5a5;
+            line-height: 1.4;
+        }
+
+        .form-error.is-visible {
+            display: block;
+        }
+
         .form-success {
             display: none;
             text-align: center;
@@ -143,31 +155,31 @@
                         </p>
                         <div class="contact-info__details">
                             <div class="contact-info__item">
-                                <div class="contact-info__item-icon">?</div>
+                                <div class="contact-info__item-icon">&#9993;</div>
                                 <div>
                                     <p class="contact-info__item-label">Primary Contact</p>
                                     <p class="contact-info__item-text">sairag.saa@allied.tu.ac.th</p>
                                 </div>
                             </div>
                             <div class="contact-info__item">
-                                <div class="contact-info__item-icon">??</div>
+                                <div class="contact-info__item-icon">&#128205;</div>
                                 <div>
                                     <p class="contact-info__item-label">Location</p>
                                     <p class="contact-info__item-text">Faculty of Allied Health Sciences, Thammasat University</p>
                                 </div>
                             </div>
                             <div class="contact-info__item">
-                                <div class="contact-info__item-icon">??</div>
+                                <div class="contact-info__item-icon">&#128300;</div>
                                 <div>
                                     <p class="contact-info__item-label">Lab</p>
                                     <p class="contact-info__item-text">Assistive Technology Research Group</p>
                                 </div>
                             </div>
                             <div class="contact-info__item">
-                                <div class="contact-info__item-icon">?</div>
+                                <div class="contact-info__item-icon">&#9742;</div>
                                 <div>
                                     <p class="contact-info__item-label">Phone</p>
-                                    <p class="contact-info__item-text">081-987-2522</p>
+                                    <p class="contact-info__item-text">(+66) 81-987-2522</p>
                                 </div>
                             </div>
                         </div>
@@ -180,29 +192,30 @@
                             <div class="form-row">
                                 <div class="form-group">
                                     <label class="form-label" for="name">Name</label>
-                                    <input type="text" id="name" class="form-input" placeholder="Your name" required />
+                                    <input type="text" id="name" name="name" class="form-input" placeholder="Your name" required />
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label" for="email">Email</label>
-                                    <input type="email" id="email" class="form-input" placeholder="your@email.com"
+                                    <input type="email" id="email" name="email" class="form-input" placeholder="your@email.com"
                                         required />
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="form-label" for="subject">Subject</label>
-                                <input type="text" id="subject" class="form-input" placeholder="What's this about?" />
+                                <input type="text" id="subject" name="subject" class="form-input" placeholder="What's this about?" />
                             </div>
                             <div class="form-group">
                                 <label class="form-label" for="message">Message</label>
-                                <textarea id="message" class="form-input" placeholder="Tell us more..." rows="5"
+                                <textarea id="message" name="message" class="form-input" placeholder="Tell us more..." rows="5"
                                     required></textarea>
                             </div>
                             <div class="form-submit">
                                 <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message</button>
+                                <p class="form-error" id="formError" role="alert" aria-live="polite"></p>
                             </div>
                         </form>
                         <div class="form-success" id="formSuccess">
-                            <div class="form-success__icon">?</div>
+                            <div class="form-success__icon">&#10003;</div>
                             <h3 style="margin-bottom: var(--space-sm);">Message Sent</h3>
                             <p class="text-secondary">Thank you for reaching out. We'll get back to you soon.</p>
                         </div>

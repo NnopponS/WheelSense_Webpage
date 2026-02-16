@@ -40,6 +40,9 @@ type MemberCv = {
     honors?: string[];
     skills?: CvSkills;
     certifications?: string[];
+    researchPublications?: string[];
+    books?: string[];
+    patents?: string[];
 };
 
 type TeamMember = {
@@ -97,20 +100,70 @@ function cleanTextList(items: unknown): string[] {
         .filter(Boolean);
 }
 
+function sanitizeThaiName(value: unknown, fallback: string): string {
+    const text = String(value ?? '').trim();
+    if (!text) return '';
+
+    const compact = text.replace(/\s+/g, '');
+    if (/^\?+$/.test(compact)) {
+        return fallback;
+    }
+
+    return text;
+}
+
+function formatThaiPhone(value: string): string {
+    const text = String(value || '').trim();
+    if (!text || text.includes('(+66)')) return text;
+
+    const digits = text.replace(/[^\d]/g, '');
+    if (!/^0\d{8,9}$/.test(digits)) {
+        return text;
+    }
+
+    const local = digits.slice(1);
+    if (local.length === 9) {
+        return `(+66) ${local.slice(0, 2)}-${local.slice(2, 5)}-${local.slice(5)}`;
+    }
+
+    if (local.length === 8) {
+        return `(+66) ${local.slice(0, 1)}-${local.slice(1, 4)}-${local.slice(4)}`;
+    }
+
+    return text;
+}
+
+function formatPhoneInText(value: unknown): string {
+    const text = String(value ?? '').trim();
+    if (!text) return '';
+
+    return text.replace(/\b0\d{1,2}-\d{3}-\d{4}\b/g, (match) => formatThaiPhone(match));
+}
+
 function normalizeMember(member: any, index: number): TeamMember {
+    const normalizedName = String(member?.name || 'Unnamed Member').trim();
     const details = Array.isArray(member?.details)
         ? member.details
             .map((entry: any) => ({
                 label: String(entry?.label ?? '').trim(),
-                value: String(entry?.value ?? '').trim(),
+                value: /phone/i.test(String(entry?.label ?? '').trim())
+                    ? formatThaiPhone(String(entry?.value ?? '').trim())
+                    : String(entry?.value ?? '').trim(),
             }))
             .filter((entry: MemberEntry) => entry.label || entry.value)
         : [];
 
+    const normalizedCv = member?.cv && typeof member.cv === 'object'
+        ? {
+            ...member.cv,
+            contact: formatPhoneInText(member.cv.contact),
+        }
+        : null;
+
     return {
         id: member?.id || `member-${index + 1}`,
-        name: member?.name || 'Unnamed Member',
-        thaiName: member?.thaiName || '',
+        name: normalizedName,
+        thaiName: sanitizeThaiName(member?.thaiName, normalizedName),
         level: member?.level || 'Team Member',
         role: member?.role || 'Research Team',
         subtitle: member?.subtitle || 'WheelSense Team',
@@ -121,7 +174,7 @@ function normalizeMember(member: any, index: number): TeamMember {
         focus: cleanTextList(member?.focus),
         projects: cleanTextList(member?.projects),
         education: cleanTextList(member?.education),
-        cv: member?.cv && typeof member.cv === 'object' ? member.cv : null,
+        cv: normalizedCv,
     };
 }
 
@@ -255,9 +308,19 @@ function renderAccordionSection(title: string, content: string, open = false): s
 }
 
 function renderSummaryMetaRows(member: TeamMember): string {
-    const topRows = member.details.slice(0, 4);
+    const summaryRows: MemberEntry[] = [];
 
-    if (!topRows.length) {
+    if (member.thaiName && member.thaiName.trim()) {
+        summaryRows.push({ label: 'Name (TH)', value: member.thaiName });
+    }
+
+    member.details.forEach((entry) => {
+        if (entry.label || entry.value) {
+            summaryRows.push(entry);
+        }
+    });
+
+    if (!summaryRows.length) {
         return `
       <div class="member-summary__meta-row">
         <p class="member-summary__meta-label">Profile</p>
@@ -266,7 +329,7 @@ function renderSummaryMetaRows(member: TeamMember): string {
     `;
     }
 
-    return topRows.map((entry) => `
+    return summaryRows.map((entry) => `
     <div class="member-summary__meta-row">
       <p class="member-summary__meta-label">${escapeHtml(entry.label || '-')}</p>
       <p class="member-summary__meta-value">${escapeHtml(entry.value || '-')}</p>
@@ -281,6 +344,9 @@ function renderMemberProfile(member: TeamMember): string {
     const cvProjects = normalizeRecordEntries(cv?.projects);
     const cvHonors = cleanTextList(cv?.honors);
     const cvCertifications = cleanTextList(cv?.certifications);
+    const cvPublications = cleanTextList(cv?.researchPublications);
+    const cvBooks = cleanTextList(cv?.books);
+    const cvPatents = cleanTextList(cv?.patents);
 
     const initials = member.name
         .split(' ')
@@ -316,14 +382,50 @@ function renderMemberProfile(member: TeamMember): string {
             .map((value) => String(value ?? '').trim())
             .filter(Boolean);
 
-        sections.push(renderAccordionSection('CV Headline and Contact', renderSimpleList(cvHeadlineRows)));
-        sections.push(renderAccordionSection('CV Education', renderRecordEntries(cvEducation)));
-        sections.push(renderAccordionSection('Work Experience', renderRecordEntries(cvWork)));
-        sections.push(renderAccordionSection('Project Portfolio', renderRecordEntries(cvProjects)));
-        sections.push(renderAccordionSection('Honors and Awards', renderSimpleList(cvHonors)));
+        if (cvHeadlineRows.length) {
+            sections.push(renderAccordionSection('CV Headline and Contact', renderSimpleList(cvHeadlineRows), true));
+        }
+        if (cvEducation.length) {
+            sections.push(renderAccordionSection('CV Education', renderRecordEntries(cvEducation)));
+        }
+        if (cvWork.length) {
+            sections.push(renderAccordionSection('Work Experience', renderRecordEntries(cvWork)));
+        }
+        if (cvProjects.length) {
+            sections.push(renderAccordionSection('Project Portfolio', renderRecordEntries(cvProjects)));
+        }
+        if (cvPublications.length) {
+            sections.push(renderAccordionSection('Research Publications', renderSimpleList(cvPublications)));
+        }
+        if (cvHonors.length) {
+            sections.push(renderAccordionSection('Honors and Awards', renderSimpleList(cvHonors)));
+        }
+        if (cvBooks.length) {
+            sections.push(renderAccordionSection('Books', renderSimpleList(cvBooks)));
+        }
+        if (cvPatents.length) {
+            sections.push(renderAccordionSection('Patents and Copyrights', renderSimpleList(cvPatents)));
+        }
         sections.push(renderAccordionSection('Skills Matrix', renderSkillsGrid(cv.skills)));
-        sections.push(renderAccordionSection('Certifications', renderSimpleList(cvCertifications)));
+        if (cvCertifications.length) {
+            sections.push(renderAccordionSection('Certifications', renderSimpleList(cvCertifications)));
+        }
     }
+
+    const profileSectionsCount = [
+        cvEducation.length,
+        cvWork.length,
+        cvProjects.length,
+        cvPublications.length,
+        cvHonors.length,
+        cvBooks.length,
+        cvPatents.length,
+        cvCertifications.length,
+    ].filter((count) => count > 0).length;
+
+    const thaiNameMarkup = member.thaiName && member.thaiName.trim() && member.thaiName.trim() !== member.name.trim()
+        ? `<p class="member-summary__thai-name">${escapeHtml(member.thaiName)}</p>`
+        : '';
 
     return `
     <div class="member-shell">
@@ -332,11 +434,13 @@ function renderMemberProfile(member: TeamMember): string {
           ${summaryPhoto}
         </div>
         <h2 class="member-summary__name">${escapeHtml(member.name)}</h2>
+        ${thaiNameMarkup}
         <p class="member-summary__role">${escapeHtml(member.level)} | ${escapeHtml(member.role)}</p>
         <div class="member-summary__chips">
           <span class="member-summary__chip">${escapeHtml(member.level || 'Member')}</span>
           <span class="member-summary__chip">${member.projects.length} projects</span>
           <span class="member-summary__chip">${member.focus.length} focus areas</span>
+          <span class="member-summary__chip">${profileSectionsCount} CV sections</span>
         </div>
         <div class="member-summary__meta">
           ${renderSummaryMetaRows(member)}
@@ -392,7 +496,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     nameEl.textContent = member.name || 'Member Profile';
     roleEl.textContent = `${member.level || ''} | ${member.role || ''}`;
-    subtitleEl.textContent = member.subtitle || '';
+    subtitleEl.textContent = [member.subtitle, member.thaiName && member.thaiName !== member.name ? member.thaiName : '']
+        .map((value) => String(value || '').trim())
+        .filter(Boolean)
+        .join(' | ');
 
     if (heroPhotoEl instanceof HTMLImageElement) {
         if (member.photo) {
