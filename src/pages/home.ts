@@ -6,6 +6,7 @@ import { initScrollAnimations } from '../components/scroll-animations.ts';
 import { WebGLWheel } from '../components/webgl-wheel.ts';
 import { applyPageOverrides, fetchPageOverrides } from '../components/page-content.ts';
 import { cloneTeamMembers } from '../content/team-data.ts';
+import { defaultVerifiedMilestones } from '../content/awards-data.ts';
 
 type TeamPreviewMember = {
     id: string;
@@ -17,6 +18,14 @@ type TeamPreviewMember = {
     photo: string;
 };
 
+type MilestoneLike = {
+    era?: string;
+    sortDate?: string;
+    year?: string;
+};
+
+const ALLOWED_AWARD_ERAS = new Set(['yes-wheelchair', 'all-wheelchair', 'wheelsense']);
+
 function normalizeHomeSectionText(): void {
     const heroSubtitle = document.querySelector('.hero__subtitle');
     if (heroSubtitle) {
@@ -27,12 +36,10 @@ function normalizeHomeSectionText(): void {
     }
 
     const targets = [
-        { selector: '#overviewDeck .overview-shell__label', fallback: 'At a Glance' },
-        { selector: '#overviewDeck .overview-shell__header h2', fallback: 'Everything You Need on One Page' },
         { selector: '#storyPreview .reveal p', fallback: 'Our Journey' },
         { selector: '#storyPreview .reveal h2', fallback: 'Four Eras of Innovation' },
         { selector: '#projectPreview .reveal p', fallback: 'Project Highlights' },
-        { selector: '#projectPreview .reveal h2', fallback: 'YES to WheelSense in 4 Live Previews' },
+        { selector: '#projectPreview .reveal h2', fallback: 'Four Generations in Live Previews' },
         { selector: '#teamPreview .reveal p', fallback: 'The Collective' },
         { selector: '#teamPreview .reveal h2', fallback: 'Our Team' },
     ];
@@ -61,6 +68,81 @@ function parseMembersOverride(rawValue: unknown): unknown[] {
     }
 
     return cloneTeamMembers();
+}
+
+function parseMilestonesOverride(rawValue: unknown): MilestoneLike[] {
+    if (typeof rawValue !== 'string' || !rawValue.trim()) {
+        return JSON.parse(JSON.stringify(defaultVerifiedMilestones));
+    }
+
+    try {
+        const parsed = JSON.parse(rawValue);
+        if (Array.isArray(parsed)) {
+            return parsed;
+        }
+    } catch {
+        // Ignore invalid JSON and fallback to defaults.
+    }
+
+    return JSON.parse(JSON.stringify(defaultVerifiedMilestones));
+}
+
+function normalizeEraKey(value: unknown): string {
+    if (typeof value !== 'string') {
+        return '';
+    }
+
+    return value.trim().toLowerCase().replace(/\s+/g, '-');
+}
+
+function extractYearsFromMilestone(item: MilestoneLike): number[] {
+    const years = new Set<number>();
+
+    const sortDateText = typeof item?.sortDate === 'string' ? item.sortDate : '';
+    const sortYear = sortDateText.match(/(20\d{2})/);
+    if (sortYear) {
+        years.add(Number(sortYear[1]));
+    }
+
+    const yearText = typeof item?.year === 'string' ? item.year : '';
+    const yearMatches = yearText.match(/20\d{2}/g) || [];
+    yearMatches.forEach((entry) => years.add(Number(entry)));
+
+    return Array.from(years);
+}
+
+function calculateInnovationYearSpan(milestones: MilestoneLike[]): number {
+    const years = milestones
+        .flatMap((item) => extractYearsFromMilestone(item))
+        .filter((value) => Number.isFinite(value) && value > 0);
+
+    if (!years.length) {
+        return 0;
+    }
+
+    const minYear = Math.min(...years);
+    const maxYear = Math.max(...years);
+    return maxYear - minYear + 1;
+}
+
+function updateHomeMetrics(teamCount: number, milestones: MilestoneLike[]): void {
+    const metricNumbers = Array.from(document.querySelectorAll<HTMLElement>('#metrics .metric__number'));
+    if (metricNumbers.length < 4) {
+        return;
+    }
+
+    const generationCount = document.querySelectorAll('#projectPreview .project-preview-card').length;
+    const awardsCount = milestones.length;
+    const innovationYears = calculateInnovationYearSpan(milestones);
+
+    const counters = [generationCount, awardsCount, teamCount, innovationYears];
+
+    metricNumbers.forEach((metric, index) => {
+        const nextValue = counters[index] ?? 0;
+        metric.dataset.counter = String(nextValue);
+        metric.dataset.suffix = '';
+        metric.textContent = '0';
+    });
 }
 
 function normalizeMember(member: any, index: number): TeamPreviewMember {
@@ -218,6 +300,21 @@ async function loadTeamMembers(): Promise<TeamPreviewMember[]> {
     }
 }
 
+async function loadAwardMilestones(): Promise<MilestoneLike[]> {
+    try {
+        const awardOverrides = await fetchPageOverrides('awards');
+        return parseMilestonesOverride(awardOverrides['data.verifiedMilestones']).filter((item) => {
+            const era = normalizeEraKey(item?.era || 'all-wheelchair');
+            return ALLOWED_AWARD_ERAS.has(era);
+        });
+    } catch {
+        return JSON.parse(JSON.stringify(defaultVerifiedMilestones)).filter((item: MilestoneLike) => {
+            const era = normalizeEraKey(item?.era || 'all-wheelchair');
+            return ALLOWED_AWARD_ERAS.has(era);
+        });
+    }
+}
+
 document.addEventListener('DOMContentLoaded', async () => {
     const loader = document.getElementById('loader');
     setTimeout(() => {
@@ -268,7 +365,14 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     await applyPageOverrides('home');
     normalizeHomeSectionText();
-    initTeamSlider(await loadTeamMembers());
+
+    const [teamMembers, milestones] = await Promise.all([
+        loadTeamMembers(),
+        loadAwardMilestones(),
+    ]);
+
+    updateHomeMetrics(teamMembers.length, milestones);
+    initTeamSlider(teamMembers);
     initScrollAnimations();
 });
 
