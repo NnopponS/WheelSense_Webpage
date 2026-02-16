@@ -162,7 +162,7 @@
         }
 
         .project-detail__hero {
-            min-height: 50vh;
+            min-height: 56vh;
             display: flex;
             align-items: flex-end;
             padding: var(--space-3xl) 0;
@@ -203,6 +203,158 @@
             display: block;
         }
 
+        .project-detail__hero-shell {
+            max-width: 920px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: var(--radius-xl);
+            padding: clamp(1.2rem, 2.8vw, var(--space-xl));
+            background:
+                linear-gradient(160deg, rgba(9, 13, 25, 0.95), rgba(7, 9, 18, 0.94)),
+                radial-gradient(circle at 78% 14%, rgba(125, 211, 252, 0.2), transparent 46%);
+            box-shadow: 0 28px 72px rgba(0, 0, 0, 0.4);
+        }
+
+        .project-detail__hero-kicker {
+            font-size: var(--text-caption);
+            letter-spacing: var(--tracking-wider);
+            text-transform: uppercase;
+            margin-bottom: 0.45rem;
+        }
+
+        .project-detail__hero-title {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 4.6vw, 4rem);
+            line-height: var(--leading-tight);
+            margin-bottom: 0.55rem;
+        }
+
+        .project-detail__hero-overview {
+            color: var(--color-text-secondary);
+            max-width: 780px;
+            line-height: var(--leading-relaxed);
+            margin-bottom: var(--space-md);
+            font-size: var(--text-body-lg);
+        }
+
+        .project-detail__hero-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .project-chip {
+            border-radius: var(--radius-full);
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            padding: 0.35rem 0.8rem;
+            font-size: var(--text-caption);
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+            color: var(--color-text-secondary);
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .project-detail-layout {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: var(--space-md);
+            margin-bottom: var(--space-md);
+        }
+
+        .project-panel {
+            border: 1px solid rgba(255, 255, 255, 0.09);
+            border-radius: var(--radius-xl);
+            background:
+                linear-gradient(170deg, rgba(11, 14, 25, 0.95), rgba(7, 10, 18, 0.94)),
+                radial-gradient(circle at 88% 12%, rgba(56, 189, 248, 0.16), transparent 45%);
+            padding: clamp(1rem, 2vw, var(--space-lg));
+            box-shadow: 0 22px 56px rgba(0, 0, 0, 0.32);
+        }
+
+        .project-panel__text {
+            color: var(--color-text-secondary);
+            line-height: var(--leading-relaxed);
+        }
+
+        .project-panel__list {
+            display: grid;
+            gap: 0.45rem;
+            margin: 0;
+            padding-left: 1.1rem;
+            color: var(--color-text-secondary);
+            list-style: disc;
+            line-height: 1.55;
+            font-size: var(--text-small);
+        }
+
+        .project-kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.65rem;
+            margin-bottom: var(--space-md);
+        }
+
+        .project-kpi {
+            border-radius: var(--radius-md);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.03);
+            padding: 0.75rem 0.8rem;
+        }
+
+        .project-kpi__label {
+            font-size: 0.66rem;
+            letter-spacing: var(--tracking-wide);
+            text-transform: uppercase;
+            color: var(--color-text-tertiary);
+            margin-bottom: 0.2rem;
+        }
+
+        .project-kpi__value {
+            font-size: var(--text-small);
+            color: var(--color-text-secondary);
+            line-height: 1.45;
+        }
+
+        .project-columns {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 0.75rem;
+            margin-top: var(--space-md);
+        }
+
+        .project-columns--mini {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .project-column {
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: var(--radius-md);
+            background: rgba(255, 255, 255, 0.02);
+            padding: 0.75rem;
+        }
+
+        .project-tech-cloud {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.55rem;
+            margin-bottom: var(--space-md);
+        }
+
+        .project-tech-pill {
+            font-size: var(--text-small);
+            color: var(--color-text-secondary);
+            padding: 0.38rem 0.9rem;
+            border-radius: var(--radius-full);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .project-panel__divider {
+            height: 1px;
+            width: 100%;
+            margin: var(--space-md) 0;
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.02));
+        }
+
         @media (max-width: 768px) {
             .projects-grid {
                 grid-template-columns: 1fr;
@@ -210,6 +362,16 @@
 
             .project-card__visual {
                 height: 200px;
+            }
+
+            .project-detail-layout,
+            .project-columns,
+            .project-columns--mini {
+                grid-template-columns: 1fr;
+            }
+
+            .project-kpi-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -320,7 +482,7 @@
         </section>
 
         <!-- Project Detail Modal -->
-        <div class="project-detail" id="projectDetail">
+        <div class="project-detail" id="projectDetail" data-lenis-prevent>
             <button class="project-detail__close" id="projectDetailClose">&times;</button>
             <div id="projectDetailContent"></div>
         </div>

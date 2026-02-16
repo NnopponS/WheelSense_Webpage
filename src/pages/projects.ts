@@ -5,6 +5,11 @@ import { initSmoothScroll } from '../components/smooth-scroll.ts';
 import { initScrollAnimations } from '../components/scroll-animations.ts';
 import { applyPageOverrides } from '../components/page-content.ts';
 
+type ProjectMetric = {
+    label: string;
+    value: string;
+};
+
 type ProjectData = {
     era: string;
     color: string;
@@ -15,6 +20,10 @@ type ProjectData = {
     technology: string[];
     impact: string;
     videoEmbed: string;
+    goals: string[];
+    workflow: string[];
+    deliverables: string[];
+    metrics: ProjectMetric[];
 };
 
 type EmbedOptions = {
@@ -29,45 +38,129 @@ const projectData: Record<string, ProjectData> = {
         era: 'Era 01 - Digitization',
         color: '#34D399',
         title: 'YES Wheelchair',
-        overview: 'The first step in our journey: embedding IoT sensors into wheelchairs to transform physical movement into measurable, actionable data.',
-        problem: 'Wheelchair users often lack visibility into daily activity, health metrics, and safety status. Caregivers cannot reliably monitor falls or unusual patterns remotely.',
-        solution: 'We designed and integrated a sensor array with accelerometers, gyroscopes, and distance tracking into the wheelchair frame. A companion app displays real-time metrics including distance, speed, calories, and fall alerts.',
-        technology: ['ESP32 Microcontroller', 'MPU6050 IMU Sensor', 'Ultrasonic Distance Sensor', 'Bluetooth Low Energy', 'Flutter Mobile App'],
-        impact: 'Established the foundational IoT architecture for later generations and achieved high fall-detection reliability.',
+        overview: 'The first generation that transformed a wheelchair into an IoT-enabled health and safety node.',
+        problem: 'Wheelchair users and caregivers had no continuous visibility into mobility behavior, activity intensity, or emergency events such as falls.',
+        solution: 'We integrated a sensor suite and edge firmware to capture movement, detect anomalies, and stream data to a mobile interface for day-to-day monitoring.',
+        technology: ['ESP32', 'MPU6050 IMU', 'Ultrasonic Sensor', 'BLE', 'Flutter App', 'Firebase'],
+        impact: 'Created the hardware/software foundation used by all later WheelSense generations and improved confidence in safety monitoring.',
         videoEmbed: 'https://www.youtube.com/embed/iOWTV3rmhbo',
+        goals: [
+            'Record wheelchair activity in real time using embedded sensors.',
+            'Detect fall-like events and send alert notifications to caregivers.',
+            'Make daily mobility data visible through a simple app dashboard.',
+        ],
+        workflow: [
+            'Collect movement and orientation signals from onboard sensors.',
+            'Run edge processing for event detection and filtered telemetry.',
+            'Sync metrics to a mobile app for trend visualization and alerts.',
+        ],
+        deliverables: [
+            'Sensor-integrated wheelchair prototype.',
+            'Realtime monitoring mobile application.',
+            'Fall alert and activity analytics module.',
+        ],
+        metrics: [
+            { label: 'System Focus', value: 'Safety + Activity' },
+            { label: 'Core Modality', value: 'IoT Telemetry' },
+            { label: 'Deployment Type', value: 'On-chair Edge + App' },
+            { label: 'Generation', value: 'Foundational Platform' },
+        ],
     },
     'all-wheelchair': {
         era: 'Era 02 - Interaction',
         color: '#A78BFA',
         title: 'ALL Wheelchair',
-        overview: 'Transforming the wheelchair into a game controller, merging physical therapy with exergaming for engaging rehabilitation.',
-        problem: 'Traditional rehabilitation routines are repetitive. Users often lose motivation, which can reduce physical activity and slow progress.',
-        solution: 'We developed motion tracking that maps wheelchair movement to game interactions. Users can train through interactive tasks while maintaining measurable therapy progress.',
-        technology: ['Motion Tracking Algorithms', 'WebSocket Real-Time Communication', 'Unity Game Engine', 'Custom Motion Controller', 'Bluetooth HID Protocol'],
-        impact: 'Demonstrated stronger user engagement in rehabilitation environments and strengthened translational research output.',
+        overview: 'A rehabilitation platform that converts wheelchair movement into game interactions for exergaming-based therapy.',
+        problem: 'Conventional rehabilitation can feel repetitive and low-motivation, which reduces consistency and weakens long-term outcomes.',
+        solution: 'We mapped wheelchair motion to interactive game mechanics so users could perform therapeutic movement through engaging sessions.',
+        technology: ['Motion Tracking', 'Unity Engine', 'WebSocket', 'Bluetooth HID', 'Custom Controller'],
+        impact: 'Increased rehabilitation engagement and generated data-driven insights for exercise progress and system tuning.',
         videoEmbed: 'https://www.youtube.com/embed/DeMcUm_TiKc',
+        goals: [
+            'Increase rehabilitation adherence with playful interaction loops.',
+            'Capture physical movement performance during each session.',
+            'Provide immediate feedback for both users and coaches.',
+        ],
+        workflow: [
+            'Read wheelchair motion events through a custom tracking layer.',
+            'Translate motion vectors into game commands with low latency.',
+            'Log session performance and progression indicators.',
+        ],
+        deliverables: [
+            'Wheelchair-driven exergaming prototype.',
+            'Realtime score and movement dashboard.',
+            'Motion calibration profile for therapy use.',
+        ],
+        metrics: [
+            { label: 'System Focus', value: 'Rehabilitation Engagement' },
+            { label: 'Core Modality', value: 'Motion-Controlled Games' },
+            { label: 'Session Type', value: 'Interactive Therapy' },
+            { label: 'Generation', value: 'Human Interaction Layer' },
+        ],
     },
     'marathon-racing': {
         era: 'Era 03 - Expansion',
         color: '#FB923C',
         title: 'smartVibe',
-        overview: 'smartVibe extends the platform to outdoor intelligent mobility experiences and live telemetry scenarios.',
-        problem: 'Outdoor activity and event scenarios need reliable tracking, status visibility, and motivating interaction feedback for users and teams.',
-        solution: 'smartVibe combines route context, telemetry visualization, and adaptive interaction cues for real-time outdoor mobility sessions.',
-        technology: ['GPS Telemetry', '4G Connectivity', 'Real-Time Dashboard', 'Route Mapping', 'Adaptive Interaction Layer'],
-        impact: 'Expanded WheelSense into field-scale smart mobility experiences with measurable engagement and analytics.',
+        overview: 'A field-ready mobility intelligence platform for outdoor sessions, adaptive feedback, and live telemetry experiences.',
+        problem: 'Outdoor activities and events require stable tracking, route awareness, and responsive interaction beyond indoor lab environments.',
+        solution: 'smartVibe combines telemetry streaming, context-aware feedback, and event-level dashboards to support real-world wheelchair mobility scenarios.',
+        technology: ['GPS', '4G LTE', 'Realtime Dashboard', 'Route Mapping', 'Adaptive Feedback Layer'],
+        impact: 'Extended WheelSense capabilities into outdoor and event-scale operations with measurable observability.',
         videoEmbed: 'https://www.youtube.com/embed/poNDNRhPYCk',
+        goals: [
+            'Track route-level mobility data in outdoor environments.',
+            'Enable live status visibility for teams and event organizers.',
+            'Deliver adaptive prompts based on session context.',
+        ],
+        workflow: [
+            'Stream location and activity packets via cellular connectivity.',
+            'Process route and session state into operator dashboards.',
+            'Apply adaptive interaction cues during live mobility sessions.',
+        ],
+        deliverables: [
+            'Outdoor telemetry stack with live dashboard.',
+            'Route intelligence and status feed module.',
+            'Event-ready tracking interface for support teams.',
+        ],
+        metrics: [
+            { label: 'System Focus', value: 'Outdoor Mobility Intelligence' },
+            { label: 'Core Modality', value: 'Realtime Telemetry' },
+            { label: 'Coverage', value: 'Field + Event Scale' },
+            { label: 'Generation', value: 'Expansion Platform' },
+        ],
     },
     wheelsense: {
         era: 'Era 04 - Intelligence',
         color: '#60A5FA',
         title: 'WheelSense',
-        overview: 'An AI-powered smart environment that transforms the wheelchair into an intelligent companion.',
-        problem: 'Users in home environments need better context awareness, safer interaction, and simpler control of connected devices.',
-        solution: 'WheelSense integrates computer vision, voice control, and smart-home automation to assist context-aware daily living.',
-        technology: ['ESP32-S3 Camera Platform', 'YOLO Object Detection', 'Home Assistant Integration', 'Model Context Protocol', 'Node-RED Automation', 'TinyML'],
-        impact: 'Advances assistive mobility toward proactive and intelligent support in daily life.',
+        overview: 'An AI-powered assistive ecosystem that links vision, voice, and smart-home automation into daily wheelchair experience.',
+        problem: 'Users need intuitive and context-aware assistance indoors, where manual control of multiple devices can be complex and fatiguing.',
+        solution: 'WheelSense integrates computer vision, natural-language interaction, and automation pipelines to make home environments safer and easier to control.',
+        technology: ['ESP32-S3 Camera', 'YOLO', 'Home Assistant', 'MCP', 'Node-RED', 'TinyML'],
+        impact: 'Moves assistive mobility from passive tools to proactive, intelligent support for everyday life.',
         videoEmbed: 'https://www.youtube.com/embed/kkGf6-B96K0',
+        goals: [
+            'Understand user context and nearby objects through vision.',
+            'Offer natural-language control for smart-home devices.',
+            'Orchestrate reliable automations for daily routines.',
+        ],
+        workflow: [
+            'Capture environment data from camera and embedded sensors.',
+            'Run AI inference and command interpretation pipelines.',
+            'Trigger smart-home actions with safety-aware automation rules.',
+        ],
+        deliverables: [
+            'AI-enhanced wheelchair interaction architecture.',
+            'Smart-home assistant integration with MCP workflows.',
+            'Context-aware automation and control dashboard.',
+        ],
+        metrics: [
+            { label: 'System Focus', value: 'AI Assistive Intelligence' },
+            { label: 'Core Modality', value: 'Vision + Voice + Automation' },
+            { label: 'Environment', value: 'Smart Home Integration' },
+            { label: 'Generation', value: 'Intelligent Companion' },
+        ],
     },
 };
 
@@ -133,6 +226,99 @@ function initVideoPreview(card: Element): void {
     visual.prepend(preview);
 }
 
+function renderList(items: string[]): string {
+    return `<ul class="project-panel__list">${items.map((item) => `<li>${item}</li>`).join('')}</ul>`;
+}
+
+function renderProjectDetail(data: ProjectData): string {
+    return `
+    <div class="project-detail__hero">
+      <div class="project-detail__hero-bg" style="background: linear-gradient(140deg, ${data.color}3a, transparent 60%);"></div>
+      <div class="container container-wide" style="position: relative; z-index: 1;">
+        <div class="project-detail__hero-shell">
+          <p class="project-detail__hero-kicker" style="color: ${data.color};">${data.era}</p>
+          <h1 class="project-detail__hero-title">${data.title}</h1>
+          <p class="project-detail__hero-overview">${data.overview}</p>
+          <div class="project-detail__hero-chips">
+            ${data.technology.slice(0, 4).map((item) => `<span class="project-chip">${item}</span>`).join('')}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-detail__sections">
+      <div class="container container-wide">
+        <section class="project-detail-layout">
+          <article class="project-panel project-panel--video">
+            <p class="project-section__label">Project Video</p>
+            <div class="project-video">
+              <iframe
+                src="${buildYoutubeEmbedUrl(data.videoEmbed, { autoplay: true, controls: true })}"
+                title="${data.title} video"
+                loading="lazy"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen
+              ></iframe>
+            </div>
+            <div class="project-columns project-columns--mini">
+              <div class="project-column">
+                <p class="project-section__label">Project Goals</p>
+                ${renderList(data.goals)}
+              </div>
+              <div class="project-column">
+                <p class="project-section__label">System Workflow</p>
+                ${renderList(data.workflow)}
+              </div>
+            </div>
+          </article>
+
+          <article class="project-panel">
+            <p class="project-section__label">Engineering Snapshot</p>
+            <div class="project-kpi-grid">
+              ${data.metrics
+                    .map(
+                        (metric) => `
+                  <div class="project-kpi">
+                    <p class="project-kpi__label">${metric.label}</p>
+                    <p class="project-kpi__value">${metric.value}</p>
+                  </div>
+                `,
+                    )
+                    .join('')}
+            </div>
+
+            <div class="project-columns">
+              <div class="project-column">
+                <p class="project-section__label">The Problem</p>
+                <p class="project-panel__text">${data.problem}</p>
+              </div>
+              <div class="project-column">
+                <p class="project-section__label">Our Solution</p>
+                <p class="project-panel__text">${data.solution}</p>
+              </div>
+              <div class="project-column">
+                <p class="project-section__label">Measured Impact</p>
+                <p class="project-panel__text">${data.impact}</p>
+              </div>
+            </div>
+          </article>
+        </section>
+
+        <section class="project-panel project-panel--tech">
+          <p class="project-section__label">Technology Stack</p>
+          <div class="project-tech-cloud">
+            ${data.technology.map((item) => `<span class="project-tech-pill">${item}</span>`).join('')}
+          </div>
+          <div class="project-panel__divider"></div>
+          <p class="project-section__label">Key Deliverables</p>
+          ${renderList(data.deliverables)}
+        </section>
+      </div>
+    </div>
+  `;
+}
+
 document.addEventListener('DOMContentLoaded', async () => {
     const loader = document.getElementById('loader');
     if (loader) {
@@ -151,6 +337,16 @@ document.addEventListener('DOMContentLoaded', async () => {
     const detailContent = document.getElementById('projectDetailContent');
     const detailClose = document.getElementById('projectDetailClose');
 
+    const openProjectDetail = (projectId: string): void => {
+        const data = projectData[projectId];
+        if (!data || !detail || !detailContent) return;
+
+        detailContent.innerHTML = renderProjectDetail(data);
+        detail.classList.add('is-open');
+        document.body.style.overflow = 'hidden';
+        detail.scrollTop = 0;
+    };
+
     cards.forEach((card) => {
         initVideoPreview(card);
     });
@@ -158,60 +354,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     cards.forEach((card) => {
         card.addEventListener('click', () => {
             const projectId = (card as HTMLElement).dataset.project || '';
-            const data = projectData[projectId];
-            if (!data || !detail || !detailContent) return;
-
-            detailContent.innerHTML = `
-        <div class="project-detail__hero">
-          <div class="project-detail__hero-bg" style="background: linear-gradient(135deg, ${data.color}33, transparent);"></div>
-          <div class="container" style="position: relative; z-index: 1;">
-            <p class="text-small" style="color: ${data.color}; letter-spacing: var(--tracking-wider); text-transform: uppercase; margin-bottom: var(--space-sm);">${data.era}</p>
-            <h1 class="h1" style="margin-bottom: var(--space-md);">${data.title}</h1>
-            <p class="text-body-lg text-secondary" style="max-width: 600px;">${data.overview}</p>
-          </div>
-        </div>
-        <div class="project-detail__sections">
-          <div class="container container-narrow">
-            <div class="project-section">
-              <p class="project-section__label">Project Video</p>
-              <div class="project-video">
-                <iframe
-                  src="${buildYoutubeEmbedUrl(data.videoEmbed, { autoplay: true, controls: true })}"
-                  title="${data.title} video"
-                  loading="lazy"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  referrerpolicy="strict-origin-when-cross-origin"
-                  allowfullscreen
-                ></iframe>
-              </div>
-            </div>
-
-            <div class="project-section">
-              <p class="project-section__label">The Problem</p>
-              <p class="text-body-lg text-secondary" style="line-height: var(--leading-relaxed);">${data.problem}</p>
-            </div>
-            <div class="project-section">
-              <p class="project-section__label">Our Solution</p>
-              <p class="text-body-lg text-secondary" style="line-height: var(--leading-relaxed);">${data.solution}</p>
-            </div>
-            <div class="project-section">
-              <p class="project-section__label">Technology Stack</p>
-              <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: var(--space-sm);">
-                ${data.technology
-        .map((item) => `<span style="font-size: var(--text-small); color: var(--color-text-secondary); padding: 6px 16px; border-radius: var(--radius-full); border: 1px solid rgba(255,255,255,0.08);">${item}</span>`)
-        .join('')}
-              </div>
-            </div>
-            <div class="project-section">
-              <p class="project-section__label">Impact</p>
-              <p class="text-body-lg text-secondary" style="line-height: var(--leading-relaxed);">${data.impact}</p>
-            </div>
-          </div>
-        </div>
-      `;
-
-            detail.classList.add('is-open');
-            document.body.style.overflow = 'hidden';
+            openProjectDetail(projectId);
         });
     });
 
@@ -228,8 +371,12 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     });
 
+    const params = new URLSearchParams(window.location.search);
+    const initialProject = params.get('project') || '';
+    if (initialProject && projectData[initialProject]) {
+        openProjectDetail(initialProject);
+    }
+
     await applyPageOverrides('projects');
     initScrollAnimations();
 });
-
-

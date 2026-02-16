@@ -10,15 +10,11 @@ import {
     defaultVerifiedMilestones,
 } from '../content/awards-data.ts';
 
-type MilestoneContributor = {
-    name: string;
-    profileImage: string;
-};
-
 type MilestoneItem = {
     era: string;
     eraLabel: string;
     eraColor: string;
+    sortDate?: string;
     title: string;
     event: string;
     year: string;
@@ -26,7 +22,6 @@ type MilestoneItem = {
     description: string;
     sourceLabel: string;
     sourceFile: string;
-    contributors: MilestoneContributor[];
 };
 
 type CertificateItem = {
@@ -45,6 +40,14 @@ type PublicationItem = {
     icon: string;
     link: string;
 };
+
+const ERA_META: Record<string, { label: string; color: string }> = {
+    'yes-wheelchair': { label: 'YES Wheelchair', color: 'era1' },
+    'all-wheelchair': { label: 'ALL Wheelchair', color: 'era2' },
+    wheelsense: { label: 'WheelSense', color: 'era4' },
+};
+
+const ALLOWED_AWARD_ERAS = new Set(Object.keys(ERA_META));
 
 function parseListOverride<T>(rawValue: unknown, fallback: T[]): T[] {
     if (typeof rawValue !== 'string' || !rawValue.trim()) {
@@ -80,26 +83,28 @@ function normalizeImages(item: any): string[] {
     return ['/assets/awards/pdf/doc-award-recognition.jpg'];
 }
 
-function normalizeContributors(item: any): MilestoneContributor[] {
-    if (!Array.isArray(item?.contributors)) {
-        return [];
+function normalizeEraKey(value: unknown): string {
+    if (typeof value !== 'string') {
+        return '';
     }
 
-    return item.contributors
-        .map((entry: any) => ({
-            name: typeof entry?.name === 'string' ? entry.name.trim() : '',
-            profileImage: typeof entry?.profileImage === 'string' ? entry.profileImage.trim() : '',
-        }))
-        .filter((entry: MilestoneContributor) => entry.name || entry.profileImage);
+    const normalized = value.trim().toLowerCase().replace(/\s+/g, '-');
+    if (normalized === 'yes-wheelchair') return 'yes-wheelchair';
+    if (normalized === 'all-wheelchair') return 'all-wheelchair';
+    if (normalized === 'wheelsense') return 'wheelsense';
+    return '';
 }
 
 function normalizeMilestone(item: any, index: number): MilestoneItem {
     const images = normalizeImages(item);
+    const era = normalizeEraKey(item?.era) || 'all-wheelchair';
+    const eraMeta = ERA_META[era] || ERA_META['all-wheelchair'];
 
     return {
-        era: item?.era || 'all-wheelchair',
-        eraLabel: item?.eraLabel || 'ALL Wheelchair',
-        eraColor: item?.eraColor || 'era2',
+        era,
+        eraLabel: item?.eraLabel || eraMeta.label,
+        eraColor: item?.eraColor || eraMeta.color,
+        sortDate: item?.sortDate || '',
         title: item?.title || `Milestone ${index + 1}`,
         event: item?.event || 'Unspecified event',
         year: item?.year || '-',
@@ -107,7 +112,6 @@ function normalizeMilestone(item: any, index: number): MilestoneItem {
         description: item?.description || '',
         sourceLabel: item?.sourceLabel || 'Open Source',
         sourceFile: item?.sourceFile || '/assets/docs/award-recognition.pdf',
-        contributors: normalizeContributors(item),
     };
 }
 
@@ -138,16 +142,49 @@ function extractPrimaryYear(value: string): number {
     return match ? Number(match[1]) : 0;
 }
 
+function parseSortIndex(sortDate: string, year: string): number {
+    const dateText = String(sortDate || '').trim();
+    const dateMatch = dateText.match(/(20\d{2})(?:[-/](\d{1,2}))?/);
+    if (dateMatch) {
+        const yearValue = Number(dateMatch[1]);
+        const monthValue = Number(dateMatch[2] || '1');
+        return yearValue * 100 + monthValue;
+    }
+
+    const fallbackYear = extractPrimaryYear(year);
+    return fallbackYear ? fallbackYear * 100 + 1 : 0;
+}
+
+function rankMilestone(item: MilestoneItem): number {
+    const content = `${item.title} ${item.event} ${item.description}`.toLowerCase();
+    const dateScore = parseSortIndex(item.sortDate || '', item.year) * 1000;
+
+    const internationalScore =
+        /(international|global|taiwan|china|malaysia|kide|ipitex|innoserve)/.test(content) ? 400 : 0;
+
+    let impactScore = 0;
+    if (/(grand prize|winner|first place|platinum|gold medal|gold award)/.test(content)) {
+        impactScore += 220;
+    } else if (/(silver|second runner-up|runner-up)/.test(content)) {
+        impactScore += 140;
+    } else if (/(merit|outstanding|special prize|compliment)/.test(content)) {
+        impactScore += 90;
+    } else if (/(presentation|conference|pipeline)/.test(content)) {
+        impactScore += 40;
+    }
+
+    return dateScore + internationalScore + impactScore;
+}
+
 function rankCertificate(item: CertificateItem): number {
     const content = `${item.title} ${item.description}`.toLowerCase();
-    const wheelsenseBoost = content.includes('wheelsense')
-        || content.includes('plos')
-        || content.includes('ipitex')
-        || content.includes('mou')
-        ? 1000
-        : 0;
+    const dateScore = parseSortIndex('', item.year) * 1000;
+    const internationalScore =
+        /(international|taiwan|china|japan|ipitex|innoserve|kide|global)/.test(content) ? 350 : 0;
+    const impactScore =
+        /(grand prize|winner|first place|platinum|gold|silver|merit|special)/.test(content) ? 120 : 30;
 
-    return wheelsenseBoost + extractPrimaryYear(item.year);
+    return dateScore + internationalScore + impactScore;
 }
 
 function renderMilestoneCard(item: MilestoneItem, index: number): string {
@@ -163,19 +200,6 @@ function renderMilestoneCard(item: MilestoneItem, index: number): string {
           ${item.images.map((_, dotIndex) => `<span class="award-card__dot ${dotIndex === 0 ? 'is-active' : ''}" data-dot-index="${dotIndex}"></span>`).join('')}
         </div>
       `
-        : '';
-
-    const contributorsMarkup = item.contributors.length
-        ? `
-      <div class="award-card__contributors">
-        <div class="award-card__avatars">
-          ${item.contributors.slice(0, 4).map((contributor) => `
-            <img class="award-card__avatar" src="${contributor.profileImage}" alt="${contributor.name}" title="${contributor.name}" loading="lazy" />
-          `).join('')}
-        </div>
-        <p class="award-card__contributors-text">${item.contributors.map((contributor) => contributor.name).join(', ')}</p>
-      </div>
-    `
         : '';
 
     return `
@@ -196,7 +220,6 @@ function renderMilestoneCard(item: MilestoneItem, index: number): string {
           <span class="award-card__year">${item.year}</span>
           <a class="award-card__source" href="${item.sourceFile}" target="_blank" rel="noopener noreferrer">${item.sourceLabel}</a>
         </div>
-        ${contributorsMarkup}
       </div>
     </article>
   `;
@@ -305,6 +328,41 @@ function initMilestoneCarousels(): void {
     });
 }
 
+function initMilestoneFilter(): void {
+    const filter = document.getElementById('awardsFilter');
+    if (!filter) return;
+
+    const tabs = Array.from(filter.querySelectorAll<HTMLButtonElement>('.awards-filter__tab[data-era]'));
+    const cards = Array.from(document.querySelectorAll<HTMLElement>('.award-card[data-era]'));
+
+    if (!tabs.length || !cards.length) return;
+
+    const applyFilter = (selectedEra: string) => {
+        cards.forEach((card) => {
+            const cardEra = (card.dataset.era || '').trim().toLowerCase();
+            const shouldShow = selectedEra === 'all' || cardEra === selectedEra;
+            card.classList.toggle('is-hidden', !shouldShow);
+        });
+
+        tabs.forEach((tab) => {
+            const isActive = (tab.dataset.era || '') === selectedEra;
+            tab.classList.toggle('is-active', isActive);
+            tab.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        });
+    };
+
+    tabs.forEach((tab) => {
+        tab.addEventListener('click', () => {
+            const selectedEra = (tab.dataset.era || '').trim().toLowerCase();
+            applyFilter(selectedEra || 'all');
+        });
+    });
+
+    const activeTab = tabs.find((tab) => tab.classList.contains('is-active'));
+    const initialEra = (activeTab?.dataset.era || 'all').trim().toLowerCase();
+    applyFilter(initialEra || 'all');
+}
+
 document.addEventListener('DOMContentLoaded', async () => {
     const loader = document.getElementById('loader');
     if (loader) {
@@ -326,7 +384,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     const milestones = parseListOverride(overrides['data.verifiedMilestones'], defaultVerifiedMilestones)
-        .map((item, index) => normalizeMilestone(item, index));
+        .map((item, index) => normalizeMilestone(item, index))
+        .filter((item) => ALLOWED_AWARD_ERAS.has(item.era))
+        .sort((a, b) => rankMilestone(b) - rankMilestone(a));
 
     const certificates = parseListOverride(overrides['data.certificates'], defaultCertificates)
         .map((item, index) => normalizeCertificate(item, index))
@@ -350,6 +410,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     applyPageContent('awards', overrides);
     updateStats(milestones, certificates, publications);
     initMilestoneCarousels();
+    initMilestoneFilter();
 
     const lightbox = document.getElementById('lightbox');
     const lightboxImage = document.getElementById('lightboxImg') as HTMLImageElement | null;

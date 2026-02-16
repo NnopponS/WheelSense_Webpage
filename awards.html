@@ -52,6 +52,28 @@
                         style="letter-spacing: var(--tracking-wider); text-transform: uppercase; margin-bottom: var(--space-sm);">
                         Event Gallery</p>
                     <h2 class="h2" style="margin-bottom: var(--space-xl);">Verified Awards and Milestones</h2>
+                    <div class="awards-filter" id="awardsFilter" role="tablist" aria-label="Filter awards by project">
+                        <button class="awards-filter__tab is-active" type="button" role="tab" data-era="all"
+                            aria-selected="true">
+                            <span class="awards-filter__dot awards-filter__dot--all"></span>
+                            All Projects
+                        </button>
+                        <button class="awards-filter__tab" type="button" role="tab" data-era="wheelsense"
+                            aria-selected="false">
+                            <span class="awards-filter__dot awards-filter__dot--era4"></span>
+                            WheelSense
+                        </button>
+                        <button class="awards-filter__tab" type="button" role="tab" data-era="all-wheelchair"
+                            aria-selected="false">
+                            <span class="awards-filter__dot awards-filter__dot--era2"></span>
+                            ALL Wheelchair
+                        </button>
+                        <button class="awards-filter__tab" type="button" role="tab" data-era="yes-wheelchair"
+                            aria-selected="false">
+                            <span class="awards-filter__dot awards-filter__dot--era1"></span>
+                            YES Wheelchair
+                        </button>
+                    </div>
                 </div>
 
                 <div class="awards-grid" id="awardsGrid"></div>

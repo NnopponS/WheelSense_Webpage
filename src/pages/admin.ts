@@ -87,7 +87,7 @@ const virtualFieldConfigs: Record<string, VirtualConfig> = {
   },
   'data.verifiedMilestones': {
     title: 'Verified Milestones Builder',
-    description: 'Each card can contain multiple images (auto-slide) and team profile contributors.',
+    description: 'Each card can contain multiple images (auto-slide), event details, and source evidence.',
     itemLabel: 'Milestone',
     titleKey: 'title',
     template: {
@@ -102,7 +102,6 @@ const virtualFieldConfigs: Record<string, VirtualConfig> = {
       images: [],
       sourceLabel: 'Open Source',
       sourceFile: '/assets/docs/award-recognition.pdf',
-      contributors: [],
     },
     fields: [
       { key: 'id', label: 'Milestone ID', type: 'text' },
@@ -116,7 +115,6 @@ const virtualFieldConfigs: Record<string, VirtualConfig> = {
       { key: 'images', label: 'Images (one URL per line)', type: 'list' },
       { key: 'sourceLabel', label: 'Source Label', type: 'text' },
       { key: 'sourceFile', label: 'Source File URL', type: 'text' },
-      { key: 'contributors', label: 'Contributors (Name | Image URL per line)', type: 'contributors' },
     ],
   },
   'data.certificates': {

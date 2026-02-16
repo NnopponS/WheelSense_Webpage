@@ -177,6 +177,10 @@
     animation: fadeSlideIn 0.6s var(--delay, 0s) both;
 }
 
+.award-card.is-hidden {
+    display: none;
+}
+
 .award-card:hover {
     border-color: rgba(255, 255, 255, 0.1);
     transform: translateY(-6px);
