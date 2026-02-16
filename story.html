@@ -38,14 +38,6 @@
             transform-style: preserve-3d;
         }
 
-        .story-visual__canvas {
-            position: absolute;
-            inset: 6%;
-            border-radius: 50%;
-            transform: translateZ(40px);
-            filter: drop-shadow(0 40px 120px rgba(0, 0, 0, 0.45));
-        }
-
         .story-visual__label {
             position: absolute;
             bottom: 3rem;
@@ -183,6 +175,191 @@
             inset: 0;
             pointer-events: none;
             transform-style: preserve-3d;
+        }
+
+        .story-fx__sensor {
+            position: absolute;
+            width: 84px;
+            height: 84px;
+            border-radius: 50%;
+            border: 1px solid rgba(52, 211, 153, 0.7);
+            opacity: 0;
+            transform: scale(0.6);
+            animation: sensorPulse 1.8s ease-out infinite;
+        }
+
+        .story-fx__sensor--left {
+            left: 24%;
+            bottom: 30%;
+        }
+
+        .story-fx__sensor--right {
+            right: 24%;
+            bottom: 26%;
+            animation-delay: 0.4s;
+        }
+
+        .story-fx__joystick {
+            position: absolute;
+            left: 8%;
+            bottom: 13%;
+            width: 150px;
+            height: 130px;
+            opacity: 0;
+            transform: translateZ(120px);
+            transition: opacity 0.6s var(--ease-out-quart);
+        }
+
+        .story-fx__joystick-base {
+            position: absolute;
+            left: 18px;
+            right: 18px;
+            bottom: 0;
+            height: 52px;
+            border-radius: 20px;
+            border: 1px solid rgba(196, 181, 253, 0.8);
+            background: rgba(51, 21, 72, 0.45);
+        }
+
+        .story-fx__joystick-stick {
+            position: absolute;
+            left: 50%;
+            bottom: 40px;
+            width: 4px;
+            height: 56px;
+            background: linear-gradient(to top, rgba(196, 181, 253, 0.3), rgba(236, 72, 153, 0.95));
+            transform: translateX(-50%) rotate(-10deg);
+            transform-origin: bottom;
+            animation: joystickSwing 1.9s ease-in-out infinite;
+        }
+
+        .story-fx__joystick-knob {
+            position: absolute;
+            left: 50%;
+            top: -12px;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: rgba(236, 72, 153, 0.9);
+            box-shadow: 0 0 18px rgba(236, 72, 153, 0.8);
+            transform: translateX(-50%);
+        }
+
+        .story-fx__game-hud {
+            position: absolute;
+            right: 6%;
+            top: 16%;
+            display: grid;
+            gap: 0.5rem;
+            opacity: 0;
+            transform: translateZ(118px);
+            transition: opacity 0.6s var(--ease-out-quart);
+        }
+
+        .story-fx__game-chip {
+            font-size: 0.64rem;
+            letter-spacing: var(--tracking-wide);
+            text-transform: uppercase;
+            color: rgba(233, 213, 255, 0.95);
+            border: 1px solid rgba(196, 181, 253, 0.45);
+            border-radius: 999px;
+            padding: 0.35rem 0.55rem;
+            background: rgba(40, 18, 62, 0.6);
+        }
+
+        .story-fx__map {
+            position: absolute;
+            inset: 15% 9%;
+            border-radius: var(--radius-lg);
+            background:
+                radial-gradient(circle at 18% 30%, rgba(251, 146, 60, 0.2), transparent 40%),
+                radial-gradient(circle at 78% 70%, rgba(59, 130, 246, 0.22), transparent 45%),
+                linear-gradient(150deg, rgba(15, 24, 42, 0.82), rgba(19, 32, 52, 0.62));
+            border: 1px solid rgba(125, 211, 252, 0.25);
+            opacity: 0;
+            transform: translateZ(40px) rotateX(62deg);
+            transition: opacity 0.7s var(--ease-out-quart);
+            overflow: hidden;
+        }
+
+        .story-fx__map-route {
+            position: absolute;
+            inset: 14% 8%;
+            border-radius: 26px;
+            border: 2px dashed rgba(251, 146, 60, 0.85);
+            box-shadow: 0 0 20px rgba(251, 146, 60, 0.55);
+            animation: routePulse 1.6s ease-in-out infinite;
+        }
+
+        .story-fx__map-marker {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(125, 211, 252, 0.95);
+            box-shadow: 0 0 14px rgba(125, 211, 252, 0.9);
+            animation: markerMove 3.2s linear infinite;
+        }
+
+        .story-fx__indoor-grid {
+            position: absolute;
+            inset: 12% 12%;
+            background-image:
+                linear-gradient(rgba(96, 165, 250, 0.2) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(96, 165, 250, 0.2) 1px, transparent 1px);
+            background-size: 26px 26px;
+            border-radius: var(--radius-lg);
+            opacity: 0;
+            transform: translateZ(22px);
+            transition: opacity 0.7s var(--ease-out-quart);
+        }
+
+        .story-fx__localization {
+            position: absolute;
+            inset: 14%;
+            opacity: 0;
+            transform: translateZ(100px);
+            transition: opacity 0.7s var(--ease-out-quart);
+        }
+
+        .story-fx__beacon {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(147, 197, 253, 1);
+            box-shadow: 0 0 14px rgba(147, 197, 253, 0.95);
+        }
+
+        .story-fx__beacon::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 56px;
+            height: 56px;
+            border: 1px solid rgba(147, 197, 253, 0.45);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            animation: localizationPulse 1.9s ease-out infinite;
+            animation-delay: var(--pulse-delay, 0s);
+        }
+
+        .story-fx__beacon--a {
+            top: 18%;
+            left: 18%;
+        }
+
+        .story-fx__beacon--b {
+            top: 20%;
+            right: 16%;
+            --pulse-delay: 0.35s;
+        }
+
+        .story-fx__beacon--c {
+            bottom: 24%;
+            left: 52%;
+            --pulse-delay: 0.7s;
         }
 
         .story-fx__ignition {
@@ -469,18 +646,30 @@
             opacity: 1;
         }
 
+        .story-visual.phase-1 .story-fx__sensor {
+            opacity: 1;
+        }
+
         .story-visual.phase-2 .story-fx__fiber {
             opacity: 1;
         }
 
+        .story-visual.phase-2 .story-fx__joystick,
+        .story-visual.phase-2 .story-fx__game-hud {
+            opacity: 1;
+        }
+
         .story-visual.phase-3 .story-fx__speed,
-        .story-visual.phase-3 .story-fx__coords {
+        .story-visual.phase-3 .story-fx__coords,
+        .story-visual.phase-3 .story-fx__map {
             opacity: 1;
         }
 
         .story-visual.phase-4 .story-fx__neural,
         .story-visual.phase-4 .story-fx__bbox,
-        .story-visual.phase-4 .story-fx__home {
+        .story-visual.phase-4 .story-fx__home,
+        .story-visual.phase-4 .story-fx__indoor-grid,
+        .story-visual.phase-4 .story-fx__localization {
             opacity: 1;
         }
 
@@ -517,6 +706,76 @@
 
             50% {
                 transform: translateZ(88px) translateY(-5px) rotateY(-10deg);
+            }
+        }
+
+        @keyframes sensorPulse {
+            0% {
+                transform: scale(0.55);
+                opacity: 0.85;
+            }
+
+            100% {
+                transform: scale(1.25);
+                opacity: 0;
+            }
+        }
+
+        @keyframes joystickSwing {
+
+            0%,
+            100% {
+                transform: translateX(-50%) rotate(-11deg);
+            }
+
+            50% {
+                transform: translateX(-50%) rotate(13deg);
+            }
+        }
+
+        @keyframes routePulse {
+
+            0%,
+            100% {
+                opacity: 0.55;
+            }
+
+            50% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes markerMove {
+            0% {
+                top: 16%;
+                left: 20%;
+            }
+
+            33% {
+                top: 34%;
+                left: 72%;
+            }
+
+            66% {
+                top: 70%;
+                left: 42%;
+            }
+
+            100% {
+                top: 16%;
+                left: 20%;
+            }
+        }
+
+        @keyframes localizationPulse {
+            0% {
+                transform: translate(-50%, -50%) scale(0.5);
+                opacity: 0.9;
+            }
+
+            100% {
+                transform: translate(-50%, -50%) scale(1.45);
+                opacity: 0;
             }
         }
 
@@ -636,7 +895,8 @@
             }
 
             .story-fx__data,
-            .story-fx__home {
+            .story-fx__home,
+            .story-fx__game-hud {
                 display: none;
             }
         }
@@ -647,7 +907,12 @@
             .story-fx__fiber-line,
             .story-fx__speed-line,
             .story-fx__node,
-            .story-fx__bbox {
+            .story-fx__bbox,
+            .story-fx__sensor,
+            .story-fx__joystick-stick,
+            .story-fx__map-route,
+            .story-fx__map-marker,
+            .story-fx__beacon::before {
                 animation: none !important;
             }
         }
@@ -666,7 +931,7 @@
                     style="letter-spacing: var(--tracking-wider); text-transform: uppercase; margin-bottom: var(--space-sm);">
                     Our Story</p>
                 <h1 class="h1">It started with a simple rotation.</h1>
-                <p class="hero__description" style="margin-top: var(--space-md);">Scroll through a 3D timeline of five
+                <p class="hero__description" style="margin-top: var(--space-md);">Scroll through an interactive timeline of five
                     connected eras, from digitization to intelligent companionship.</p>
             </div>
             <div class="scroll-indicator">
@@ -678,18 +943,32 @@
         <div class="story-layout" id="storyLayout">
             <div class="story-visual phase-0" id="storyVisual">
                 <div class="story-visual__stage">
-                    <div class="story-visual__canvas" id="storyCanvas"></div>
-
                     <div class="story-fx" aria-hidden="true">
+                        <span class="story-fx__sensor story-fx__sensor--left"></span>
+                        <span class="story-fx__sensor story-fx__sensor--right"></span>
+
                         <div class="story-fx__ignition"></div>
                         <div class="story-fx__grid"></div>
                         <div class="story-fx__scanline"></div>
 
                         <div class="story-fx__data">
+                            <span class="story-fx__chip">Speed: 1.8 m/s</span>
+                            <span class="story-fx__chip">Acceleration: 0.42 m/s2</span>
                             <span class="story-fx__chip">Distance: 5.2 km</span>
-                            <span class="story-fx__chip">Safety: Active</span>
-                            <span class="story-fx__chip">Fall Detected: False</span>
-                            <span class="story-fx__chip">Battery: 92%</span>
+                            <span class="story-fx__chip">Fall Detection: Safe</span>
+                        </div>
+
+                        <div class="story-fx__joystick">
+                            <div class="story-fx__joystick-base"></div>
+                            <div class="story-fx__joystick-stick">
+                                <div class="story-fx__joystick-knob"></div>
+                            </div>
+                        </div>
+
+                        <div class="story-fx__game-hud">
+                            <span class="story-fx__game-chip">Joystick Aim Active</span>
+                            <span class="story-fx__game-chip">Exergame Session: 22 min</span>
+                            <span class="story-fx__game-chip">Calories Burned: 186 kcal</span>
                         </div>
 
                         <div class="story-fx__fiber">
@@ -705,6 +984,11 @@
                             <span class="story-fx__speed-line"></span>
                             <span class="story-fx__speed-line"></span>
                         </div>
+
+                        <div class="story-fx__map">
+                            <div class="story-fx__map-route"></div>
+                            <span class="story-fx__map-marker"></span>
+                        </div>
                         <div class="story-fx__coords" id="storyCoords">Lat 13.7563 | Long 100.5018</div>
 
                         <div class="story-fx__neural">
@@ -717,6 +1001,13 @@
                         <div class="story-fx__bbox story-fx__bbox--1"></div>
                         <div class="story-fx__bbox story-fx__bbox--2"></div>
                         <div class="story-fx__bbox story-fx__bbox--3"></div>
+
+                        <div class="story-fx__indoor-grid"></div>
+                        <div class="story-fx__localization">
+                            <span class="story-fx__beacon story-fx__beacon--a"></span>
+                            <span class="story-fx__beacon story-fx__beacon--b"></span>
+                            <span class="story-fx__beacon story-fx__beacon--c"></span>
+                        </div>
 
                         <div class="story-fx__home">
                             <span class="story-fx__home-pill">Door</span>
@@ -757,12 +1048,11 @@
                     <h2 class="story-phase__title">YES Wheelchair</h2>
                     <p class="story-phase__subtitle">Physical to Digital</p>
                     <p class="story-phase__text">
-                        We did not see a wheelchair as only equipment. We saw a continuous data source. YES Wheelchair
-                        embedded IoT sensors to convert movement into measurable science: distance, calories, and
-                        fall-detection signals.
+                        YES Wheelchair installs sensor modules on both left and right wheels to capture speed,
+                        acceleration, distance, and fall-detection status in real time.
                     </p>
                     <p class="story-phase__text">
-                        For the first time, the wheelchair could speak in data, and caregivers could act in time.
+                        This turns daily motion into actionable telemetry for users, caregivers, and researchers.
                     </p>
                     <div class="story-phase__specs">
                         <div>
@@ -771,7 +1061,7 @@
                         </div>
                         <div>
                             <p class="story-phase__spec-label">Feature</p>
-                            <p class="story-phase__spec-value">Health Metrics and Safety</p>
+                            <p class="story-phase__spec-value">Speed, Acceleration, Distance, Fall Detection</p>
                         </div>
                     </div>
                 </div>
@@ -782,12 +1072,11 @@
                     <h2 class="story-phase__title">ALL Wheelchair</h2>
                     <p class="story-phase__subtitle">Digital to Interaction</p>
                     <p class="story-phase__text">
-                        Data alone is not enough; motivation is the missing layer. ALL Wheelchair transformed movement
-                        into game control, combining rehabilitation with exergaming so exercise feels rewarding and
-                        sustainable.
+                        ALL Wheelchair introduces joystick-style control behavior to the wheelchair interaction model,
+                        allowing users to aim and control exercise games directly from movement input.
                     </p>
                     <p class="story-phase__text">
-                        Therapy shifted from repetitive routines into adaptive, engaging interaction.
+                        Rehabilitation becomes an engaging exergaming experience instead of repetitive training.
                     </p>
                     <div class="story-phase__specs">
                         <div>
@@ -796,7 +1085,7 @@
                         </div>
                         <div>
                             <p class="story-phase__spec-label">Feature</p>
-                            <p class="story-phase__spec-value">Controller Integration</p>
+                            <p class="story-phase__spec-value">Joystick-style Aim and Exergaming</p>
                         </div>
                     </div>
                 </div>
@@ -804,14 +1093,14 @@
                 <div class="story-phase" data-phase="3" data-color="#FB923C">
                     <p class="story-phase__number" style="color: var(--color-era-3);">Phase 03 - Expansion</p>
                     <div class="story-phase__accent" style="background: var(--color-era-3);"></div>
-                    <h2 class="story-phase__title">Marathon and Racing</h2>
+                    <h2 class="story-phase__title">smartVibe</h2>
                     <p class="story-phase__subtitle">Room to World</p>
                     <p class="story-phase__text">
-                        We extended the core system beyond indoor spaces with GPS and 4G modules. Telemetry now follows
-                        wheelchair users across full race courses with live coordinates, speed, and endurance analytics.
+                        smartVibe extends the system into outdoor environments with connected telemetry,
+                        showing live map routes, coordinates, speed, and pacing analytics.
                     </p>
                     <p class="story-phase__text">
-                        Real-world movement at scale became observable, trackable, and coachable.
+                        Real-world marathon tracking becomes visible end-to-end across the full race path.
                     </p>
                     <div class="story-phase__specs">
                         <div>
@@ -820,7 +1109,7 @@
                         </div>
                         <div>
                             <p class="story-phase__spec-label">Feature</p>
-                            <p class="story-phase__spec-value">Long-range Telemetry</p>
+                            <p class="story-phase__spec-value">Outdoor Route Tracking and Telemetry</p>
                         </div>
                     </div>
                 </div>
@@ -831,12 +1120,11 @@
                     <h2 class="story-phase__title">WheelSense</h2>
                     <p class="story-phase__subtitle">Vehicle to Companion</p>
                     <p class="story-phase__text">
-                        The newest era fuses AI, computer vision, and smart-home control. WheelSense is designed to
-                        understand context, detect situations, and help users interact with their environment more
-                        independently.
+                        WheelSense combines AI with computer vision and indoor localization to understand context and
+                        guide wheelchair users inside complex indoor spaces.
                     </p>
                     <p class="story-phase__text">
-                        Assistive technology is no longer passive transport. It becomes an intelligent companion.
+                        It acts as an intelligent wheelchair companion connected to smart-home systems and proactive assistance.
                     </p>
                     <div class="story-phase__specs">
                         <div>
@@ -845,7 +1133,7 @@
                         </div>
                         <div>
                             <p class="story-phase__spec-label">Feature</p>
-                            <p class="story-phase__spec-value">Smart Home Ecosystem</p>
+                            <p class="story-phase__spec-value">Indoor Localization and AI Assistance</p>
                         </div>
                     </div>
                 </div>
@@ -878,7 +1166,7 @@
         </section>
     </main>
 
-    <script type="module" src="/src/pages/story.js"></script>
+    <script type="module" src="/src/pages/story.ts"></script>
 </body>
 
 </html>

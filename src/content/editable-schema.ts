@@ -1,4 +1,16 @@
-﻿export const editablePages = [
+import { defaultTeamMembers } from './team-data.ts';
+import {
+  defaultAwardPublications,
+  defaultCertificates,
+  defaultVerifiedMilestones,
+} from './awards-data.ts';
+
+const defaultTeamMembersJson = JSON.stringify(defaultTeamMembers, null, 2);
+const defaultVerifiedMilestonesJson = JSON.stringify(defaultVerifiedMilestones, null, 2);
+const defaultCertificatesJson = JSON.stringify(defaultCertificates, null, 2);
+const defaultPublicationsJson = JSON.stringify(defaultAwardPublications, null, 2);
+
+export const editablePages = [
   {
     key: 'home',
     title: 'Home',
@@ -85,8 +97,8 @@
       { id: 'card.yes.subtitle', label: 'YES Card Subtitle', selector: '.project-card[data-project="yes-wheelchair"] .project-card__subtitle', type: 'text', multiline: true },
       { id: 'card.all.title', label: 'ALL Card Title', selector: '.project-card[data-project="all-wheelchair"] .project-card__title', type: 'text' },
       { id: 'card.all.subtitle', label: 'ALL Card Subtitle', selector: '.project-card[data-project="all-wheelchair"] .project-card__subtitle', type: 'text', multiline: true },
-      { id: 'card.race.title', label: 'Racing Card Title', selector: '.project-card[data-project="marathon-racing"] .project-card__title', type: 'text' },
-      { id: 'card.race.subtitle', label: 'Racing Card Subtitle', selector: '.project-card[data-project="marathon-racing"] .project-card__subtitle', type: 'text', multiline: true },
+      { id: 'card.race.title', label: 'smartVibe Card Title', selector: '.project-card[data-project="marathon-racing"] .project-card__title', type: 'text' },
+      { id: 'card.race.subtitle', label: 'smartVibe Card Subtitle', selector: '.project-card[data-project="marathon-racing"] .project-card__subtitle', type: 'text', multiline: true },
       { id: 'card.wheelsense.title', label: 'WheelSense Card Title', selector: '.project-card[data-project="wheelsense"] .project-card__title', type: 'text' },
       { id: 'card.wheelsense.subtitle', label: 'WheelSense Card Subtitle', selector: '.project-card[data-project="wheelsense"] .project-card__subtitle', type: 'text', multiline: true }
     ]
@@ -112,7 +124,16 @@
       { id: 'member.5.name', label: 'Member 5 Name', selector: '#teamPageGrid .team-profile:nth-child(5) .team-profile__name', type: 'text' },
       { id: 'member.5.role', label: 'Member 5 Role', selector: '#teamPageGrid .team-profile:nth-child(5) .team-profile__role', type: 'text' },
       { id: 'member.6.name', label: 'Member 6 Name', selector: '#teamPageGrid .team-profile:nth-child(6) .team-profile__name', type: 'text' },
-      { id: 'member.6.role', label: 'Member 6 Role', selector: '#teamPageGrid .team-profile:nth-child(6) .team-profile__role', type: 'text' }
+      { id: 'member.6.role', label: 'Member 6 Role', selector: '#teamPageGrid .team-profile:nth-child(6) .team-profile__role', type: 'text' },
+      { id: 'member.7.name', label: 'Member 7 Name', selector: '#teamPageGrid .team-profile:nth-child(7) .team-profile__name', type: 'text' },
+      { id: 'member.7.role', label: 'Member 7 Role', selector: '#teamPageGrid .team-profile:nth-child(7) .team-profile__role', type: 'text' },
+      {
+        id: 'data.members',
+        label: 'Team Members JSON (add/remove/edit profiles)',
+        type: 'virtual',
+        multiline: true,
+        defaultValue: defaultTeamMembersJson,
+      }
     ]
   },
   {
@@ -127,15 +148,34 @@
       { id: 'hero.subtitle', label: 'Hero Subtitle', selector: '#awardsHero .awards-hero__subtitle', type: 'text', multiline: true },
       { id: 'timeline.label', label: 'Timeline Label', selector: '#awardsSection .reveal p', type: 'text' },
       { id: 'timeline.title', label: 'Timeline Title', selector: '#awardsSection .reveal h2', type: 'text' },
-      { id: 'documents.label', label: 'Documents Label', selector: '#documentsSection .reveal p', type: 'text' },
-      { id: 'documents.title', label: 'Documents Title', selector: '#documentsSection .reveal h2', type: 'text' },
+      { id: 'documents.label', label: 'Documents Label', selector: '#certificatesSection .reveal p', type: 'text' },
+      { id: 'documents.title', label: 'Documents Title', selector: '#certificatesSection .reveal h2', type: 'text' },
       { id: 'publications.label', label: 'Publications Label', selector: '#publicationsSection .reveal p', type: 'text' },
       { id: 'publications.title', label: 'Publications Title', selector: '#publicationsSection .reveal h2', type: 'text' },
-      { id: 'media.label', label: 'Media Label', selector: '#mediaSection .reveal p', type: 'text' },
-      { id: 'media.title', label: 'Media Title', selector: '#mediaSection .reveal h2', type: 'text' },
       { id: 'cta.title', label: 'Final CTA Title', selector: '#finalCta .cta-section__title', type: 'text' },
       { id: 'cta.primary', label: 'Final CTA Primary Button', selector: '#finalCta .hero__cta-group .btn:nth-child(1)', type: 'text' },
-      { id: 'cta.secondary', label: 'Final CTA Secondary Button', selector: '#finalCta .hero__cta-group .btn:nth-child(2)', type: 'text' }
+      { id: 'cta.secondary', label: 'Final CTA Secondary Button', selector: '#finalCta .hero__cta-group .btn:nth-child(2)', type: 'text' },
+      {
+        id: 'data.verifiedMilestones',
+        label: 'Verified Milestones JSON (images and details)',
+        type: 'virtual',
+        multiline: true,
+        defaultValue: defaultVerifiedMilestonesJson,
+      },
+      {
+        id: 'data.certificates',
+        label: 'Certificates JSON (newest to oldest)',
+        type: 'virtual',
+        multiline: true,
+        defaultValue: defaultCertificatesJson,
+      },
+      {
+        id: 'data.publications',
+        label: 'Publications JSON',
+        type: 'virtual',
+        multiline: true,
+        defaultValue: defaultPublicationsJson,
+      }
     ]
   },
   {
@@ -153,6 +193,8 @@
       { id: 'info.location.value', label: 'Location Value', selector: '.contact-info__item:nth-child(2) .contact-info__item-text', type: 'text' },
       { id: 'info.lab.label', label: 'Lab Label', selector: '.contact-info__item:nth-child(3) .contact-info__item-label', type: 'text' },
       { id: 'info.lab.value', label: 'Lab Value', selector: '.contact-info__item:nth-child(3) .contact-info__item-text', type: 'text' },
+      { id: 'info.phone.label', label: 'Phone Label', selector: '.contact-info__item:nth-child(4) .contact-info__item-label', type: 'text' },
+      { id: 'info.phone.value', label: 'Phone Value', selector: '.contact-info__item:nth-child(4) .contact-info__item-text', type: 'text' },
       { id: 'form.title', label: 'Form Title', selector: '.contact-form-card h3', type: 'text' },
       { id: 'form.submit', label: 'Submit Button', selector: '#contactForm button[type="submit"]', type: 'text' },
       { id: 'form.success.title', label: 'Success Title', selector: '#formSuccess h3', type: 'text' },
@@ -164,3 +206,6 @@
 export function getEditablePage(pageKey) {
   return editablePages.find((page) => page.key === pageKey) || null;
 }
+
+
+

@@ -47,10 +47,33 @@
             overflow: hidden;
         }
 
+        .project-card__video-preview {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+            pointer-events: none;
+            transform: scale(1.08);
+            filter: saturate(0.85) contrast(1.02);
+            z-index: 0;
+        }
+
+        .project-card__preview-shade {
+            position: absolute;
+            inset: 0;
+            background:
+                linear-gradient(180deg, rgba(5, 8, 16, 0.2), rgba(5, 8, 16, 0.72) 86%),
+                radial-gradient(circle at 14% 14%, rgba(255, 255, 255, 0.08), transparent 48%);
+            z-index: 1;
+            pointer-events: none;
+        }
+
         .project-card__gradient {
             position: absolute;
             inset: 0;
             opacity: 0.15;
+            z-index: 2;
         }
 
         .project-card__era {
@@ -65,6 +88,7 @@
             border-radius: var(--radius-full);
             background: rgba(0, 0, 0, 0.5);
             backdrop-filter: blur(10px);
+            z-index: 3;
         }
 
         .project-card__body {
@@ -162,6 +186,23 @@
             padding: var(--space-2xl) 0;
         }
 
+        .project-video {
+            width: 100%;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: #030407;
+            aspect-ratio: 16 / 9;
+            box-shadow: 0 16px 45px rgba(0, 0, 0, 0.35);
+        }
+
+        .project-video iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+            display: block;
+        }
+
         @media (max-width: 768px) {
             .projects-grid {
                 grid-template-columns: 1fr;
@@ -235,7 +276,7 @@
                         </div>
                     </div>
 
-                    <!-- Marathon & Racing -->
+                    <!-- smartVibe -->
                     <div class="project-card" data-project="marathon-racing">
                         <div class="project-card__visual">
                             <div class="project-card__gradient"
@@ -243,14 +284,14 @@
                             <span class="project-card__era" style="color: var(--color-era-3);">Era 03</span>
                         </div>
                         <div class="project-card__body">
-                            <h3 class="project-card__title">Marathon & Racing</h3>
-                            <p class="project-card__subtitle">GPS-enabled real-time telemetry for wheelchair racing and
-                                marathons.</p>
+                            <h3 class="project-card__title">smartVibe</h3>
+                            <p class="project-card__subtitle">Outdoor intelligent mobility with adaptive telemetry and
+                                interaction feedback.</p>
                             <div class="project-card__tags">
                                 <span class="project-card__tag">GPS</span>
                                 <span class="project-card__tag">4G LTE</span>
                                 <span class="project-card__tag">Telemetry</span>
-                                <span class="project-card__tag">Racing</span>
+                                <span class="project-card__tag">Adaptive Interaction</span>
                             </div>
                         </div>
                     </div>
@@ -285,7 +326,7 @@
         </div>
     </main>
 
-    <script type="module" src="/src/pages/projects.js"></script>
+    <script type="module" src="/src/pages/projects.ts"></script>
 </body>
 
 </html>

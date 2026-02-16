@@ -1,10 +1,28 @@
-﻿// Home page main entry
-import { createNavbar } from '../components/navbar.js';
-import { createFooter } from '../components/footer.js';
-import { initSmoothScroll } from '../components/smooth-scroll.js';
-import { initScrollAnimations } from '../components/scroll-animations.js';
-import { WebGLWheel } from '../components/webgl-wheel.js';
-import { applyPageOverrides } from '../components/page-content.js';
+// Home page main entry
+import { createNavbar } from '../components/navbar.ts';
+import { createFooter } from '../components/footer.ts';
+import { initSmoothScroll } from '../components/smooth-scroll.ts';
+import { initScrollAnimations } from '../components/scroll-animations.ts';
+import { WebGLWheel } from '../components/webgl-wheel.ts';
+import { applyPageOverrides } from '../components/page-content.ts';
+
+function normalizeHomeSectionText(): void {
+    const targets = [
+        { selector: '#storyPreview .reveal p', fallback: 'Our Journey' },
+        { selector: '#storyPreview .reveal h2', fallback: 'Four Eras of Innovation' },
+        { selector: '#portfolio .reveal p', fallback: 'Portfolio' },
+        { selector: '#portfolio .reveal h2', fallback: 'Our Work' },
+        { selector: '#bentoGrid .bento-grid__item:nth-child(1) .text-small', fallback: 'Featured Project' },
+    ];
+
+    targets.forEach((target) => {
+        const element = document.querySelector(target.selector);
+        if (!element) return;
+
+        const current = (element.textContent || '').replace(/\.shfud;jkouh/gi, '').trim();
+        element.textContent = current || target.fallback;
+    });
+}
 
 document.addEventListener('DOMContentLoaded', async () => {
     const loader = document.getElementById('loader');
@@ -55,5 +73,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     await applyPageOverrides('home');
+    normalizeHomeSectionText();
     initScrollAnimations();
 });
+
+

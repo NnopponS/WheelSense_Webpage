@@ -1,9 +1,9 @@
-﻿// Contact page
-import { createNavbar } from '../components/navbar.js';
-import { createFooter } from '../components/footer.js';
-import { initSmoothScroll } from '../components/smooth-scroll.js';
-import { initScrollAnimations } from '../components/scroll-animations.js';
-import { applyPageOverrides } from '../components/page-content.js';
+// Contact page
+import { createNavbar } from '../components/navbar.ts';
+import { createFooter } from '../components/footer.ts';
+import { initSmoothScroll } from '../components/smooth-scroll.ts';
+import { initScrollAnimations } from '../components/scroll-animations.ts';
+import { applyPageOverrides } from '../components/page-content.ts';
 
 document.addEventListener('DOMContentLoaded', async () => {
     const loader = document.getElementById('loader');
@@ -35,3 +35,5 @@ document.addEventListener('DOMContentLoaded', async () => {
     await applyPageOverrides('contact');
     initScrollAnimations();
 });
+
+

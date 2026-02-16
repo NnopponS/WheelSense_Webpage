@@ -1,4 +1,4 @@
-﻿import { getEditablePage } from '../content/editable-schema.js';
+import { getEditablePage } from '../content/editable-schema.ts';
 
 const API_ENDPOINT = '/api/content';
 
@@ -8,6 +8,14 @@ function normalizeText(value) {
 }
 
 function setFieldValue(field, value, root = document) {
+  if (field.type === 'virtual') {
+    return;
+  }
+
+  if (!field.selector) {
+    return;
+  }
+
   const elements = root.querySelectorAll(field.selector);
   if (!elements.length) return;
 
@@ -29,6 +37,14 @@ function setFieldValue(field, value, root = document) {
 }
 
 function getFieldValue(field, root = document) {
+  if (field.type === 'virtual') {
+    return normalizeText(field.defaultValue || '');
+  }
+
+  if (!field.selector) {
+    return '';
+  }
+
   const element = root.querySelector(field.selector);
   if (!element) return '';
 
@@ -175,3 +191,4 @@ export async function applyPageOverrides(pageKey, root = document) {
     return {};
   }
 }
+

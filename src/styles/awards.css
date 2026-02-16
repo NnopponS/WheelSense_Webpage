@@ -191,15 +191,55 @@
     cursor: pointer;
 }
 
-.award-card__image {
+.award-card__slides {
+    position: absolute;
+    inset: 0;
+}
+
+.award-card__slide {
+    position: absolute;
+    inset: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform var(--duration-slow) var(--ease-out-expo);
+    opacity: 0;
+    transform: scale(1.02);
+    transition:
+        opacity var(--duration-normal) var(--ease-out-quart),
+        transform var(--duration-slow) var(--ease-out-expo);
 }
 
-.award-card:hover .award-card__image {
+.award-card__slide.is-active {
+    opacity: 1;
+}
+
+.award-card:hover .award-card__slide.is-active {
     transform: scale(1.05);
+}
+
+.award-card__dots {
+    position: absolute;
+    left: 50%;
+    bottom: 0.65rem;
+    transform: translateX(-50%);
+    display: inline-flex;
+    gap: 0.35rem;
+    padding: 0.35rem 0.5rem;
+    border-radius: var(--radius-full);
+    background: rgba(0, 0, 0, 0.42);
+    z-index: 2;
+}
+
+.award-card__dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.35);
+    transition: background var(--duration-fast) var(--ease-out-quart);
+}
+
+.award-card__dot.is-active {
+    background: rgba(255, 255, 255, 0.9);
 }
 
 .award-card__overlay {
@@ -210,6 +250,7 @@
     align-items: center;
     justify-content: center;
     opacity: 0;
+    pointer-events: none;
     transition: opacity var(--duration-normal) var(--ease-out-quart);
 }
 
@@ -315,6 +356,34 @@
 .award-card__source:hover {
     color: var(--color-text-primary);
     border-color: rgba(255, 255, 255, 0.35);
+}
+
+.award-card__contributors {
+    margin-top: var(--space-sm);
+    padding-top: var(--space-sm);
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.award-card__avatars {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.45rem;
+}
+
+.award-card__avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    margin-right: -8px;
+    background: rgba(12, 16, 25, 0.9);
+}
+
+.award-card__contributors-text {
+    font-size: 0.7rem;
+    color: var(--color-text-tertiary);
+    line-height: 1.45;
 }
 
 .cert-gallery {

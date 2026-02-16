@@ -1,6 +1,7 @@
 ﻿import { Redis } from '@upstash/redis';
 
 const CONTENT_KEY = 'wheelsense:cms:content:v1';
+const DEFAULT_ADMIN_TOKEN = 'TheWheelsWillHaveNoSenseWithoutWheelSense';
 let inMemoryStore = { pages: {} };
 let redisClient;
 
@@ -67,13 +68,7 @@ function parseToken(req) {
 }
 
 function requireAdminAuth(req, res) {
-  const expected = process.env.ADMIN_MODE_TOKEN;
-  if (!expected) {
-    sendJson(res, 500, {
-      error: 'ADMIN_MODE_TOKEN is not configured on the server.',
-    });
-    return false;
-  }
+  const expected = process.env.ADMIN_MODE_TOKEN || DEFAULT_ADMIN_TOKEN;
 
   const provided = parseToken(req);
   if (!provided || provided !== expected) {

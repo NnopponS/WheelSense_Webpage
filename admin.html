@@ -83,6 +83,13 @@
             color: var(--color-text-tertiary);
         }
 
+        .admin-panel__hint {
+            margin-top: 0.45rem;
+            font-size: 0.75rem;
+            color: var(--color-text-tertiary);
+            line-height: 1.45;
+        }
+
         .admin-controls {
             padding: var(--space-md) var(--space-lg);
             display: grid;
@@ -136,6 +143,65 @@
             letter-spacing: var(--tracking-wide);
             text-transform: uppercase;
             margin-bottom: 0.35rem;
+        }
+
+        .admin-field__hint {
+            margin-bottom: 0.45rem;
+            font-size: 0.72rem;
+            color: var(--color-text-muted);
+            line-height: 1.45;
+        }
+
+        .admin-field--virtual {
+            border-color: rgba(125, 211, 252, 0.25);
+            background: rgba(56, 189, 248, 0.03);
+        }
+
+        .admin-virtual__controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.45rem;
+            margin-bottom: 0.55rem;
+        }
+
+        .admin-virtual-list {
+            display: grid;
+            gap: 0.65rem;
+        }
+
+        .admin-virtual-item {
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: var(--radius-sm);
+            padding: 0.6rem;
+            background: rgba(255, 255, 255, 0.02);
+            display: grid;
+            gap: 0.55rem;
+        }
+
+        .admin-virtual-item__header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.55rem;
+        }
+
+        .admin-virtual-item__title {
+            font-size: 0.8rem;
+            color: var(--color-text-secondary);
+            line-height: 1.4;
+        }
+
+        .admin-virtual-item__field {
+            display: grid;
+            gap: 0.25rem;
+        }
+
+        .admin-textarea--raw {
+            margin-top: 0.65rem;
+            background: rgba(0, 0, 0, 0.25);
+            font-family: "Consolas", "Courier New", monospace;
+            font-size: 0.72rem;
+            line-height: 1.45;
         }
 
         .admin-panel__footer {
@@ -257,11 +323,15 @@
                 <header class="admin-panel__header">
                     <h2 class="admin-panel__title">Content Editor</h2>
                     <p class="admin-panel__subtitle" id="editorPageSubtitle">Select a page to edit.</p>
+                    <p class="admin-panel__hint" id="editorHint"></p>
                 </header>
 
                 <div class="admin-controls">
                     <label class="form-label" for="pageSelector">Page</label>
                     <select class="admin-select" id="pageSelector"></select>
+                    <label class="form-label" for="fieldSearch">Find Field</label>
+                    <input class="admin-input" id="fieldSearch" type="text"
+                        placeholder="Search by field name or key..." />
                     <div class="admin-control-row">
                         <button class="btn-compact" id="reloadPageBtn" type="button">Reload Fields</button>
                         <button class="btn-compact" id="openPageBtn" type="button">Open Live Page</button>
@@ -290,7 +360,7 @@
         </section>
     </main>
 
-    <script type="module" src="/src/pages/admin.js"></script>
+    <script type="module" src="/src/pages/admin.ts"></script>
 </body>
 
 </html>

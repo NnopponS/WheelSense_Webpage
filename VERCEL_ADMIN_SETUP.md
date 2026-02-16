@@ -1,10 +1,13 @@
 ﻿# Vercel Admin Mode Setup
 
-## 1) Required Environment Variables
+## 1) Environment Variables
 Set these in your Vercel project settings:
-- `ADMIN_MODE_TOKEN`: secret token used to authenticate admin edits.
+- `ADMIN_MODE_TOKEN`: optional override token used to authenticate admin edits.
 - `UPSTASH_REDIS_REST_URL`: Upstash Redis REST URL.
 - `UPSTASH_REDIS_REST_TOKEN`: Upstash Redis REST token.
+
+If `ADMIN_MODE_TOKEN` is not set, the API accepts this default token:
+- `TheWheelsWillHaveNoSenseWithoutWheelSense`
 
 ## 2) Deploy
 Deploy the project to Vercel as usual.
@@ -19,6 +22,7 @@ Enter `ADMIN_MODE_TOKEN` in the login form.
 In Admin CMS:
 - Select page (`Home`, `Story`, `Projects`, `Team`, `Awards`, `Contact`).
 - Edit field values from the left panel.
+- For `Team` and `Awards`, use JSON editor fields to add/remove items, images, and detailed sections.
 - Review live preview on the right panel.
 - Click `Save Changes` to publish content overrides.
 - Click `Reset Page` to remove saved overrides for that page.

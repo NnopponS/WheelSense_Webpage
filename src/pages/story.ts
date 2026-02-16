@@ -1,10 +1,9 @@
-﻿// Story page scrollytelling
-import { createNavbar } from '../components/navbar.js';
-import { createFooter } from '../components/footer.js';
-import { initSmoothScroll } from '../components/smooth-scroll.js';
-import { initScrollAnimations, ScrollTrigger } from '../components/scroll-animations.js';
-import { WebGLWheel } from '../components/webgl-wheel.js';
-import { applyPageOverrides } from '../components/page-content.js';
+// Story page scrollytelling
+import { createNavbar } from '../components/navbar.ts';
+import { createFooter } from '../components/footer.ts';
+import { initSmoothScroll } from '../components/smooth-scroll.ts';
+import { initScrollAnimations, ScrollTrigger } from '../components/scroll-animations.ts';
+import { applyPageOverrides } from '../components/page-content.ts';
 
 document.addEventListener('DOMContentLoaded', async () => {
     const loader = document.getElementById('loader');
@@ -16,18 +15,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     createNavbar('our story');
     createFooter();
     initSmoothScroll();
-
-    const storyCanvas = document.getElementById('storyCanvas');
-    let wheel = null;
-
-    if (storyCanvas) {
-        wheel = new WebGLWheel(storyCanvas, {
-            particleCount: 3400,
-            color: 0xffffff,
-            radius: 2.45,
-            rotationSpeed: 0.001,
-        });
-    }
 
     const phases = document.querySelectorAll('.story-phase');
     const progressDots = document.querySelectorAll('.story-progress__dot');
@@ -48,7 +35,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     ];
 
     const phaseColors = [0xffffff, 0x34D399, 0xA78BFA, 0xFB923C, 0x60A5FA];
-    const phaseShapes = ['wheel', 'sensorWheel', 'gameController', 'raceTrack', 'brain'];
     const phaseClasses = ['phase-0', 'phase-1', 'phase-2', 'phase-3', 'phase-4'];
 
     const phaseCards = [
@@ -59,23 +45,23 @@ document.addEventListener('DOMContentLoaded', async () => {
         },
         {
             eyebrow: 'YES Wheelchair',
-            title: 'A neon wireframe starts reading every movement',
-            text: 'IoT sensors translate physical effort into data points for health, safety, and daily activity tracking.',
+            title: 'Dual-wheel sensing turns motion into metrics',
+            text: 'Sensors on both wheels report speed, acceleration, distance, and fall detection in real time.',
         },
         {
             eyebrow: 'ALL Wheelchair',
-            title: 'Motion turns into game control',
-            text: 'Fiber links and interactive feedback represent how rehabilitation becomes an engaging experience.',
+            title: 'Joystick-based control for exergaming',
+            text: 'Wheelchair input behaves like a joystick for aiming, interaction, and game-based exercise training.',
         },
         {
-            eyebrow: 'Marathon and Racing',
-            title: 'Telemetry escapes the room',
-            text: 'Speed lines and live coordinates visualize long-range GPS and 4G tracking across real-world race routes.',
+            eyebrow: 'smartVibe',
+            title: 'Outdoor smart mobility telemetry in real time',
+            text: 'Live route overlays and telemetry coordinates follow full outdoor sessions with adaptive interaction feedback.',
         },
         {
             eyebrow: 'WheelSense',
-            title: 'From transport to intelligent companion',
-            text: 'Neural links, bounding boxes, and smart-home signals reflect AI context awareness in daily living.',
+            title: 'AI wheelchair with indoor localization',
+            text: 'AI context understanding combines with indoor localization to guide safe navigation and smart-home control.',
         },
     ];
 
@@ -147,10 +133,6 @@ document.addEventListener('DOMContentLoaded', async () => {
             stopCoordinateTicker();
         }
 
-        if (wheel) {
-            wheel.setColor(phaseColors[index]);
-            wheel.morphTo(phaseShapes[index]);
-        }
     }
 
     progressDots.forEach((dot) => {
@@ -171,3 +153,5 @@ document.addEventListener('DOMContentLoaded', async () => {
         stopCoordinateTicker();
     });
 });
+
+
