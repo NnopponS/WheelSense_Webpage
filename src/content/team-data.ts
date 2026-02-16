@@ -7,7 +7,7 @@ export const defaultTeamMembers = [
     role: 'B.Eng. Student - Electrical Engineering',
     subtitle: 'Faculty of Engineering, Thammasat University',
     gradient: 'linear-gradient(135deg, #1a2e3e, #0e1018)',
-    photo: '/assets/Arard/Profile/Worapon_Profile.png',
+    photo: '/assets/Awards/Profile/Worapon_Profile.png',
     bio: 'Fourth-year Electrical Engineering student focused on AI mobility systems, indoor localization, and smart-home integration for assistive technology.',
     details: [
       { label: 'Student ID', value: '6510680371' },
@@ -117,7 +117,7 @@ export const defaultTeamMembers = [
     role: 'B.Eng. Student - Electrical Engineering',
     subtitle: 'Faculty of Engineering, Thammasat University',
     gradient: 'linear-gradient(135deg, #3e1a1b, #0e1018)',
-    photo: '/assets/Arard/Profile/Supawit_Profile.png',
+    photo: '/assets/Awards/Profile/Supawit_Profile.png',
     bio: 'Electrical engineering student contributing to hardware integration, signal acquisition, and control reliability for wheelchair systems.',
     details: [
       { label: 'Student ID', value: '6510610147' },
@@ -137,7 +137,7 @@ export const defaultTeamMembers = [
     role: 'B.Sc. Student - Sports and Exercise Science',
     subtitle: 'Faculty of Allied Health Sciences, Thammasat University',
     gradient: 'linear-gradient(135deg, #244f2d, #0e1018)',
-    photo: '/assets/Arard/Profile/Surasak_Profile.png',
+    photo: '/assets/Awards/Profile/Surasak_Profile.png',
     bio: 'Sports and exercise science student supporting user testing and physical-activity protocols for wheelchair rehabilitation systems.',
     details: [
       { label: 'Student ID', value: '6512614311' },
@@ -157,7 +157,7 @@ export const defaultTeamMembers = [
     role: 'B.Sc. Student - Sports and Exercise Science (SS)',
     subtitle: 'Faculty of Allied Health Sciences, Thammasat University',
     gradient: 'linear-gradient(135deg, #1a3e1b, #0e1018)',
-    photo: '/assets/Arard/Profile/Teerapat_Profile.png',
+    photo: '/assets/Awards/Profile/Teerapat_Profile.png',
     bio: 'Supports exergaming workflows and rehabilitation engagement design for wheelchair users.',
     details: [
       { label: 'Student ID', value: '6612614146' },
@@ -177,7 +177,7 @@ export const defaultTeamMembers = [
     role: 'Ph.D. Candidate - Medical Engineering',
     subtitle: 'Faculty of Engineering, Thammasat University',
     gradient: 'linear-gradient(135deg, #1a1b3e, #0e1018)',
-    photo: '/assets/Arard/Profile/Darawadee_Profile.png',
+    photo: '/assets/Awards/Profile/Darawadee_Profile.png',
     bio: 'Medical engineering researcher driving translational assistive innovation from sensing systems to user-centered healthcare outcomes.',
     details: [
       { label: 'Student ID', value: '6610300318' },
@@ -197,7 +197,7 @@ export const defaultTeamMembers = [
     role: 'Advisor - Department of Sports Science and Sports Development',
     subtitle: 'Faculty of Allied Health Sciences',
     gradient: 'linear-gradient(135deg, #1a1b3e, #141726)',
-    photo: '/assets/Arard/Profile/Sairag_Profile.jpg',
+    photo: '/assets/Awards/Profile/Sairag_Profile.jpg',
     bio: 'Leads research direction in sport and exercise innovation and interdisciplinary assistive-technology development.',
     details: [
       { label: 'Department', value: 'Department of Sports Science and Sports Development' },
@@ -216,7 +216,7 @@ export const defaultTeamMembers = [
     role: 'Advisor - Department of Electrical and Computer Engineering',
     subtitle: 'Thammasat School of Engineering',
     gradient: 'linear-gradient(135deg, #222d52, #101524)',
-    photo: '/assets/Arard/Profile/Supachai_Profile.jpg',
+    photo: '/assets/Awards/Profile/Supachai_Profile.jpg',
     bio: 'Provides control engineering and systems mentorship for robust deployment of assistive mobility technologies.',
     details: [
       { label: 'Department', value: 'Department of Electrical and Computer Engineering' },
@@ -237,3 +237,4 @@ export const defaultTeamMembers = [
 export function cloneTeamMembers() {
   return JSON.parse(JSON.stringify(defaultTeamMembers));
 }
+

@@ -78,7 +78,7 @@ const virtualFieldConfigs: Record<string, VirtualConfig> = {
       { key: 'role', label: 'Role', type: 'text' },
       { key: 'subtitle', label: 'Subtitle / Organization', type: 'text' },
       { key: 'bio', label: 'Biography', type: 'textarea' },
-      { key: 'photo', label: 'Profile Image URL', type: 'text', placeholder: '/assets/Arard/Profile/Worapon_Profile.png' },
+      { key: 'photo', label: 'Profile Image URL', type: 'text', placeholder: '/assets/Awards/Profile/Worapon_Profile.png' },
       { key: 'gradient', label: 'Gradient Fallback', type: 'text' },
       { key: 'focus', label: 'Focus Areas (one per line)', type: 'list' },
       { key: 'projects', label: 'Projects (one per line)', type: 'list' },
@@ -125,7 +125,7 @@ const virtualFieldConfigs: Record<string, VirtualConfig> = {
     template: {
       id: '',
       title: '',
-      image: '/assets/Arard/verified-milestones/yes-wheelchair-kide-2023-triple-honors/images/image-01.jpg',
+      image: '/assets/Awards/verified-milestones/yes-wheelchair-kide-2023-triple-honors/images/image-01.jpg',
       file: '/assets/docs/award-recognition.pdf',
       pages: 1,
       year: '',
@@ -797,5 +797,6 @@ logoutBtn?.addEventListener('click', () => {
 });
 
 void bootstrap();
+
 
 

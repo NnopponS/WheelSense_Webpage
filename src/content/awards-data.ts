@@ -1,4 +1,4 @@
-﻿export const defaultVerifiedMilestones = [
+export const defaultVerifiedMilestones = [
   {
     id: 'wheelsense-grand-prize-nrct-2026',
     era: 'wheelsense',
@@ -11,12 +11,12 @@
     description:
       'WheelSense received the top national innovation award and the Popular Vote Award for the project "WheelSense: Motion Tracking Sensor with Smart Home Controller for Wheelchair Users."',
     images: [
-      '/assets/Arard/verified-milestones/wheelsense-grand-prize-nrct-2026/images/image-01.jpg',
-      '/assets/Arard/verified-milestones/wheelsense-grand-prize-nrct-2026/images/image-02.jpg',
-      '/assets/Arard/verified-milestones/wheelsense-grand-prize-nrct-2026/images/image-03.jpg'
+      '/assets/Awards/verified-milestones/wheelsense-grand-prize-nrct-2026/images/image-01.jpg',
+      '/assets/Awards/verified-milestones/wheelsense-grand-prize-nrct-2026/images/image-02.jpg',
+      '/assets/Awards/verified-milestones/wheelsense-grand-prize-nrct-2026/images/image-03.jpg'
     ],
     sourceLabel: 'Awards and Activities Appendix',
-    sourceFile: '/assets/Arard/verified-milestones/wheelsense-grand-prize-nrct-2026/docs/source.pdf'
+    sourceFile: '/assets/Awards/verified-milestones/wheelsense-grand-prize-nrct-2026/docs/source.pdf'
   },
   {
     id: 'all-wheelchair-ipitex-gold-2026',
@@ -30,12 +30,12 @@
     description:
       'ALL Wheelchair received an international Gold Medal at IPITEx 2026, confirming competitive strength in invention quality and practical assistive innovation.',
     images: [
-      '/assets/Arard/verified-milestones/all-wheelchair-ipitex-gold-2026/images/image-01.jpg',
-      '/assets/Arard/verified-milestones/all-wheelchair-ipitex-gold-2026/images/image-02.jpg',
-      '/assets/Arard/verified-milestones/all-wheelchair-ipitex-gold-2026/images/image-03.jpg'
+      '/assets/Awards/verified-milestones/all-wheelchair-ipitex-gold-2026/images/image-01.jpg',
+      '/assets/Awards/verified-milestones/all-wheelchair-ipitex-gold-2026/images/image-02.jpg',
+      '/assets/Awards/verified-milestones/all-wheelchair-ipitex-gold-2026/images/image-03.jpg'
     ],
     sourceLabel: 'IPITEx Supporting Documents',
-    sourceFile: '/assets/Arard/verified-milestones/all-wheelchair-ipitex-gold-2026/docs/source.pdf'
+    sourceFile: '/assets/Awards/verified-milestones/all-wheelchair-ipitex-gold-2026/docs/source.pdf'
   },
   {
     id: 'wheelsense-hyper-merit-2026',
@@ -49,12 +49,12 @@
     description:
       'WheelSense earned a Merit Award in innovation pitching for its AI motion tracking and smart home control system for elderly and disability support.',
     images: [
-      '/assets/Arard/verified-milestones/wheelsense-hyper-merit-2026/images/image-01.jpg',
-      '/assets/Arard/verified-milestones/wheelsense-hyper-merit-2026/images/image-02.jpg',
-      '/assets/Arard/verified-milestones/wheelsense-hyper-merit-2026/images/image-03.jpg'
+      '/assets/Awards/verified-milestones/wheelsense-hyper-merit-2026/images/image-01.jpg',
+      '/assets/Awards/verified-milestones/wheelsense-hyper-merit-2026/images/image-02.jpg',
+      '/assets/Awards/verified-milestones/wheelsense-hyper-merit-2026/images/image-03.jpg'
     ],
     sourceLabel: 'Awards and Activities Appendix',
-    sourceFile: '/assets/Arard/verified-milestones/wheelsense-hyper-merit-2026/docs/source.pdf'
+    sourceFile: '/assets/Awards/verified-milestones/wheelsense-hyper-merit-2026/docs/source.pdf'
   },
   {
     id: 'all-wheelchair-innoserve-first-place-2024',
@@ -68,87 +68,150 @@
     description:
       'ALL Wheelchair won First Place in an international ICT innovation competition, highlighting technical maturity, user value, and strong presentation quality.',
     images: [
-      '/assets/Arard/verified-milestones/all-wheelchair-innoserve-first-place-2024/images/image-01.jpg',
-      '/assets/Arard/verified-milestones/all-wheelchair-innoserve-first-place-2024/images/image-02.jpg'
+      '/assets/Awards/verified-milestones/all-wheelchair-innoserve-first-place-2024/images/image-01.jpg',
+      '/assets/Awards/verified-milestones/all-wheelchair-innoserve-first-place-2024/images/image-02.jpg'
     ],
     sourceLabel: 'InnoServe Award Evidence',
-    sourceFile: '/assets/Arard/verified-milestones/all-wheelchair-innoserve-first-place-2024/docs/source.pdf'
+    sourceFile: '/assets/Awards/verified-milestones/all-wheelchair-innoserve-first-place-2024/docs/source.pdf'
   },
   {
-    id: 'all-wheelchair-gsic-sic-2024',
+    id: 'all-wheelchair-thammasat-hackathon-most-innovation-2024',
+    era: 'all-wheelchair',
+    eraLabel: 'ALL Wheelchair',
+    eraColor: 'era2',
+    sortDate: '2024-10',
+    title: 'The Most Innovation Award',
+    event: 'The Thammasat Hackathon 2024',
+    year: '2024',
+    description:
+      'ALL Wheelchair received The Most Innovation Award at The Thammasat Hackathon 2024 in Thailand.',
+    images: [
+      '/assets/Awards/verified-milestones/all-wheelchair-thammasat-hackathon-most-innovation-2024/images/image-01.png'
+    ],
+    sourceLabel: 'Image Evidence',
+    sourceFile: '/assets/Awards/verified-milestones/all-wheelchair-thammasat-hackathon-most-innovation-2024/images/image-01.png'
+  },
+  {
+    id: 'all-wheelchair-social-business-academia-conference-2024',
     era: 'all-wheelchair',
     eraLabel: 'ALL Wheelchair',
     eraColor: 'era2',
     sortDate: '2024-09',
-    title: 'GSIC 2024 Silver Award and Thailand SIC Merit Award',
-    event: 'Global Student Innovation Challenge (China) and Student Innovation Challenge Thailand 2024',
+    title: 'Presentation of the Invention',
+    event: '11th Social Business Academia Conference with Nobel Laureate Professor Muhammad Yunus',
     year: '2024',
     description:
-      'ALL Wheelchair received a Silver Award at GSIC 2024 in China and a Merit Award at SIC Thailand 2024. The Thailand result served as the national pathway to the global finals.',
+      'ALL Wheelchair presented the topic "ALL Wheelchair: AI Motion Tracking System for Monitoring Health and Activity" at the 11th Social Business Academia Conference.',
     images: [
-      '/assets/Arard/verified-milestones/all-wheelchair-gsic-sic-2024/images/image-01.jpg',
-      '/assets/Arard/verified-milestones/all-wheelchair-gsic-sic-2024/images/image-02.jpg',
-      '/assets/Arard/verified-milestones/all-wheelchair-gsic-sic-2024/images/image-03.jpg'
+      '/assets/Awards/verified-milestones/all-wheelchair-social-business-academia-conference-2024/images/image-01.png'
     ],
-    sourceLabel: 'SIC and GSIC Records',
-    sourceFile: '/assets/Arard/verified-milestones/all-wheelchair-gsic-sic-2024/docs/source.pdf'
+    sourceLabel: 'Image Evidence',
+    sourceFile: '/assets/Awards/verified-milestones/all-wheelchair-social-business-academia-conference-2024/images/image-01.png'
   },
   {
-    id: 'all-wheelchair-international-presentations-2024',
+    id: 'all-wheelchair-gsic-silver-award-2024',
+    era: 'all-wheelchair',
+    eraLabel: 'ALL Wheelchair',
+    eraColor: 'era2',
+    sortDate: '2024-08',
+    title: 'Silver Award (1st Runner-up)',
+    event: 'The Global Student Innovation Challenge 2024 Contest, Shanghai, China',
+    year: '23-26 Aug 2024',
+    description:
+      'ALL Wheelchair received the Silver Award (1st Runner-up) at The Global Student Innovation Challenge 2024 Contest in Shanghai, China.',
+    images: [
+      '/assets/Awards/verified-milestones/all-wheelchair-gsic-sic-2024/images/image-01.png'
+    ],
+    sourceLabel: 'Verified Awards and Milestones Evidence',
+    sourceFile: '/assets/Awards/verified-milestones/all-wheelchair-gsic-sic-2024/docs/source.pdf'
+  },
+  {
+    id: 'all-wheelchair-medical-hackathon-second-runner-up-2024',
+    era: 'all-wheelchair',
+    eraLabel: 'ALL Wheelchair',
+    eraColor: 'era2',
+    sortDate: '2024-08',
+    title: '2nd Runner-up Award',
+    event: 'Medical Hackathon 2024, Thailand',
+    year: '2024',
+    description:
+      'ALL Wheelchair received the 2nd Runner-up Award at Medical Hackathon 2024 in Thailand.',
+    images: [
+      '/assets/Awards/verified-milestones/all-wheelchair-medical-hackathon-second-runner-up-2024/images/image-01.png'
+    ],
+    sourceLabel: 'Verified Awards and Milestones Evidence',
+    sourceFile: '/assets/Awards/verified-milestones/all-wheelchair-medical-hackathon-second-runner-up-2024/docs/source.pdf'
+  },
+  {
+    id: 'all-wheelchair-peace-sports-conference-2024',
     era: 'all-wheelchair',
     eraLabel: 'ALL Wheelchair',
     eraColor: 'era2',
     sortDate: '2024-07',
-    title: 'International Conference Presentations',
-    event: '2024 International Conference for Peace Sports (Kuala Lumpur) and 11th Social Business Academia Conference',
+    title: 'International Conference Presentation',
+    event: '2024 International Conference for Peace Sports, Kuala Lumpur, Malaysia',
+    year: '27 Jul 2024',
+    description:
+      'ALL Wheelchair presented its work at the 2024 International Conference for Peace Sports at the International Youth Center (IYC), Kuala Lumpur, Malaysia.',
+    images: [
+      '/assets/Awards/verified-milestones/all-wheelchair-international-presentations-2024/images/image-01.png',
+      '/assets/Awards/verified-milestones/all-wheelchair-international-presentations-2024/images/image-02.png'
+    ],
+    sourceLabel: 'Image Evidence',
+    sourceFile: '/assets/Awards/verified-milestones/all-wheelchair-international-presentations-2024/images/image-01.png'
+  },
+  {
+    id: 'all-wheelchair-nsc-compliment-award-2024',
+    era: 'all-wheelchair',
+    eraLabel: 'ALL Wheelchair',
+    eraColor: 'era2',
+    sortDate: '2024-07',
+    title: 'Compliment Award',
+    event: 'The 26th National Software Contest (NSC 2024), Thailand',
     year: '2024',
     description:
-      'ALL Wheelchair was presented in international conference programs, including a session in Kuala Lumpur and a Social Business Academia forum featuring Nobel Laureate Professor Muhammad Yunus.',
+      'ALL Wheelchair received a Compliment Award at the 26th National Software Contest (NSC 2024) in Thailand.',
     images: [
-      '/assets/Arard/verified-milestones/all-wheelchair-international-presentations-2024/images/image-01.jpg',
-      '/assets/Arard/verified-milestones/all-wheelchair-international-presentations-2024/images/image-02.jpg',
-      '/assets/Arard/verified-milestones/all-wheelchair-international-presentations-2024/images/image-03.jpg'
+      '/assets/Awards/verified-milestones/all-wheelchair-nsc-compliment-award-2024/images/image-01.png'
     ],
-    sourceLabel: 'All Team Awards and Activities',
-    sourceFile: '/assets/Arard/verified-milestones/all-wheelchair-international-presentations-2024/docs/source.pdf'
+    sourceLabel: 'Image Evidence',
+    sourceFile: '/assets/Awards/verified-milestones/all-wheelchair-nsc-compliment-award-2024/images/image-01.png'
+  },
+  {
+    id: 'all-wheelchair-kmutnb-special-prize-2024',
+    era: 'all-wheelchair',
+    eraLabel: 'ALL Wheelchair',
+    eraColor: 'era2',
+    sortDate: '2024-06',
+    title: 'Special Prize Award',
+    event: 'KMUTNB Innovation Award 2024, Thailand',
+    year: '2024',
+    description:
+      'ALL Wheelchair received the Special Prize Award at the KMUTNB Innovation Award 2024 in Thailand.',
+    images: [
+      '/assets/Awards/verified-milestones/all-wheelchair-kmutnb-special-prize-2024/images/image-01.png'
+    ],
+    sourceLabel: 'Verified Awards and Milestones Evidence',
+    sourceFile: '/assets/Awards/verified-milestones/all-wheelchair-kmutnb-special-prize-2024/docs/source.pdf'
   },
   {
     id: 'all-wheelchair-thailand-research-expo-progression',
     era: 'all-wheelchair',
     eraLabel: 'ALL Wheelchair',
     eraColor: 'era2',
-    sortDate: '2024-06',
+    sortDate: '2024-05',
     title: 'Thailand Research EXPO Progression: Gold and Excellence',
     event: 'Thailand Research EXPO 2024 and Thailand Research EXPO 2023',
     year: '2024 / 2023',
     description:
       'ALL Wheelchair progressed from Excellent Innovation and Outstanding Proposal distinctions in 2023 to a Gold Award in 2024, demonstrating clear year-over-year improvement.',
     images: [
-      '/assets/Arard/verified-milestones/all-wheelchair-thailand-research-expo-progression/images/image-01.jpg',
-      '/assets/Arard/verified-milestones/all-wheelchair-thailand-research-expo-progression/images/image-02.jpg',
-      '/assets/Arard/verified-milestones/all-wheelchair-thailand-research-expo-progression/images/image-03.jpg'
+      '/assets/Awards/verified-milestones/all-wheelchair-thailand-research-expo-progression/images/image-01.jpg',
+      '/assets/Awards/verified-milestones/all-wheelchair-thailand-research-expo-progression/images/image-02.jpg',
+      '/assets/Awards/verified-milestones/all-wheelchair-thailand-research-expo-progression/images/image-03.jpg'
     ],
-    sourceLabel: 'Award Recognition Collection',
-    sourceFile: '/assets/Arard/verified-milestones/all-wheelchair-thailand-research-expo-progression/docs/source.pdf'
-  },
-  {
-    id: 'all-wheelchair-national-awards-series-2024',
-    era: 'all-wheelchair',
-    eraLabel: 'ALL Wheelchair',
-    eraColor: 'era2',
-    sortDate: '2024-05',
-    title: 'National Innovation Awards Series',
-    event: 'Thammasat Hackathon, Medical Hackathon, NSC 2024, and KMUTNB Innovation Award',
-    year: '2024',
-    description:
-      'ALL Wheelchair collected multiple national results: The Most Innovation Award, 2nd Runner-up positions, Compliment Award, and Special Prize Award across major Thai competitions.',
-    images: [
-      '/assets/Arard/verified-milestones/all-wheelchair-national-awards-series-2024/images/image-01.jpg',
-      '/assets/Arard/verified-milestones/all-wheelchair-national-awards-series-2024/images/image-02.jpg',
-      '/assets/Arard/verified-milestones/all-wheelchair-national-awards-series-2024/images/image-03.jpg'
-    ],
-    sourceLabel: 'Award Recognition Collection',
-    sourceFile: '/assets/Arard/verified-milestones/all-wheelchair-national-awards-series-2024/docs/source.pdf'
+    sourceLabel: 'Verified Awards and Milestones Evidence',
+    sourceFile: '/assets/Awards/verified-milestones/all-wheelchair-thailand-research-expo-progression/docs/source.pdf'
   },
   {
     id: 'yes-wheelchair-kide-2023-triple-honors',
@@ -162,125 +225,49 @@
     description:
       'YES Wheelchair achieved triple international honors at KIDE 2023, including Grand Prize (Platinum), Gold Medal, and Outstanding Inventor recognition.',
     images: [
-      '/assets/Arard/verified-milestones/yes-wheelchair-kide-2023-triple-honors/images/image-01.jpg',
-      '/assets/Arard/verified-milestones/yes-wheelchair-kide-2023-triple-honors/images/image-02.jpg',
-      '/assets/Arard/verified-milestones/yes-wheelchair-kide-2023-triple-honors/images/image-03.jpg',
-      '/assets/Arard/verified-milestones/yes-wheelchair-kide-2023-triple-honors/images/image-04.jpg'
+      '/assets/Awards/verified-milestones/yes-wheelchair-kide-2023-triple-honors/images/image-01.jpg',
+      '/assets/Awards/verified-milestones/yes-wheelchair-kide-2023-triple-honors/images/image-02.jpg'
     ],
     sourceLabel: 'Award Recognition Collection',
-    sourceFile: '/assets/Arard/verified-milestones/yes-wheelchair-kide-2023-triple-honors/docs/source.pdf'
+    sourceFile: '/assets/Awards/verified-milestones/yes-wheelchair-kide-2023-triple-honors/docs/source.pdf'
   },
   {
     id: 'all-wheelchair-gear-talent-and-sport-science-2023',
     era: 'all-wheelchair',
     eraLabel: 'ALL Wheelchair',
     eraColor: 'era2',
-    sortDate: '2023-06',
-    title: 'Platinum and Runner-up National Recognition',
-    event: 'GEAR Talent 2023 and Sport Science Innovation Contest 2023',
+    sortDate: '2023-07',
+    title: 'Platinum Award',
+    event: 'GEAR Talent 2023',
     year: '2023',
     description:
-      'ALL Wheelchair earned a Platinum Award at GEAR Talent 2023 and a Second Runner-up Award at the Sport Science Innovation Contest 2023.',
+      'ALL Wheelchair received a Platinum Award at GEAR Talent 2023.',
     images: [
-      '/assets/Arard/verified-milestones/all-wheelchair-gear-talent-and-sport-science-2023/images/image-01.png'
+      '/assets/Awards/verified-milestones/all-wheelchair-gear-talent-and-sport-science-2023/images/image-01.png'
     ],
-    sourceLabel: 'GEAR Talent Certificate and Award Records',
-    sourceFile: '/assets/Arard/verified-milestones/all-wheelchair-gear-talent-and-sport-science-2023/docs/source.pdf'
-  },
-];
-
-export const defaultCertificates = [
-  {
-    id: 'cert-wheelsense-grand-prize-nrct-2026',
-    title: 'Evidence Package - NRCT 2026 Grand Prize and Popular Vote',
-    image: '/assets/Arard/verified-milestones/wheelsense-grand-prize-nrct-2026/images/image-01.jpg',
-    file: '/assets/Arard/verified-milestones/wheelsense-grand-prize-nrct-2026/docs/source.pdf',
-    pages: 14,
-    year: 'Jan 2026',
-    description: 'Supporting evidence aligned with the NRCT 2026 WheelSense grand prize milestone.'
+    sourceLabel: 'Verified Awards and Milestones Evidence',
+    sourceFile: '/assets/Awards/verified-milestones/all-wheelchair-gear-talent-and-sport-science-2023/docs/source.pdf'
   },
   {
-    id: 'cert-all-wheelchair-ipitex-gold-2026',
-    title: 'Evidence Package - ALL Wheelchair IPITEx 2026 Gold Medal',
-    image: '/assets/Arard/verified-milestones/all-wheelchair-ipitex-gold-2026/images/image-01.jpg',
-    file: '/assets/Arard/verified-milestones/all-wheelchair-ipitex-gold-2026/docs/source.pdf',
-    pages: 1,
-    year: 'Jan 2026',
-    description: 'Supporting evidence aligned with the ALL Wheelchair IPITEx 2026 gold medal milestone.'
-  },
-  {
-    id: 'cert-wheelsense-hyper-merit-2026',
-    title: 'Evidence Package - Hyper Interdisciplinary Merit Award 2026',
-    image: '/assets/Arard/verified-milestones/wheelsense-hyper-merit-2026/images/image-01.jpg',
-    file: '/assets/Arard/verified-milestones/wheelsense-hyper-merit-2026/docs/source.pdf',
-    pages: 7,
-    year: 'Jan 2026',
-    description: 'Supporting evidence aligned with the WheelSense Hyper Interdisciplinary merit milestone.'
-  },
-  {
-    id: 'cert-all-wheelchair-innoserve-first-place-2024',
-    title: 'Evidence Package - InnoServe 2024 First Place',
-    image: '/assets/Arard/verified-milestones/all-wheelchair-innoserve-first-place-2024/images/image-01.jpg',
-    file: '/assets/Arard/verified-milestones/all-wheelchair-innoserve-first-place-2024/docs/source.pdf',
-    pages: 1,
-    year: 'Nov 2024',
-    description: 'Supporting evidence aligned with the ALL Wheelchair InnoServe first place milestone.'
-  },
-  {
-    id: 'cert-all-wheelchair-gsic-sic-2024',
-    title: 'Evidence Package - GSIC 2024 Silver and SIC Thailand Merit',
-    image: '/assets/Arard/verified-milestones/all-wheelchair-gsic-sic-2024/images/image-01.jpg',
-    file: '/assets/Arard/verified-milestones/all-wheelchair-gsic-sic-2024/docs/source.pdf',
-    pages: 40,
-    year: '2024',
-    description: 'Supporting evidence aligned with the GSIC and SIC 2024 competition milestone.'
-  },
-  {
-    id: 'cert-all-wheelchair-international-presentations-2024',
-    title: 'Evidence Package - International Conference Presentations 2024',
-    image: '/assets/Arard/verified-milestones/all-wheelchair-international-presentations-2024/images/image-01.jpg',
-    file: '/assets/Arard/verified-milestones/all-wheelchair-international-presentations-2024/docs/source.pdf',
-    pages: 26,
-    year: '2024',
-    description: 'Supporting evidence aligned with the international presentation milestone for ALL Wheelchair.'
-  },
-  {
-    id: 'cert-all-wheelchair-thailand-research-expo-progression',
-    title: 'Evidence Package - Thailand Research EXPO Progression',
-    image: '/assets/Arard/verified-milestones/all-wheelchair-thailand-research-expo-progression/images/image-01.jpg',
-    file: '/assets/Arard/verified-milestones/all-wheelchair-thailand-research-expo-progression/docs/source.pdf',
-    pages: 12,
-    year: '2024 / 2023',
-    description: 'Supporting evidence aligned with Thailand Research EXPO progression milestone.'
-  },
-  {
-    id: 'cert-all-wheelchair-national-awards-series-2024',
-    title: 'Evidence Package - National Innovation Awards Series 2024',
-    image: '/assets/Arard/verified-milestones/all-wheelchair-national-awards-series-2024/images/image-01.jpg',
-    file: '/assets/Arard/verified-milestones/all-wheelchair-national-awards-series-2024/docs/source.pdf',
-    pages: 12,
-    year: '2024',
-    description: 'Supporting evidence aligned with national innovation awards milestone for ALL Wheelchair.'
-  },
-  {
-    id: 'cert-yes-wheelchair-kide-2023-triple-honors',
-    title: 'Evidence Package - YES Wheelchair KIDE 2023 Triple Honors',
-    image: '/assets/Arard/verified-milestones/yes-wheelchair-kide-2023-triple-honors/images/image-01.jpg',
-    file: '/assets/Arard/verified-milestones/yes-wheelchair-kide-2023-triple-honors/docs/source.pdf',
-    pages: 12,
+    id: 'all-wheelchair-sport-science-second-runner-up-2023',
+    era: 'all-wheelchair',
+    eraLabel: 'ALL Wheelchair',
+    eraColor: 'era2',
+    sortDate: '2023-06',
+    title: 'Second Runner-up Award',
+    event: 'Sport Science Innovation Contest 2023',
     year: '2023',
-    description: 'Supporting evidence aligned with YES Wheelchair KIDE 2023 milestone.'
-  },
-  {
-    id: 'cert-all-wheelchair-gear-talent-and-sport-science-2023',
-    title: 'Evidence Package - GEAR Talent and Sport Science Recognition 2023',
-    image: '/assets/Arard/verified-milestones/all-wheelchair-gear-talent-and-sport-science-2023/images/image-01.png',
-    file: '/assets/Arard/verified-milestones/all-wheelchair-gear-talent-and-sport-science-2023/docs/source.pdf',
-    pages: 1,
-    year: '2023',
-    description: 'Supporting evidence aligned with GEAR Talent and Sport Science milestone.'
+    description:
+      'ALL Wheelchair received the Second Runner-up Award from the Sport Science Innovation Contest 2023.',
+    images: [
+      '/assets/Awards/verified-milestones/all-wheelchair-sport-science-second-runner-up-2023/images/image-01.png'
+    ],
+    sourceLabel: 'Verified Awards and Milestones Evidence',
+    sourceFile: '/assets/Awards/verified-milestones/all-wheelchair-sport-science-second-runner-up-2023/docs/source.pdf'
   }
 ];
+
+export const defaultCertificates = [];
 
 export const defaultAwardPublications = [
   {
@@ -329,7 +316,7 @@ export const defaultAwardPublications = [
     description:
       'Matsunaga Manufactory official website referenced for the collaboration partnership context.',
     icon: 'MOU',
-    link: 'https://www.matsunaga-w.co.jp/'
+    link: '/assets/docs/mou-matsunaga.pdf'
   }
 ];
 
@@ -340,3 +327,4 @@ export function cloneAwardsData() {
     publications: JSON.parse(JSON.stringify(defaultAwardPublications))
   };
 }
+

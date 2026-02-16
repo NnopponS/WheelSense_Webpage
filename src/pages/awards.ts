@@ -6,7 +6,6 @@ import { initScrollAnimations } from '../components/scroll-animations.ts';
 import { applyPageContent, fetchPageOverrides } from '../components/page-content.ts';
 import {
     defaultAwardPublications,
-    defaultCertificates,
     defaultVerifiedMilestones,
 } from '../content/awards-data.ts';
 
@@ -22,15 +21,6 @@ type MilestoneItem = {
     description: string;
     sourceLabel: string;
     sourceFile: string;
-};
-
-type CertificateItem = {
-    title: string;
-    image: string;
-    file: string;
-    pages: number;
-    year: string;
-    description: string;
 };
 
 type PublicationItem = {
@@ -85,7 +75,7 @@ function normalizeImages(item: any): string[] {
         return [item.image.trim()];
     }
 
-    return ['/assets/Arard/verified-milestones/yes-wheelchair-kide-2023-triple-honors/images/image-01.jpg'];
+    return ['/assets/Awards/verified-milestones/yes-wheelchair-kide-2023-triple-honors/images/image-01.jpg'];
 }
 
 function normalizeEraKey(value: unknown): string {
@@ -116,18 +106,7 @@ function normalizeMilestone(item: any, index: number): MilestoneItem {
         images,
         description: item?.description || '',
         sourceLabel: item?.sourceLabel || 'Open Source',
-        sourceFile: item?.sourceFile || '/assets/Arard/verified-milestones/yes-wheelchair-kide-2023-triple-honors/docs/source.pdf',
-    };
-}
-
-function normalizeCertificate(item: any, index: number): CertificateItem {
-    return {
-        title: item?.title || `Certificate ${index + 1}`,
-        image: item?.image || '/assets/Arard/verified-milestones/yes-wheelchair-kide-2023-triple-honors/images/image-01.jpg',
-        file: item?.file || '/assets/Arard/verified-milestones/yes-wheelchair-kide-2023-triple-honors/docs/source.pdf',
-        pages: Number(item?.pages) > 0 ? Number(item.pages) : 1,
-        year: item?.year || '-',
-        description: item?.description || '',
+        sourceFile: item?.sourceFile || '/assets/Awards/verified-milestones/yes-wheelchair-kide-2023-triple-honors/docs/source.pdf',
     };
 }
 
@@ -181,21 +160,6 @@ function rankMilestone(item: MilestoneItem): number {
     return dateScore + internationalScore + impactScore;
 }
 
-function rankCertificate(item: CertificateItem): number {
-    const content = `${item.title} ${item.description}`.toLowerCase();
-    const dateScore = parseSortIndex('', item.year) * 1000;
-    const internationalScore =
-        /(international|taiwan|china|japan|ipitex|innoserve|kide|global)/.test(content) ? 350 : 0;
-    const impactScore =
-        /(grand prize|winner|first place|platinum|gold|silver|merit|special)/.test(content) ? 120 : 30;
-
-    return dateScore + internationalScore + impactScore;
-}
-
-function isPdfFile(path: string): boolean {
-    return /\.pdf(?:$|[?#])/i.test(String(path || ''));
-}
-
 function renderMilestoneCard(item: MilestoneItem, index: number): string {
     const slidesMarkup = item.images
         .map((image, imageIndex) => `
@@ -234,32 +198,6 @@ function renderMilestoneCard(item: MilestoneItem, index: number): string {
   `;
 }
 
-function renderCertificateCard(item: CertificateItem, index: number): string {
-    const openLabel = isPdfFile(item.file) ? 'Open PDF' : 'Open Source';
-    const metaLabel = isPdfFile(item.file)
-        ? `${item.year} | ${item.pages} page${item.pages > 1 ? 's' : ''}`
-        : `${item.year} | Image Source`;
-
-    return `
-    <article class="cert-card" style="--delay: ${index * 0.05}s">
-      <div class="cert-card__image-wrap" data-lightbox-src="${item.image}">
-        <img class="cert-card__image" src="${item.image}" alt="${item.title}" loading="lazy" />
-        <div class="cert-card__overlay">
-          <span class="cert-card__zoom">Preview</span>
-        </div>
-      </div>
-      <div class="cert-card__info">
-        <h4 class="cert-card__title">${item.title}</h4>
-        <p class="cert-card__desc">${item.description}</p>
-        <div class="cert-card__actions">
-          <span class="cert-card__pages">${metaLabel}</span>
-          <a class="cert-card__link" href="${item.file}" target="_blank" rel="noopener noreferrer">${openLabel}</a>
-        </div>
-      </div>
-    </article>
-  `;
-}
-
 function renderPublicationCard(item: PublicationItem): string {
     return `
     <article class="pub-card glass-card">
@@ -290,7 +228,7 @@ function renderTeamPhotoCard(item: TeamPhotoItem): string {
 
 async function loadTeamPhotos(): Promise<TeamPhotoItem[]> {
     try {
-        const response = await fetch('/assets/Arard/teamPhoto/photo-map.json', {
+        const response = await fetch('/assets/Awards/teamPhoto/photo-map.json', {
             method: 'GET',
             headers: { Accept: 'application/json' },
         });
@@ -305,7 +243,7 @@ async function loadTeamPhotos(): Promise<TeamPhotoItem[]> {
             .map((file) => file.trim())
             .sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' }))
             .map((file) => ({
-                src: `/assets/Arard/teamPhoto/${file}`,
+                src: `/assets/Awards/teamPhoto/${file}`,
                 caption: file.replace(/\.[a-z0-9]+$/i, '').replace(/[-_]/g, ' '),
             }));
     } catch {
@@ -313,13 +251,11 @@ async function loadTeamPhotos(): Promise<TeamPhotoItem[]> {
     }
 }
 
-function updateStats(milestones: MilestoneItem[], certificates: CertificateItem[], publications: PublicationItem[]): void {
+function updateStats(milestones: MilestoneItem[], publications: PublicationItem[]): void {
     const statAwards = document.getElementById('statAwards');
-    const statDocs = document.getElementById('statDocs');
     const statMedia = document.getElementById('statMedia');
 
     if (statAwards) statAwards.dataset.counter = String(milestones.length);
-    if (statDocs) statDocs.dataset.counter = String(certificates.length);
     if (statMedia) statMedia.dataset.counter = String(publications.length);
 }
 
@@ -441,24 +377,18 @@ document.addEventListener('DOMContentLoaded', async () => {
         .filter((item) => ALLOWED_AWARD_ERAS.has(item.era))
         .sort((a, b) => rankMilestone(b) - rankMilestone(a));
 
-    const certificates = parseListOverride(overrides['data.certificates'], defaultCertificates)
-        .map((item, index) => normalizeCertificate(item, index))
-        .sort((a, b) => rankCertificate(b) - rankCertificate(a));
-
     const publications = parseListOverride(overrides['data.publications'], defaultAwardPublications)
         .map((item, index) => normalizePublication(item, index));
 
     const awardsGrid = document.getElementById('awardsGrid');
-    const certificatesGrid = document.getElementById('certificatesGrid');
     const publicationsGrid = document.getElementById('publicationsGrid');
     const teamPhotoGrid = document.getElementById('teamPhotoGrid');
 
-    if (!awardsGrid || !certificatesGrid || !publicationsGrid) {
+    if (!awardsGrid || !publicationsGrid) {
         return;
     }
 
     awardsGrid.innerHTML = milestones.map((item, index) => renderMilestoneCard(item, index)).join('');
-    certificatesGrid.innerHTML = certificates.map((item, index) => renderCertificateCard(item, index)).join('');
     publicationsGrid.innerHTML = publications.map((item) => renderPublicationCard(item)).join('');
 
     if (teamPhotoGrid) {
@@ -467,7 +397,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     applyPageContent('awards', overrides);
-    updateStats(milestones, certificates, publications);
+    updateStats(milestones, publications);
     initMilestoneCarousels();
     initMilestoneFilter();
 
@@ -529,5 +459,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     initScrollAnimations();
 });
+
 
 
