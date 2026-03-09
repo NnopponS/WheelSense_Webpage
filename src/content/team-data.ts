@@ -170,6 +170,46 @@ export const defaultTeamMembers = [
     projects: ['ALL Wheelchair', 'WheelSense']
   },
   {
+    id: 'chayakorn-yokboonyathikarn',
+    name: 'Mr. Chayakorn Yokboonyathikarn',
+    thaiName: 'Chayakorn Yokboonyathikarn',
+    level: 'Undergraduate',
+    role: 'B.Eng. Student - Electrical Engineering',
+    subtitle: 'Faculty of Engineering, Thammasat University',
+    gradient: 'linear-gradient(135deg, #1a2e3e, #0e1018)',
+    photo: '/assets/Awards/Profile/Chayakorn_Profile.jpg',
+    bio: 'Electrical engineering student contributing to the WheelSense team.',
+    details: [
+      { label: 'Student ID', value: '6610680222' },
+      { label: 'Program', value: 'Electrical Engineering' },
+      { label: 'Faculty', value: 'Faculty of Engineering' },
+      { label: 'Phone', value: '(+66) 98-695-3954' },
+      { label: 'Email', value: 'chayakorn.yokboonyathikarn@gmail.com' }
+    ],
+    focus: ['Electrical Engineering'],
+    projects: ['WheelSense']
+  },
+  {
+    id: 'chanapa-sadudee',
+    name: 'Ms. Chanapa Sadudee',
+    thaiName: 'Chanapa Sadudee',
+    level: 'Undergraduate',
+    role: 'B.Eng. Student - Electrical Engineering',
+    subtitle: 'Faculty of Engineering, Thammasat University',
+    gradient: 'linear-gradient(135deg, #2e1a3e, #0e1018)',
+    photo: '/assets/Awards/Profile/Chanapa_Profile.jpg',
+    bio: 'Electrical engineering student contributing to the WheelSense team.',
+    details: [
+      { label: 'Student ID', value: '6610680214' },
+      { label: 'Program', value: 'Electrical Engineering' },
+      { label: 'Faculty', value: 'Faculty of Engineering' },
+      { label: 'Phone', value: '(+66) 93-415-1562' },
+      { label: 'Email', value: 'chanapasadudee@gmail.com' }
+    ],
+    focus: ['Electrical Engineering'],
+    projects: ['WheelSense']
+  },
+  {
     id: 'darawadee-panich',
     name: 'Miss. Darawadee Panich',
     thaiName: 'Darawadee Panich',
