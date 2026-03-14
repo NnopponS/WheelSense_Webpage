@@ -589,6 +589,10 @@
     background: var(--color-era-4);
 }
 
+.era-card--5::before {
+    background: var(--color-era-5);
+}
+
 .era-card:hover {
     border-color: rgba(255, 255, 255, 0.08);
     transform: translateY(-2px);
@@ -616,6 +620,10 @@
 
 .era-card--4 .era-card__phase {
     color: var(--color-era-4);
+}
+
+.era-card--5 .era-card__phase {
+    color: var(--color-era-5);
 }
 
 .era-card__title {

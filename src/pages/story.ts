@@ -1,9 +1,9 @@
 // Story page scrollytelling
-import { createNavbar } from '../components/navbar.ts';
-import { createFooter } from '../components/footer.ts';
-import { initSmoothScroll } from '../components/smooth-scroll.ts';
-import { initScrollAnimations, ScrollTrigger } from '../components/scroll-animations.ts';
-import { applyPageOverrides } from '../components/page-content.ts';
+import { createNavbar } from '../components/navbar';
+import { createFooter } from '../components/footer';
+import { initSmoothScroll } from '../components/smooth-scroll';
+import { initScrollAnimations, ScrollTrigger } from '../components/scroll-animations';
+import { applyPageOverrides } from '../components/page-content';
 
 document.addEventListener('DOMContentLoaded', async () => {
     const loader = document.getElementById('loader');
@@ -28,10 +28,11 @@ document.addEventListener('DOMContentLoaded', async () => {
         'Phase 2 - Interaction',
         'Phase 3 - Expansion',
         'Phase 4 - Intelligence',
+        'Phase 5 - Integration',
     ];
 
-    const phaseColors = [0xffffff, 0x34D399, 0xA78BFA, 0xFB923C, 0x60A5FA];
-    const phaseClasses = ['phase-0', 'phase-1', 'phase-2', 'phase-3', 'phase-4'];
+    const phaseColors = [0xffffff, 0x34D399, 0xA78BFA, 0xFB923C, 0x60A5FA, 0xF472B6];
+    const phaseClasses = ['phase-0', 'phase-1', 'phase-2', 'phase-3', 'phase-4', 'phase-5'];
 
     let currentPhase = -1;
     let coordsTicker = null;
@@ -97,7 +98,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     progressDots.forEach((dot) => {
         dot.addEventListener('click', () => {
-            const index = Number.parseInt(dot.dataset.index || '-1', 10);
+            const index = Number.parseInt((dot as HTMLElement).dataset.index || '-1', 10);
             const target = phases[index];
             if (target) {
                 target.scrollIntoView({ behavior: 'smooth', block: 'center' });

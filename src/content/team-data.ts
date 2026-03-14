@@ -178,16 +178,96 @@ export const defaultTeamMembers = [
     subtitle: 'Faculty of Engineering, Thammasat University',
     gradient: 'linear-gradient(135deg, #1a2e3e, #0e1018)',
     photo: '/assets/Awards/Profile/Chayakorn_Profile.jpg',
-    bio: 'Electrical engineering student contributing to the WheelSense team.',
+    bio: 'Third-year Electrical Engineering student at Thammasat University with a keen interest in PCB design and IOT. Through university projects, I have gained hands-on experience with Microcontrollers (Arduino/ESP32) and Python programming. I am a quick learner and a dedicated team player seeking an internship opportunity to apply my academic knowledge and learn industry standards from professional engineers.',
     details: [
       { label: 'Student ID', value: '6610680222' },
       { label: 'Program', value: 'Electrical Engineering' },
       { label: 'Faculty', value: 'Faculty of Engineering' },
-      { label: 'Phone', value: '(+66) 98-695-3954' },
-      { label: 'Email', value: 'chayakorn.yokboonyathikarn@gmail.com' }
+      { label: 'Phone', value: '098-695-3954' },
+      { label: 'Email', value: 'chayakorn.yokboonyathikarn@gmail.com' },
+      { label: 'Address', value: 'Bang Khayaeng, Mueang Pathum Thani, Pathum Thani' }
     ],
-    focus: ['Electrical Engineering'],
-    projects: ['WheelSense']
+    focus: ['PCB Design', 'IoT and Cloud', 'Microcontrollers', 'Software Development'],
+    projects: ['PEA Data Engineering Web Application', 'Custom PCB Shield Development', 'Smart Room Monitoring System', 'WheelSense'],
+    cv: {
+      headline: '3rd year Electrical Engineering Student',
+      institution: 'Thammasat University',
+      contact: 'chayakorn.yokboonyathikarn@gmail.com | 098-695-3954',
+      education: [
+        {
+          school: 'Thammasat University Rangsit Campus',
+          detail: 'Bachelor of Engineering in Electrical Engineering',
+          period: 'Aug 2023 - Present (Expected May 2027)',
+          extra: 'GPA: 3.75'
+        }
+      ],
+      workExperience: [
+        {
+          role: 'Teaching Assistant',
+          organization: 'Thammasat University',
+          period: 'Academic',
+          highlights: [
+            'Mentored undergraduate students in Python fundamentals, assisting with code debugging and explaining complex logic concepts to improve student performance.'
+          ]
+        },
+        {
+          role: 'Speaker & Staff',
+          organization: 'TSE Open House 2025',
+          period: '2025',
+          highlights: [
+            'Presented concepts regarding Satellite Technology to high school students, showing how integral satellites are to our daily lives.'
+          ]
+        }
+      ],
+      projects: [
+        {
+          title: 'PEA Data Engineering Web Application',
+          organization: 'Provincial Electricity Authority (PEA)',
+          period: 'Recent',
+          highlights: [
+            'Developed a full-stack data application using Python (Streamlit) and Flask API to visualize electrical infrastructure data.',
+            'Deployed a Telegram Chatbot integrated with Generative AI (Gemini), allowing users to query the database.'
+          ]
+        },
+        {
+          title: 'Custom PCB Shield Development',
+          organization: 'Academic Project',
+          period: 'Recent',
+          highlights: [
+            'Designed a custom PCB Shield for Arduino UNO R4 WiFi, integrating the MAX13487 transceiver and ADS1115 ADC module.',
+            'Enabled high-precision voltage measurement (+/- 10V) and robust RS485 communication.'
+          ]
+        },
+        {
+          title: 'Smart Room Monitoring System',
+          organization: 'Academic Project',
+          period: 'Recent',
+          highlights: [
+            'Engineered an IoT pipeline using Node-RED and MQTT to aggregate real-time data from sensors.',
+            'Designed a live dashboard to visualize room status and user activity prediction by integrating Google Gemini API.'
+          ]
+        },
+        {
+          title: 'AI Teaching Assistant Web App',
+          organization: 'Coursework',
+          period: 'Recent',
+          highlights: [
+            'Developed a Streamlit-based chatbot for the coursework, integrating Google Gemini with past exam archives to provide personalized tutoring and solution explanations.'
+          ]
+        }
+      ],
+      honors: [
+        'Outstanding Award (APRIS Robot Challenge 2025) - Drone Service Development. Simulated drone flight paths and virtual environments using Unity and Python scripting to demonstrate service feasibility.'
+      ],
+      skills: {
+        core: 'PCB Design, IoT & Cloud (Node-RED, MQTT, REST APIs)',
+        languages: 'Python, SQL, C/C++, Javascript',
+        frameworks: 'Streamlit, Flask API',
+        tools: 'Matlab, Kicad, MS Excel, Arduino/ESP32, Unity',
+        soft: 'Quick learner, dedicated team player',
+        languageSkills: 'Thai, English'
+      }
+    }
   },
   {
     id: 'chanapa-sadudee',

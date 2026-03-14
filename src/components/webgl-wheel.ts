@@ -6,10 +6,10 @@ export class WebGLWheel {
     constructor(container, options = {}) {
         this.container = container;
         this.options = {
-            particleCount: options.particleCount || 2000,
-            color: options.color || 0xffffff,
-            radius: options.radius || 3,
-            rotationSpeed: options.rotationSpeed || 0.002,
+            particleCount: options.particleCount || 5000,
+            color: options.color || 0x38bdf8,
+            radius: options.radius || 3.5,
+            rotationSpeed: options.rotationSpeed || 0.0015,
             ...options,
         };
 
@@ -125,7 +125,8 @@ export class WebGLWheel {
           if (dist > 0.5) discard;
 
           float alpha = vAlpha * smoothstep(0.5, 0.1, dist);
-          gl_FragColor = vec4(uColor, alpha * 1.5); // Boost alpha
+          vec3 finalColor = uColor * (1.0 + (0.5 - dist) * 1.5);
+          gl_FragColor = vec4(finalColor, alpha * 2.5); // Boost alpha and add glow
         }
       `,
             transparent: true,
@@ -176,61 +177,123 @@ export class WebGLWheel {
                 targetPositions[i3 + 1] = r2 * Math.sin(angle);
                 targetPositions[i3 + 2] = (Math.random() - 0.5) * 0.3;
             } else if (shape === 'sensorWheel') {
-                // YES Wheelchair: Wheel with pulsing inner spokes and sensor ring
-                if (Math.random() > 0.3) {
-                    // Outer ring (Sensor Ring)
+                // YES Wheelchair: Structured wheel with rigid spokes
+                if (Math.random() > 0.2) {
+                    // Outer rim
                     const angle = Math.random() * Math.PI * 2;
-                    const r = radius * (0.9 + Math.random() * 0.2);
-                    targetPositions[i3] = r * Math.cos(angle);
-                    targetPositions[i3 + 1] = r * Math.sin(angle);
+                    const r = radius;
+                    targetPositions[i3] = r * Math.cos(angle) + (Math.random() - 0.5) * 0.3;
+                    targetPositions[i3 + 1] = r * Math.sin(angle) + (Math.random() - 0.5) * 0.3;
                     targetPositions[i3 + 2] = (Math.random() - 0.5) * 0.5;
                 } else {
-                    // Spokes (Sensors)
-                    const angle = Math.random() * Math.PI * 2;
-                    const r = Math.random() * radius;
-                    targetPositions[i3] = r * Math.cos(angle);
-                    targetPositions[i3 + 1] = r * Math.sin(angle);
-                    targetPositions[i3 + 2] = (Math.random() - 0.5) * 0.2;
+                    // 6 Rigid Spokes
+                    const numSpokes = 6;
+                    const spokeIdx = Math.floor(Math.random() * numSpokes);
+                    const angle = (spokeIdx / numSpokes) * Math.PI * 2;
+                    const dist = Math.random() * radius;
+                    targetPositions[i3] = dist * Math.cos(angle) + (Math.random() - 0.5) * 0.1;
+                    targetPositions[i3 + 1] = dist * Math.sin(angle) + (Math.random() - 0.5) * 0.1;
+                    targetPositions[i3 + 2] = (Math.random() - 0.5) * 0.1;
                 }
             } else if (shape === 'gameController') {
-                // All Wheelchair: Infinity symbol
-                const t = Math.random() * Math.PI * 2;
-                const scale = radius * 0.6;
-
-                const denom = 1 + Math.sin(t) * Math.sin(t);
-                const x = (scale * Math.cos(t)) / denom;
-                const y = (scale * Math.sin(t) * Math.cos(t)) / denom;
-
-                targetPositions[i3] = x * 2.5 + (Math.random() - 0.5) * 0.5;
-                targetPositions[i3 + 1] = y * 2.5 + (Math.random() - 0.5) * 0.5;
-                targetPositions[i3 + 2] = (Math.random() - 0.5) * 0.8;
+                // ALL Wheelchair: Infinity symbol with game buttons
+                if (Math.random() > 0.15) {
+                    const t = Math.random() * Math.PI * 2;
+                    const scale = radius * 0.7;
+                    const denom = 1 + Math.sin(t) * Math.sin(t);
+                    const x = (scale * Math.cos(t)) / denom;
+                    const y = (scale * Math.sin(t) * Math.cos(t)) / denom;
+                    targetPositions[i3] = x * 2.2 + (Math.random() - 0.5) * 0.3;
+                    targetPositions[i3 + 1] = y * 2.2 + (Math.random() - 0.5) * 0.3;
+                    targetPositions[i3 + 2] = (Math.random() - 0.5) * 0.6;
+                } else {
+                    // Game button clusters
+                    const xOffset = Math.random() > 0.5 ? radius : -radius;
+                    targetPositions[i3] = xOffset + (Math.random() - 0.5) * 0.8;
+                    targetPositions[i3 + 1] = (Math.random() - 0.5) * 0.8;
+                    targetPositions[i3 + 2] = 0.5 + Math.random() * 0.5;
+                }
             } else if (shape === 'raceTrack') {
-                // Marathon: Helix / Spiral
-                const angle = (i / count) * Math.PI * 8; // 4 turns
-                const spiralRadius = radius * 0.6;
-
-                targetPositions[i3] = spiralRadius * Math.cos(angle);
-                targetPositions[i3 + 1] = spiralRadius * Math.sin(angle);
-                targetPositions[i3 + 2] = (angle / (Math.PI * 8)) * radius * 4 - radius * 2;
-
-                // Add thickness
-                targetPositions[i3] += (Math.random() - 0.5) * 0.3;
-                targetPositions[i3 + 1] += (Math.random() - 0.5) * 0.3;
-                targetPositions[i3 + 2] += (Math.random() - 0.5) * 0.3;
-
+                // smartVibe: Global map / sphere with orbiting telemetry rings
+                if (Math.random() > 0.3) {
+                    // Globe
+                    const phi = Math.acos(2 * Math.random() - 1);
+                    const theta = Math.random() * Math.PI * 2;
+                    const r = radius * 0.8;
+                    targetPositions[i3] = r * Math.sin(phi) * Math.cos(theta);
+                    targetPositions[i3 + 1] = r * Math.sin(phi) * Math.sin(theta);
+                    targetPositions[i3 + 2] = r * Math.cos(phi);
+                } else {
+                    // Orbiting structural ring
+                    const angle = Math.random() * Math.PI * 2;
+                    const r = radius * 1.2;
+                    targetPositions[i3] = r * Math.cos(angle) + (Math.random() - 0.5) * 0.2;
+                    targetPositions[i3 + 1] = (Math.random() - 0.5) * 0.2;
+                    targetPositions[i3 + 2] = r * Math.sin(angle) + (Math.random() - 0.5) * 0.2;
+                }
             } else if (shape === 'brain') {
-                // WheelSense: Brain Hemisphere
-                const theta = Math.random() * Math.PI * 2;
-                const val = Math.random();
-                const phi_sph = Math.acos(2 * val - 1);
-
-                const r = radius * 0.8;
-                const noise = Math.sin(phi_sph * 10) * Math.cos(theta * 10) * 0.1;
-                const finalR = r + noise;
-
-                targetPositions[i3] = finalR * Math.sin(phi_sph) * Math.cos(theta);
-                targetPositions[i3 + 1] = finalR * Math.sin(phi_sph) * Math.sin(theta);
-                targetPositions[i3 + 2] = finalR * Math.cos(phi_sph);
+                // WheelSense: Smart Home (House Wireframe & Inner Nodes)
+                if (Math.random() > 0.3) {
+                    // House Wireframe / Base
+                    const t = Math.random();
+                    const edge = Math.floor(Math.random() * 5);
+                    const s = radius * 0.7;
+                    if (edge === 0) { // Bottom
+                        targetPositions[i3] = (t - 0.5) * s * 2;
+                        targetPositions[i3 + 1] = -s;
+                        targetPositions[i3 + 2] = (Math.random() - 0.5) * s * 2;
+                    } else if (edge === 1) { // Left Wall
+                        targetPositions[i3] = -s;
+                        targetPositions[i3 + 1] = (t - 0.5) * s * 2;
+                        targetPositions[i3 + 2] = (Math.random() - 0.5) * s * 2;
+                    } else if (edge === 2) { // Right Wall
+                        targetPositions[i3] = s;
+                        targetPositions[i3 + 1] = (t - 0.5) * s * 2;
+                        targetPositions[i3 + 2] = (Math.random() - 0.5) * s * 2;
+                    } else if (edge === 3) { // Left Roof
+                        targetPositions[i3] = -s + t * s;
+                        targetPositions[i3 + 1] = s + t * s;
+                        targetPositions[i3 + 2] = (Math.random() - 0.5) * s * 2;
+                    } else { // Right Roof
+                        targetPositions[i3] = s - t * s;
+                        targetPositions[i3 + 1] = s + t * s;
+                        targetPositions[i3 + 2] = (Math.random() - 0.5) * s * 2;
+                    }
+                } else {
+                    // Inner smart nodes
+                    const r = radius * 0.4 * Math.random();
+                    const theta = Math.random() * Math.PI * 2;
+                    const phi = Math.acos(2 * Math.random() - 1);
+                    targetPositions[i3] = r * Math.sin(phi) * Math.cos(theta);
+                    targetPositions[i3 + 1] = r * Math.sin(phi) * Math.sin(theta);
+                    targetPositions[i3 + 2] = r * Math.cos(phi);
+                }
+            } else if (shape === 'aiCore') {
+                // EASE AI: Nursing Home (Medical Cross inside protective dome)
+                if (Math.random() > 0.4) {
+                    // Medical Cross shape
+                    const isVertical = Math.random() > 0.5;
+                    const len = (Math.random() - 0.5) * radius * 1.2;
+                    const width = (Math.random() - 0.5) * radius * 0.35;
+                    const depth = (Math.random() - 0.5) * 0.2;
+                    if (isVertical) {
+                        targetPositions[i3] = width;
+                        targetPositions[i3 + 1] = len;
+                        targetPositions[i3 + 2] = depth;
+                    } else {
+                        targetPositions[i3] = len;
+                        targetPositions[i3 + 1] = width;
+                        targetPositions[i3 + 2] = depth;
+                    }
+                } else {
+                    // Protective shield network (Sphere shell)
+                    const phi = Math.acos(2 * Math.random() - 1);
+                    const theta = Math.random() * Math.PI * 2;
+                    const r = radius * 1.1 + (Math.random() - 0.5) * 0.15;
+                    targetPositions[i3] = r * Math.sin(phi) * Math.cos(theta);
+                    targetPositions[i3 + 1] = r * Math.sin(phi) * Math.sin(theta);
+                    targetPositions[i3 + 2] = r * Math.cos(phi);
+                }
             }
         }
 

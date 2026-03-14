@@ -24,7 +24,7 @@ type MilestoneLike = {
     year?: string;
 };
 
-const ALLOWED_AWARD_ERAS = new Set(['yes-wheelchair', 'all-wheelchair', 'wheelsense']);
+const ALLOWED_AWARD_ERAS = new Set(['yes-wheelchair', 'all-wheelchair', 'wheelsense', 'easeai']);
 
 function normalizeHomeSectionText(): void {
     const heroSubtitle = document.querySelector('.hero__subtitle');
@@ -37,9 +37,9 @@ function normalizeHomeSectionText(): void {
 
     const targets = [
         { selector: '#storyPreview .reveal p', fallback: 'Our Journey' },
-        { selector: '#storyPreview .reveal h2', fallback: 'Four Eras of Innovation' },
+        { selector: '#storyPreview .reveal h2', fallback: 'Five Eras of Innovation' },
         { selector: '#projectPreview .reveal p', fallback: 'Project Highlights' },
-        { selector: '#projectPreview .reveal h2', fallback: 'Four Generations in Live Previews' },
+        { selector: '#projectPreview .reveal h2', fallback: 'Five Generations in Live Previews' },
         { selector: '#teamPreview .reveal p', fallback: 'The Collective' },
         { selector: '#teamPreview .reveal h2', fallback: 'Our Team' },
     ];
@@ -329,11 +329,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     const heroCanvas = document.getElementById('heroCanvas');
     if (heroCanvas) {
         const wheel = new WebGLWheel(heroCanvas, {
-            particleCount: 2500,
-            color: 0xffffff,
-            radius: 3,
-            rotationSpeed: 0.001,
+            particleCount: 5000,
+            color: 0x38bdf8,
+            radius: 3.5,
+            rotationSpeed: 0.0012,
         });
+
+        wheel.morphTo('aiCore');
 
         const heroContent = document.querySelector('.hero__content');
         const scrollIndicator = document.querySelector('.scroll-indicator');

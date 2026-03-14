@@ -1,9 +1,9 @@
 // Projects page (TypeScript)
-import { createNavbar } from '../components/navbar.ts';
-import { createFooter } from '../components/footer.ts';
-import { initSmoothScroll } from '../components/smooth-scroll.ts';
-import { initScrollAnimations } from '../components/scroll-animations.ts';
-import { applyPageOverrides } from '../components/page-content.ts';
+import { createNavbar } from '../components/navbar';
+import { createFooter } from '../components/footer';
+import { initSmoothScroll } from '../components/smooth-scroll';
+import { initScrollAnimations } from '../components/scroll-animations';
+import { applyPageOverrides } from '../components/page-content';
 
 type ProjectMetric = {
     label: string;
@@ -162,6 +162,38 @@ const projectData: Record<string, ProjectData> = {
             { label: 'Generation', value: 'Intelligent Companion' },
         ],
     },
+    easeai: {
+        era: 'Era 05 - Integration',
+        color: '#F472B6',
+        title: 'EASE AI',
+        overview: 'An AI-driven HealthTech system that integrates sensing, localization, and smart home automation for continuous, preventive care.',
+        problem: 'Most assistive tech targets clinical settings or lacks continuous monitoring and context-aware integration for home use.',
+        solution: 'Developed an AI caregiver ecosystem with a contract-driven control pipeline to safely orchestrate smart environments and alert caregivers to verified anomalies.',
+        technology: ['Arduino Connect', 'Polar Verity', 'Pico W', 'MCP Pipeline', 'Home Assistant'],
+        impact: 'Provided independent living support, improved detection accuracy, and reduced caregiver burden via a secure workflow.',
+        videoEmbed: '',
+        goals: [
+            'Enable continuous behavioral analysis for wheelchair users.',
+            'Trigger intelligent smart home automation deterministically.',
+            'Alleviate caregiver burden through verified real-time alerts.',
+        ],
+        workflow: [
+            'Collect IMU, HR, and RSSI location data centrally.',
+            'Process context using constrained LLM and knowledge RAG.',
+            'Validate actions explicitly before smart-home execution.',
+        ],
+        deliverables: [
+            'Wearable sensor and Bluetooth anchor network.',
+            'Secure multi-layer execution AI pipeline.',
+            'Web platform and caregiver mobile dashboard.',
+        ],
+        metrics: [
+            { label: 'System Focus', value: 'Proactive HealthTech' },
+            { label: 'Core Modality', value: 'Continuous Health AI' },
+            { label: 'Environment', value: 'Smart Care Facilities' },
+            { label: 'Generation', value: 'Unified Platform' },
+        ],
+    },
 };
 
 function extractYoutubeVideoId(embedUrl: string): string {
@@ -194,7 +226,7 @@ function buildYoutubeEmbedUrl(embedUrl: string, options: EmbedOptions = {}): str
         params.set('playlist', videoId);
     }
 
-    return `https://www.youtube.com/embed/${videoId}?${params.toString()}`;
+    return `https://www.youtube-nocookie.com/embed/${videoId}?${params.toString()}`;
 }
 
 function initVideoPreview(card: Element): void {
@@ -205,25 +237,40 @@ function initVideoPreview(card: Element): void {
     const visual = card.querySelector('.project-card__visual') as HTMLElement | null;
     if (!visual) return;
 
-    const preview = document.createElement('iframe');
-    preview.className = 'project-card__video-preview';
-    preview.src = buildYoutubeEmbedUrl(data.videoEmbed, {
-        autoplay: true,
-        mute: true,
-        loop: true,
-        controls: false,
-    });
-    preview.loading = 'lazy';
-    preview.tabIndex = -1;
-    preview.setAttribute('aria-hidden', 'true');
-    preview.setAttribute('allow', 'autoplay; encrypted-media; picture-in-picture');
-    preview.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
-
     const shade = document.createElement('div');
     shade.className = 'project-card__preview-shade';
-
     visual.prepend(shade);
-    visual.prepend(preview);
+
+    if (data.videoEmbed) {
+        const preview = document.createElement('iframe');
+        preview.className = 'project-card__video-preview';
+        preview.src = buildYoutubeEmbedUrl(data.videoEmbed, {
+            autoplay: true,
+            mute: true,
+            loop: true,
+            controls: false,
+        });
+        preview.loading = 'lazy';
+        preview.tabIndex = -1;
+        preview.setAttribute('aria-hidden', 'true');
+        preview.setAttribute('allow', 'autoplay; encrypted-media; picture-in-picture');
+        preview.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
+        visual.prepend(preview);
+    } else {
+        const placeholder = document.createElement('div');
+        placeholder.className = 'project-card__video-preview';
+        placeholder.style.background = '#050812';
+        placeholder.style.display = 'flex';
+        placeholder.style.alignItems = 'center';
+        placeholder.style.justifyContent = 'center';
+        placeholder.style.color = 'var(--color-text-tertiary)';
+        placeholder.style.fontSize = '0.7rem';
+        placeholder.style.letterSpacing = 'var(--tracking-wider)';
+        placeholder.style.textTransform = 'uppercase';
+        placeholder.style.zIndex = '0';
+        placeholder.innerHTML = '<span>Coming Soon</span>';
+        visual.prepend(placeholder);
+    }
 }
 
 function renderList(items: string[]): string {
@@ -252,6 +299,7 @@ function renderProjectDetail(data: ProjectData): string {
           <article class="project-panel project-panel--video">
             <p class="project-section__label">Project Video</p>
             <div class="project-video">
+              ${data.videoEmbed ? `
               <iframe
                 src="${buildYoutubeEmbedUrl(data.videoEmbed, { autoplay: true, controls: true })}"
                 title="${data.title} video"
@@ -260,6 +308,12 @@ function renderProjectDetail(data: ProjectData): string {
                 referrerpolicy="strict-origin-when-cross-origin"
                 allowfullscreen
               ></iframe>
+              ` : `
+              <div class="project-video__placeholder" style="display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; min-height: 400px; background: #050812; color: var(--color-text-secondary); flex-direction: column; gap: 1rem;">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="opacity: 0.5"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+                <p style="font-size: var(--text-small); letter-spacing: var(--tracking-wide); text-transform: uppercase;">Video Coming Soon</p>
+              </div>
+              `}
             </div>
             <div class="project-columns project-columns--mini">
               <div class="project-column">
