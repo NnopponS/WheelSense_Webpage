@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
+        content="WheelSense Projects - Four generations of wheelchair innovation, from IoT sensors to AI-powered smart environments." />
+    <title>Projects - WheelSense</title>
+    <style>
+        .projects-hero {
+            min-height: 50vh;
+            display: flex;
+            align-items: flex-end;
+            padding-bottom: var(--space-3xl);
+            text-align: center;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-md);
+        }
+
+        .project-card {
+            position: relative;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            background: var(--color-bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            transition: all var(--duration-normal) var(--ease-out-quart);
+            cursor: pointer;
+        }
+
+        .project-card:hover {
+            border-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-4px);
+            box-shadow: 0 24px 64px rgba(0, 0, 0, 0.5);
+        }
+
+        .project-card__visual {
+            width: 100%;
+            height: 280px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card__video-preview {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+            pointer-events: none;
+            transform: scale(1.08);
+            filter: saturate(0.85) contrast(1.02);
+            z-index: 0;
+        }
+
+        .project-card__preview-shade {
+            position: absolute;
+            inset: 0;
+            background:
+                linear-gradient(180deg, rgba(5, 8, 16, 0.2), rgba(5, 8, 16, 0.72) 86%),
+                radial-gradient(circle at 14% 14%, rgba(255, 255, 255, 0.08), transparent 48%);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .project-card__gradient {
+            position: absolute;
+            inset: 0;
+            opacity: 0.15;
+            z-index: 2;
+        }
+
+        .project-card__era {
+            position: absolute;
+            top: var(--space-md);
+            left: var(--space-md);
+            font-size: var(--text-caption);
+            font-weight: 500;
+            letter-spacing: var(--tracking-wider);
+            text-transform: uppercase;
+            padding: 4px 12px;
+            border-radius: var(--radius-full);
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            z-index: 3;
+        }
+
+        .project-card__body {
+            padding: var(--space-lg);
+        }
+
+        .project-card__title {
+            font-family: var(--font-display);
+            font-size: var(--text-h3);
+            font-weight: 600;
+            margin-bottom: var(--space-xs);
+        }
+
+        .project-card__subtitle {
+            font-size: var(--text-body);
+            color: var(--color-text-secondary);
+            margin-bottom: var(--space-md);
+        }
+
+        .project-card__tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .project-card__tag {
+            font-size: var(--text-caption);
+            color: var(--color-text-tertiary);
+            padding: 4px 10px;
+            border-radius: var(--radius-full);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        /* Project Detail Modal / Expandable */
+        .project-detail {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: var(--z-modal);
+            background: var(--color-bg);
+            overflow-y: auto;
+        }
+
+        .project-detail.is-open {
+            display: block;
+        }
+
+        .project-detail__close {
+            position: fixed;
+            top: var(--space-md);
+            right: var(--space-md);
+            z-index: var(--z-modal);
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            color: var(--color-text-secondary);
+            transition: all var(--duration-fast);
+            cursor: pointer;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .project-detail__close:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--color-text-primary);
+        }
+
+        .project-detail__hero {
+            min-height: 56vh;
+            display: flex;
+            align-items: flex-end;
+            padding: var(--space-3xl) 0;
+            position: relative;
+        }
+
+        .project-detail__hero-bg {
+            position: absolute;
+            inset: 0;
+            opacity: 0.2;
+        }
+
+        .project-detail__hero-bg::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, var(--color-bg), transparent 70%);
+        }
+
+        .project-detail__sections {
+            padding: var(--space-2xl) 0;
+        }
+
+        .project-video {
+            width: 100%;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: #030407;
+            aspect-ratio: 16 / 9;
+            box-shadow: 0 16px 45px rgba(0, 0, 0, 0.35);
+        }
+
+        .project-video iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+            display: block;
+        }
+
+        .project-detail__hero-shell {
+            max-width: 920px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: var(--radius-xl);
+            padding: clamp(1.2rem, 2.8vw, var(--space-xl));
+            background:
+                linear-gradient(160deg, rgba(9, 13, 25, 0.95), rgba(7, 9, 18, 0.94)),
+                radial-gradient(circle at 78% 14%, rgba(125, 211, 252, 0.2), transparent 46%);
+            box-shadow: 0 28px 72px rgba(0, 0, 0, 0.4);
+        }
+
+        .project-detail__hero-kicker {
+            font-size: var(--text-caption);
+            letter-spacing: var(--tracking-wider);
+            text-transform: uppercase;
+            margin-bottom: 0.45rem;
+        }
+
+        .project-detail__hero-title {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 4.6vw, 4rem);
+            line-height: var(--leading-tight);
+            margin-bottom: 0.55rem;
+        }
+
+        .project-detail__hero-overview {
+            color: var(--color-text-secondary);
+            max-width: 780px;
+            line-height: var(--leading-relaxed);
+            margin-bottom: var(--space-md);
+            font-size: var(--text-body-lg);
+        }
+
+        .project-detail__hero-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .project-chip {
+            border-radius: var(--radius-full);
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            padding: 0.35rem 0.8rem;
+            font-size: var(--text-caption);
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+            color: var(--color-text-secondary);
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .project-detail-layout {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: var(--space-md);
+            margin-bottom: var(--space-md);
+        }
+
+        .project-panel {
+            border: 1px solid rgba(255, 255, 255, 0.09);
+            border-radius: var(--radius-xl);
+            background:
+                linear-gradient(170deg, rgba(11, 14, 25, 0.95), rgba(7, 10, 18, 0.94)),
+                radial-gradient(circle at 88% 12%, rgba(56, 189, 248, 0.16), transparent 45%);
+            padding: clamp(1rem, 2vw, var(--space-lg));
+            box-shadow: 0 22px 56px rgba(0, 0, 0, 0.32);
+        }
+
+        .project-panel__text {
+            color: var(--color-text-secondary);
+            line-height: var(--leading-relaxed);
+        }
+
+        .project-panel__list {
+            display: grid;
+            gap: 0.45rem;
+            margin: 0;
+            padding-left: 1.1rem;
+            color: var(--color-text-secondary);
+            list-style: disc;
+            line-height: 1.55;
+            font-size: var(--text-small);
+        }
+
+        .project-kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.65rem;
+            margin-bottom: var(--space-md);
+        }
+
+        .project-kpi {
+            border-radius: var(--radius-md);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.03);
+            padding: 0.75rem 0.8rem;
+        }
+
+        .project-kpi__label {
+            font-size: 0.66rem;
+            letter-spacing: var(--tracking-wide);
+            text-transform: uppercase;
+            color: var(--color-text-tertiary);
+            margin-bottom: 0.2rem;
+        }
+
+        .project-kpi__value {
+            font-size: var(--text-small);
+            color: var(--color-text-secondary);
+            line-height: 1.45;
+        }
+
+        .project-columns {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 0.75rem;
+            margin-top: var(--space-md);
+        }
+
+        .project-columns--mini {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .project-column {
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: var(--radius-md);
+            background: rgba(255, 255, 255, 0.02);
+            padding: 0.75rem;
+        }
+
+        .project-tech-cloud {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.55rem;
+            margin-bottom: var(--space-md);
+        }
+
+        .project-tech-pill {
+            font-size: var(--text-small);
+            color: var(--color-text-secondary);
+            padding: 0.38rem 0.9rem;
+            border-radius: var(--radius-full);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .project-panel__divider {
+            height: 1px;
+            width: 100%;
+            margin: var(--space-md) 0;
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.02));
+        }
+
+        @media (max-width: 768px) {
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .project-card__visual {
+                height: 200px;
+            }
+
+            .project-detail-layout,
+            .project-columns,
+            .project-columns--mini {
+                grid-template-columns: 1fr;
+            }
+
+            .project-kpi-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+  <script type="module" crossorigin src="/assets/projects-RM8lJOmH.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/page-content-CrDTnGsh.js">
+  <link rel="modulepreload" crossorigin href="/assets/scroll-animations-YVwvv1SP.js">
+  <link rel="stylesheet" crossorigin href="/assets/page-content-B_L-P2B7.css">
+</head>
+
+<body>
+    <div class="loader" id="loader">
+        <div class="loader__spinner"></div>
+    </div>
+
+    <main id="main">
+        <section class="projects-hero section-full">
+            <div class="container" style="text-align: center; width: 100%;">
+                <div class="reveal">
+                    <p class="text-small text-tertiary"
+                        style="letter-spacing: var(--tracking-wider); text-transform: uppercase; margin-bottom: var(--space-sm);">
+                        Portfolio</p>
+                    <h1 class="h1" style="margin-bottom: var(--space-md);">Our Projects</h1>
+                    <p class="text-body-lg text-secondary" style="max-width: 600px; margin: 0 auto;">Five generations of
+                        wheelchair innovation, each building upon the last.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container container-wide">
+                <div class="projects-grid stagger-children" id="projectsGrid">
+                    <!-- YES Wheelchair -->
+                    <div class="project-card" data-project="yes-wheelchair">
+                        <div class="project-card__visual">
+                            <div class="project-card__gradient"
+                                style="background: linear-gradient(135deg, var(--color-era-1), transparent);"></div>
+                            <span class="project-card__era" style="color: var(--color-era-1);">Era 01</span>
+                        </div>
+                        <div class="project-card__body">
+                            <h3 class="project-card__title">YES Wheelchair</h3>
+                            <p class="project-card__subtitle">IoT-enabled wheelchair with health metrics and fall
+                                detection system.</p>
+                            <div class="project-card__tags">
+                                <span class="project-card__tag">IoT</span>
+                                <span class="project-card__tag">Sensors</span>
+                                <span class="project-card__tag">Safety</span>
+                                <span class="project-card__tag">Health Monitoring</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ALL Wheelchair -->
+                    <div class="project-card" data-project="all-wheelchair">
+                        <div class="project-card__visual">
+                            <div class="project-card__gradient"
+                                style="background: linear-gradient(135deg, var(--color-era-2), transparent);"></div>
+                            <span class="project-card__era" style="color: var(--color-era-2);">Era 02</span>
+                        </div>
+                        <div class="project-card__body">
+                            <h3 class="project-card__title">ALL Wheelchair</h3>
+                            <p class="project-card__subtitle">Motion-controlled exergaming for wheelchair
+                                rehabilitation.</p>
+                            <div class="project-card__tags">
+                                <span class="project-card__tag">Motion Tracking</span>
+                                <span class="project-card__tag">Exergaming</span>
+                                <span class="project-card__tag">Rehabilitation</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- smartVibe -->
+                    <div class="project-card" data-project="marathon-racing">
+                        <div class="project-card__visual">
+                            <div class="project-card__gradient"
+                                style="background: linear-gradient(135deg, var(--color-era-3), transparent);"></div>
+                            <span class="project-card__era" style="color: var(--color-era-3);">Era 03</span>
+                        </div>
+                        <div class="project-card__body">
+                            <h3 class="project-card__title">smartVibe</h3>
+                            <p class="project-card__subtitle">Outdoor intelligent mobility with adaptive telemetry and
+                                interaction feedback.</p>
+                            <div class="project-card__tags">
+                                <span class="project-card__tag">GPS</span>
+                                <span class="project-card__tag">4G LTE</span>
+                                <span class="project-card__tag">Telemetry</span>
+                                <span class="project-card__tag">Adaptive Interaction</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- WheelSense -->
+                    <div class="project-card" data-project="wheelsense">
+                        <div class="project-card__visual">
+                            <div class="project-card__gradient"
+                                style="background: linear-gradient(135deg, var(--color-era-4), transparent);"></div>
+                            <span class="project-card__era" style="color: var(--color-era-4);">Era 04</span>
+                        </div>
+                        <div class="project-card__body">
+                            <h3 class="project-card__title">WheelSense</h3>
+                            <p class="project-card__subtitle">AI-powered smart environment with computer vision and
+                                voice control.</p>
+                            <div class="project-card__tags">
+                                <span class="project-card__tag">AI</span>
+                                <span class="project-card__tag">Computer Vision</span>
+                                <span class="project-card__tag">Smart Home</span>
+                                <span class="project-card__tag">Voice Control</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- EASE AI -->
+                    <div class="project-card" data-project="easeai">
+                        <div class="project-card__visual">
+                            <div class="project-card__gradient"
+                                style="background: linear-gradient(135deg, var(--color-era-5), transparent);"></div>
+                            <span class="project-card__era" style="color: var(--color-era-5);">Era 05</span>
+                        </div>
+                        <div class="project-card__body">
+                            <h3 class="project-card__title">EASE AI</h3>
+                            <p class="project-card__subtitle">AI-driven HealthTech platform for continuous monitoring and smart home automation.</p>
+                            <div class="project-card__tags">
+                                <span class="project-card__tag">HealthTech</span>
+                                <span class="project-card__tag">AI</span>
+                                <span class="project-card__tag">Smart Home</span>
+                                <span class="project-card__tag">Continuous Monitoring</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Project Detail Modal -->
+        <div class="project-detail" id="projectDetail" data-lenis-prevent>
+            <button class="project-detail__close" id="projectDetailClose">&times;</button>
+            <div id="projectDetailContent"></div>
+        </div>
+    </main>
+
+</body>
+
+</html>
+
+

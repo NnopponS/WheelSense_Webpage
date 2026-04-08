@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Get in touch with WheelSense - we'd love to hear from you." />
+    <title>Contact - WheelSense</title>
+    <style>
+        .contact-layout {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: var(--space-4xl) 0;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-3xl);
+            align-items: center;
+        }
+
+        .contact-info__title {
+            font-family: var(--font-display);
+            font-size: var(--text-h1);
+            font-weight: 700;
+            letter-spacing: var(--tracking-tight);
+            margin-bottom: var(--space-lg);
+        }
+
+        .contact-info__text {
+            font-size: var(--text-body-lg);
+            color: var(--color-text-secondary);
+            line-height: var(--leading-relaxed);
+            margin-bottom: var(--space-xl);
+            max-width: 450px;
+        }
+
+        .contact-info__details {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-md);
+        }
+
+        .contact-info__item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .contact-info__item-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.04);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+
+        .contact-info__item-text {
+            font-size: var(--text-small);
+            color: var(--color-text-secondary);
+        }
+
+        .contact-info__item-label {
+            font-size: var(--text-caption);
+            color: var(--color-text-tertiary);
+            letter-spacing: var(--tracking-wide);
+            text-transform: uppercase;
+            margin-bottom: 2px;
+        }
+
+        .contact-form-card {
+            padding: var(--space-xl);
+        }
+
+        .contact-form-card h3 {
+            font-family: var(--font-display);
+            font-size: var(--text-h3);
+            font-weight: 600;
+            margin-bottom: var(--space-lg);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-md);
+        }
+
+        .form-submit {
+            margin-top: var(--space-xl);
+        }
+
+        .form-error {
+            display: none;
+            margin-top: var(--space-sm);
+            font-size: var(--text-small);
+            color: #fca5a5;
+            line-height: 1.4;
+        }
+
+        .form-error.is-visible {
+            display: block;
+        }
+
+        .form-success {
+            display: none;
+            text-align: center;
+            padding: var(--space-3xl) var(--space-lg);
+        }
+
+        .form-success.is-visible {
+            display: block;
+        }
+
+        .form-success__icon {
+            font-size: 3rem;
+            margin-bottom: var(--space-md);
+        }
+
+        @media (max-width: 768px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: var(--space-xl);
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+  <script type="module" crossorigin src="/assets/contact-BenrnYOA.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/page-content-CrDTnGsh.js">
+  <link rel="modulepreload" crossorigin href="/assets/scroll-animations-YVwvv1SP.js">
+  <link rel="stylesheet" crossorigin href="/assets/page-content-B_L-P2B7.css">
+</head>
+
+<body>
+    <div class="loader" id="loader">
+        <div class="loader__spinner"></div>
+    </div>
+
+    <main id="main">
+        <section class="contact-layout">
+            <div class="container container-wide">
+                <div class="contact-grid">
+                    <!-- Left: Info -->
+                    <div class="contact-info reveal-left">
+                        <h1 class="contact-info__title">Let's Talk.</h1>
+                        <p class="contact-info__text">
+                            For collaborations and research inquiries, please contact Assoc. Prof. Sairag Saadprai, Ph.D.
+                            directly. We welcome academic and innovation partnerships.
+                        </p>
+                        <div class="contact-info__details">
+                            <div class="contact-info__item">
+                                <div class="contact-info__item-icon">&#9993;</div>
+                                <div>
+                                    <p class="contact-info__item-label">Primary Contact</p>
+                                    <p class="contact-info__item-text">sairag.saa@allied.tu.ac.th</p>
+                                </div>
+                            </div>
+                            <div class="contact-info__item">
+                                <div class="contact-info__item-icon">&#128205;</div>
+                                <div>
+                                    <p class="contact-info__item-label">Location</p>
+                                    <p class="contact-info__item-text">Faculty of Allied Health Sciences, Thammasat University</p>
+                                </div>
+                            </div>
+                            <div class="contact-info__item">
+                                <div class="contact-info__item-icon">&#128300;</div>
+                                <div>
+                                    <p class="contact-info__item-label">Lab</p>
+                                    <p class="contact-info__item-text">Assistive Technology Research Group</p>
+                                </div>
+                            </div>
+                            <div class="contact-info__item">
+                                <div class="contact-info__item-icon">&#9742;</div>
+                                <div>
+                                    <p class="contact-info__item-label">Phone</p>
+                                    <p class="contact-info__item-text">(+66) 81-987-2522</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Form -->
+                    <div class="glass-card contact-form-card reveal-right">
+                        <h3>Send a Message</h3>
+                        <form id="contactForm">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label" for="name">Name</label>
+                                    <input type="text" id="name" name="name" class="form-input" placeholder="Your name" required />
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="email">Email</label>
+                                    <input type="email" id="email" name="email" class="form-input" placeholder="your@email.com"
+                                        required />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="subject">Subject</label>
+                                <input type="text" id="subject" name="subject" class="form-input" placeholder="What's this about?" />
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="message">Message</label>
+                                <textarea id="message" name="message" class="form-input" placeholder="Tell us more..." rows="5"
+                                    required></textarea>
+                            </div>
+                            <div class="form-submit">
+                                <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message</button>
+                                <p class="form-error" id="formError" role="alert" aria-live="polite"></p>
+                            </div>
+                        </form>
+                        <div class="form-success" id="formSuccess">
+                            <div class="form-success__icon">&#10003;</div>
+                            <h3 style="margin-bottom: var(--space-sm);">Message Sent</h3>
+                            <p class="text-secondary">Thank you for reaching out. We'll get back to you soon.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+</body>
+
+</html>
+
+
