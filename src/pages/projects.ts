@@ -94,6 +94,10 @@ type ProjectData = {
     deliverables: string[];
     metrics: ProjectMetric[];
     documentation?: ProjectDocumentation;
+    /** Optional hero CTA (e.g. Google Drive folder for prototype download). */
+    downloadUrl?: string;
+    downloadLabel?: string;
+    downloadHint?: string;
 };
 
 type EmbedOptions = {
@@ -169,6 +173,10 @@ const projectData: Record<string, ProjectData> = {
             { label: 'Games Tested', value: 'Alien Invasion, Bouncing Ball, Lucky Bird' },
             { label: 'Tracked Signals', value: 'Wheel rotations, distance, heart rate' },
         ],
+        downloadUrl:
+            'https://drive.google.com/drive/folders/1HOcf0TTHFIXgkqvoQrKlwbhs7fnDdabH?usp=sharing',
+        downloadLabel: 'Download ALL Wheelchair',
+        downloadHint: 'Google Drive folder · ALL Wheelchair.rar (~336 MB)',
         documentation: {
             title: 'Documentation',
             figure: {
@@ -841,6 +849,30 @@ function renderProjectDetail(data: ProjectData): string {
           <div class="project-detail__hero-chips">
             ${data.technology.slice(0, 4).map((item) => `<span class="project-chip">${item}</span>`).join('')}
           </div>
+          ${
+              data.downloadUrl
+                  ? `
+          <div class="project-detail__hero-actions">
+            <a
+              class="project-detail__download-btn"
+              href="${data.downloadUrl}"
+              target="_blank"
+              rel="noopener noreferrer"
+              style="--download-accent: ${data.color};"
+              aria-label="${data.downloadLabel || 'Download'} — opens in a new tab"
+            >
+              <svg class="project-detail__download-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              <span>${data.downloadLabel || 'Download'}</span>
+            </a>
+            ${
+                data.downloadHint
+                    ? `<p class="project-detail__download-hint">${data.downloadHint}</p>`
+                    : ''
+            }
+          </div>
+          `
+                  : ''
+          }
         </div>
       </div>
     </div>
