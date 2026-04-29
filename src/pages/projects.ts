@@ -10,6 +10,75 @@ type ProjectMetric = {
     value: string;
 };
 
+type ProjectDocumentationTable = {
+    title: string;
+    columns: string[];
+    rows: string[][];
+};
+
+type ProjectScreenshot = {
+    src?: string;
+    alt: string;
+    caption: string;
+};
+
+type ProjectScreenshotGroup = {
+    title: string;
+    screenshots: ProjectScreenshot[];
+    /** 'wide' = auto-fill columns for many tiles (e.g. web dashboard) */
+    gridVariant?: 'default' | 'wide';
+};
+
+type ProjectDocumentationCaptureSection = {
+    title: string;
+    description: string;
+    resultNote: string;
+    table: ProjectDocumentationTable;
+    /** Optional thumbnails next to this block (e.g. realtime plot) */
+    screenshots?: ProjectScreenshot[];
+};
+
+type ProjectDocumentationDistanceSection = {
+    title: string;
+    description: string;
+    resultNote: string;
+    table: ProjectDocumentationTable;
+    /** Optional thumbnails next to this block (e.g. session digest / distance overlays) */
+    screenshots?: ProjectScreenshot[];
+};
+
+type ProjectDocumentationInterfaceSection = {
+    title: string;
+    bullets: string[];
+    screenshots?: ProjectScreenshot[];
+};
+
+type ProjectDocumentationGamesSection = {
+    title: string;
+    bullets: string[];
+    summaryNote: string;
+    benchmarkTables: ProjectDocumentationTable[];
+    /** Arcade / web evidence thumbnails */
+    screenshots?: ProjectScreenshot[];
+};
+
+type ProjectDocumentation = {
+    title: string;
+    figure?: {
+        src?: string;
+        alt: string;
+    };
+    keyFacts: string[];
+    /** Session / gameplay thumbnails not tied to Interface & Workflow (e.g. arcade captures, analytics pipeline) */
+    evidenceScreenshotGroup?: ProjectScreenshotGroup;
+    /** Web dashboard: score logs, overview tables, motion analysis, raw traces, auth history */
+    websiteAnalyticsGroup?: ProjectScreenshotGroup;
+    continuousCapture: ProjectDocumentationCaptureSection;
+    distanceValidation: ProjectDocumentationDistanceSection;
+    interfaceWorkflow: ProjectDocumentationInterfaceSection;
+    motionGames: ProjectDocumentationGamesSection;
+};
+
 type ProjectData = {
     era: string;
     color: string;
@@ -24,6 +93,7 @@ type ProjectData = {
     workflow: string[];
     deliverables: string[];
     metrics: ProjectMetric[];
+    documentation?: ProjectDocumentation;
 };
 
 type EmbedOptions = {
@@ -70,11 +140,11 @@ const projectData: Record<string, ProjectData> = {
         era: 'Era 02 - Interaction',
         color: '#A78BFA',
         title: 'ALL Wheelchair',
-        overview: 'A rehabilitation platform that converts wheelchair movement into game interactions for exergaming-based therapy.',
-        problem: 'Conventional rehabilitation can feel repetitive and low-motivation, which reduces consistency and weakens long-term outcomes.',
-        solution: 'We mapped wheelchair motion to interactive game mechanics so users could perform therapeutic movement through engaging sessions.',
+        overview: 'A motion-controlled rehabilitation platform that converts wheelchair movement into game interactions, while logging performance data for analysis and progress tracking.',
+        problem: 'Rehabilitation can be repetitive, and it is difficult to quantify wheelchair movement performance consistently across sessions.',
+        solution: 'We map wheelchair motion into game controls and capture session telemetry for realtime plotting and post-session analysis.',
         technology: ['Motion Tracking', 'Unity Engine', 'WebSocket', 'Bluetooth HID', 'Custom Controller'],
-        impact: 'Increased rehabilitation engagement and generated data-driven insights for exercise progress and system tuning.',
+        impact: 'System validation showed stable 10 Hz capture (0.0014–0.04% error) and low distance error (0.007–0.048%) across 10–50 m trials.',
         videoEmbed: 'https://www.youtube.com/embed/DeMcUm_TiKc',
         goals: [
             'Increase rehabilitation adherence with playful interaction loops.',
@@ -84,19 +154,299 @@ const projectData: Record<string, ProjectData> = {
         workflow: [
             'Read wheelchair motion events through a custom tracking layer.',
             'Translate motion vectors into game commands with low latency.',
-            'Log session performance and progression indicators.',
+            'Log session performance (distance, wheel rotations, heart rate) and compute analysis summaries.',
         ],
         deliverables: [
-            'Wheelchair-driven exergaming prototype.',
-            'Realtime score and movement dashboard.',
-            'Motion calibration profile for therapy use.',
+            'Wheelchair-driven exergaming prototype with motion-to-input mapping.',
+            'Authentication + registration + password reset user flows.',
+            'Bluetooth scanning and device reconnection support.',
+            'Realtime graph capture and post-session analysis views.',
+            'Game ranking and score history pages backed by persistent storage.',
         ],
         metrics: [
-            { label: 'System Focus', value: 'Rehabilitation Engagement' },
-            { label: 'Core Modality', value: 'Motion-Controlled Games' },
-            { label: 'Session Type', value: 'Interactive Therapy' },
-            { label: 'Generation', value: 'Human Interaction Layer' },
+            { label: 'Continuous Capture (10 Hz)', value: '0.0014–0.04% error (1–5 min)' },
+            { label: 'Distance Validation', value: '0.007–0.048% error (10–50 m)' },
+            { label: 'Games Tested', value: 'Alien Invasion, Bouncing Ball, Lucky Bird' },
+            { label: 'Tracked Signals', value: 'Wheel rotations, distance, heart rate' },
         ],
+        documentation: {
+            title: 'Documentation',
+            figure: {
+                src: '/assets/projects/all-wheelchair/fig-4-9-realtime-graph.png',
+                alt: 'Realtime telemetry overview',
+            },
+            keyFacts: [
+                'Streams 3 concurrent signals: 2× XIAO nRF52840 Sense (IMU) + 1× Polar Verity Sense (heart rate).',
+                'Continuous sampling at 10 Hz for validation runs.',
+                'Realtime plotting plus saved sessions support distance/speed summaries, energy, heart rate, session duration.',
+                'Wheel motion mapped using gyroscope Z-axis angular rate aligned with the wheel axes; supplementary accel cues when rotational rate is low.',
+                'IMU-derived motion maps to HID keyboard semantics for gameplay and desktop control interoperability.',
+            ],
+            evidenceScreenshotGroup: {
+                title: 'Gameplay and ranking captures',
+                screenshots: [
+                    {
+                        src: '/assets/projects/all-wheelchair/fig-4-14.png',
+                        alt: 'Alien Invasion gameplay',
+                        caption:
+                            'Alien Invasion: wheelchair motion mapped to lateral dodge and auto-fire cadence.',
+                    },
+                    {
+                        src: '/assets/projects/all-wheelchair/fig-4-15.png',
+                        alt: 'Bouncing Ball gameplay',
+                        caption:
+                            'Bouncing Ball: paddle steering from wheel gyro thresholds with progressive brick difficulty.',
+                    },
+                    {
+                        src: '/assets/projects/all-wheelchair/fig-4-16.png',
+                        alt: 'Lucky Bird gameplay',
+                        caption:
+                            'Lucky Bird: dual-wheel flaps drive lift through obstacle corridors.',
+                    },
+                    {
+                        src: '/assets/projects/all-wheelchair/fig-4-17.png',
+                        alt: 'Arcade ranking overlay',
+                        caption:
+                            'Post-session ranking surfaces personal score plus top-five leaderboard rows.',
+                    },
+                ],
+            },
+            websiteAnalyticsGroup: {
+                title: 'Web dashboard: scores, motion data, and usage history',
+                gridVariant: 'wide',
+                screenshots: [
+                    {
+                        src: '/assets/projects/all-wheelchair/fig-4-20.png',
+                        alt: 'Recent score records',
+                        caption:
+                            'Per-game score history with timestamps, session span, and accuracy labels plus running average.',
+                    },
+                    {
+                        src: '/assets/projects/all-wheelchair/fig-4-21.png',
+                        alt: 'Overview data table',
+                        caption:
+                            'Overview Data tab: per-session time usage, wheel rotations, distances, velocities, and power columns.',
+                    },
+                    {
+                        src: '/assets/projects/all-wheelchair/fig-4-22.png',
+                        alt: 'Motion analysis table view',
+                        caption:
+                            'Motion analysis in table form: dual IMU accelerometer samples and wheel degree traces per timestep.',
+                    },
+                    {
+                        src: '/assets/projects/all-wheelchair/fig-4-23.png',
+                        alt: 'Motion analysis graph view',
+                        caption:
+                            'Graph view overlaying Accel X1 and Accel X2 pairs for the selected capture.',
+                    },
+                    {
+                        src: '/assets/projects/all-wheelchair/fig-4-24.png',
+                        alt: 'Raw distance traces',
+                        caption:
+                            'Raw distance channels for both wheels to audit speed and drift against sessions.',
+                    },
+                    {
+                        src: '/assets/projects/all-wheelchair/fig-4-25.png',
+                        alt: 'Sign-in history',
+                        caption:
+                            'Login and logout audit trail to review account usage over time.',
+                    },
+                ],
+            },
+            continuousCapture: {
+                title: 'Continuous data capture (2 sensors, 10 Hz)',
+                description:
+                    'Continuous streaming was tested using two sensors at 10 Hz for 1–5 minutes (five trials per duration). Error rates remained very low.',
+                table: {
+                    title: 'Continuous capture (10 Hz)',
+                    columns: ['Duration (min)', 'Data sets', 'Error (%)'],
+                    rows: [
+                        ['1', '577', '0.04'],
+                        ['2', '1,197', '0.0025'],
+                        ['3', '1,785', '0.0083'],
+                        ['4', '2,396', '0.0014'],
+                        ['5', '2,989', '0.0035'],
+                    ],
+                },
+                resultNote:
+                    'Result: stable continuous capture with 0.0014–0.04% error across the tested durations.',
+                screenshots: [
+                    {
+                        src: '/assets/projects/all-wheelchair/fig-4-9-realtime-graph.png',
+                        alt: 'Realtime accel/gyro canvases',
+                        caption:
+                            'Realtime canvases multiplex accelerometer / gyroscopic plots with Bluetooth status indicators.',
+                    },
+                    {
+                        src: '/assets/projects/all-wheelchair/fig-4-13.png',
+                        alt: 'Gyro Z response while wheels spin',
+                        caption:
+                            'Gyro Z shows clear deflection when wheels spin; below the gyro threshold, control can fall back to accelerometer cues on X/Y.',
+                    },
+                ],
+            },
+            distanceValidation: {
+                title: 'Distance estimation (flat ground)',
+                description:
+                    'Distance estimation was tested at 10, 20, 30, 40, and 50 meters (five trials per distance) on flat walkways.',
+                table: {
+                    title: 'Distance validation (flat ground)',
+                    columns: ['Target distance (m)', 'Measured distance (m)', 'Error (%)'],
+                    rows: [
+                        ['10', '9.52', '0.048'],
+                        ['20', '20.18', '0.009'],
+                        ['30', '29.77', '0.007'],
+                        ['40', '39.53', '0.011'],
+                        ['50', '49.60', '0.008'],
+                    ],
+                },
+                resultNote:
+                    'Result: distance error within 0.007–0.048% for 10–50 m.',
+                screenshots: [
+                    {
+                        src: '/assets/projects/all-wheelchair/fig-4-10-analysis-results.png',
+                        alt: 'Session digest overlays',
+                        caption:
+                            'Session digest overlays stitched distance and velocity timelines with rollup statistics.',
+                    },
+                ],
+            },
+            interfaceWorkflow: {
+                title: 'Interface & Workflow Testing',
+                bullets: [
+                    'Login: credential checks against stored users; empty fields cannot be submitted; invalid inputs show alert messaging.',
+                    'Registration: required wheelchair profile fields for evaluation; duplicate username checks; completeness validation with alerts.',
+                    'Password reset: requires a known username and matching password confirmation before saving a new password.',
+                    'Main dashboard: hub for sign-out, Bluetooth scan, launching games, Controller mode, Street View, and Admin plotting tools.',
+                    'Bluetooth scan: shows device name + address; saves address for reconnect; supports swapping devices or editing the stored address.',
+                    'Realtime capture + analysis: maintains Bluetooth connection; plots realtime graphs; then computes session summaries (distance/speed, averages/maxima, duration, energy, heart rate) from 3 concurrent streams (2× IMU + 1× HR).',
+                    'Web dashboard: selectable game views with ranking and score history; supports sharing score information to LINE.',
+                ],
+                screenshots: [
+                    {
+                        src: '/assets/projects/all-wheelchair/fig-4-1-login.png',
+                        alt: 'Login screen',
+                        caption:
+                            'Login: credential checks; empty submissions blocked; alerts on invalid attempts.',
+                    },
+                    {
+                        src: '/assets/projects/all-wheelchair/fig-4-2-login-invalid.png',
+                        alt: 'Login validation warning',
+                        caption:
+                            'Invalid credentials show a warning before login can succeed.',
+                    },
+                    {
+                        src: '/assets/projects/all-wheelchair/fig-4-3-registration.png',
+                        alt: 'Registration screen',
+                        caption:
+                            'Registration: wheelchair profile inputs for clinician review; duplicate-user checks plus completeness alerts.',
+                    },
+                    {
+                        src: '/assets/projects/all-wheelchair/fig-4-4-registration-invalid.png',
+                        alt: 'Registration validation',
+                        caption:
+                            'Duplicate username and other validation failures raise blocking warnings before submit.',
+                    },
+                    {
+                        src: '/assets/projects/all-wheelchair/fig-4-5-password-reset.png',
+                        alt: 'Password reset flow',
+                        caption:
+                            'Password reset: enter username, new password, and confirmation before submit.',
+                    },
+                    {
+                        src: '/assets/projects/all-wheelchair/fig-4-6-password-reset-invalid.png',
+                        alt: 'Password confirmation mismatch',
+                        caption:
+                            'Mismatched confirmation password blocks submit with a clear message.',
+                    },
+                    {
+                        src: '/assets/projects/all-wheelchair/fig-4-7-main-hub.png',
+                        alt: 'Main dashboard',
+                        caption:
+                            'Main hub: game shortcuts, Scanner, Controller, Street View, Admin, and sign-out.',
+                    },
+                    {
+                        src: '/assets/projects/all-wheelchair/fig-4-8-bluetooth-scan.png',
+                        alt: 'Bluetooth device scan',
+                        caption:
+                            'Scan surfaces paired device names with MAC-style addresses for reconnect.',
+                    },
+                    {
+                        src: '/assets/projects/all-wheelchair/fig-4-11-controller-mode.png',
+                        alt: 'Controller mapping console',
+                        caption:
+                            'Controller mapping: wheel-triggered keys with configurable directional palettes.',
+                    },
+                    {
+                        alt: 'Street View mode',
+                        caption:
+                            'Street View AR: Google Maps panoramas in-app for seated exploration (add capture to assets when available).',
+                    },
+                ],
+            },
+            motionGames: {
+                title: 'Motion-Controlled Games (Functional Testing)',
+                summaryNote:
+                    'Sessions (1–5 minutes) relate gameplay performance to distance traveled, wheel rotations, and heart rate.',
+                bullets: [
+                    'Motion-to-input uses IMU-to-keyboard translation.',
+                    'Tested games: Alien Invasion, Bouncing Ball, and Lucky Bird.',
+                    'Primary control signal: gyroscope angular velocity on the Z axis, aligned with wheel rotation.',
+                    'Alien Invasion uses per-wheel rotation detection above ~80 °/s to map sideways movement plus auto-fire pacing.',
+                    'Bouncing Ball uses similar >80 °/s gating with progressive difficulty ramps as bricks break.',
+                    'Lucky Bird uses simultaneous dual-wheel input above ~40 °/s to trigger lift/flap interactions with tuned obstacle spacing.',
+                ],
+                benchmarkTables: [
+                    {
+                        title: 'Bench — Alien Invasion',
+                        columns: ['Duration (min)', 'Wheel rotations', 'Distance (m)', 'Avg HR'],
+                        rows: [
+                            ['1', '33.59', '63.32', '77.63'],
+                            ['2', '39.66', '74.76', '78.49'],
+                            ['3', '45.97', '86.65', '80.31'],
+                            ['4', '52.40', '98.78', '83.51'],
+                            ['5', '77.60', '146.28', '86.26'],
+                        ],
+                    },
+                    {
+                        title: 'Bench — Bouncing Ball',
+                        columns: ['Duration (min)', 'Wheel rotations', 'Distance (m)', 'Avg HR'],
+                        rows: [
+                            ['1', '2.8', '5.36', '71.56'],
+                            ['2', '8.11', '15.29', '73.48'],
+                            ['3', '18.17', '34.25', '73.94'],
+                            ['4', '28.76', '54.20', '75.30'],
+                            ['5', '39.95', '75.31', '78.61'],
+                        ],
+                    },
+                    {
+                        title: 'Bench — Lucky Bird',
+                        columns: ['Duration (min)', 'Wheel rotations', 'Distance (m)', 'Avg HR'],
+                        rows: [
+                            ['1', '10.85', '20.45', '77.85'],
+                            ['2', '18.29', '34.36', '79.54'],
+                            ['3', '27.70', '52.21', '80.80'],
+                            ['4', '36.23', '68.28', '82.56'],
+                            ['5', '46.50', '87.66', '84.87'],
+                        ],
+                    },
+                ],
+                screenshots: [
+                    {
+                        src: '/assets/projects/all-wheelchair/fig-4-18.png',
+                        alt: 'Web dashboard overview',
+                        caption:
+                            'Web hub: game picker, ranking tabs, motion summaries, and share-to-LINE affordances.',
+                    },
+                    {
+                        src: '/assets/projects/all-wheelchair/fig-4-19-website-ranking.png',
+                        alt: 'Web leaderboard kiosk',
+                        caption:
+                            'Web leaderboard: selectable game views; Top scores; supports sharing scores to LINE.',
+                    },
+                ],
+            },
+        },
     },
     'marathon-racing': {
         era: 'Era 03 - Expansion',
@@ -277,7 +627,209 @@ function renderList(items: string[]): string {
     return `<ul class="project-panel__list">${items.map((item) => `<li>${item}</li>`).join('')}</ul>`;
 }
 
+function renderScreenshotCard(screenshot: ProjectScreenshot): string {
+    const hasImage = Boolean(screenshot.src);
+    const mediaMarkup = hasImage
+        ? `<img src="${screenshot.src}" alt="${screenshot.alt}" loading="lazy" />`
+        : `<div class="doc-figure__placeholder">Screenshot pending</div>`;
+
+    return `
+      <figure class="doc-figure">
+        <div class="doc-figure__media">
+          ${mediaMarkup}
+        </div>
+        <figcaption class="doc-figure__caption">${screenshot.caption}</figcaption>
+      </figure>
+    `;
+}
+
+function renderDocumentationTable(table: ProjectDocumentationTable): string {
+    return `
+      <div class="doc-table-wrap">
+        <div class="doc-table__title">${table.title}</div>
+        <div class="doc-table-scroll">
+          <table class="doc-table">
+            <thead>
+              <tr>
+                ${table.columns.map((col) => `<th>${col}</th>`).join('')}
+              </tr>
+            </thead>
+            <tbody>
+              ${table.rows
+                  .map(
+                      (row) => `
+              <tr>
+                ${row.map((cell) => `<td>${cell}</td>`).join('')}
+              </tr>
+            `,
+                  )
+                  .join('')}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    `;
+}
+
+function renderScreenshotGroup(group: ProjectScreenshotGroup): string {
+    const gridClass =
+        group.gridVariant === 'wide'
+            ? 'doc-screenshot-grid doc-screenshot-grid--wide'
+            : 'doc-screenshot-grid';
+
+    return `
+      <div class="doc-group-wrap">
+        <div class="doc-group-title">${group.title}</div>
+        <div class="${gridClass}">
+          ${group.screenshots.map((shot) => renderScreenshotCard(shot)).join('')}
+        </div>
+      </div>
+    `;
+}
+
 function renderProjectDetail(data: ProjectData): string {
+    const documentationMarkup = data.documentation
+        ? `
+        <section class="project-panel project-panel--documentation" style="--doc-accent: ${data.color}">
+          <p class="project-section__label">${data.documentation.title}</p>
+
+          <div class="doc-stack">
+            <nav class="doc-toc" aria-label="Documentation sections">
+              <span class="doc-toc__label">On this page</span>
+              <a href="#doc-overview">Overview</a>
+              <a href="#doc-system-validation">System validation</a>
+              <a href="#doc-ui">Client UI</a>
+              <a href="#doc-games">Games</a>
+              <a href="#doc-arcade">Arcade captures</a>
+              <a href="#doc-web">Web dashboard</a>
+            </nav>
+
+            <div class="doc-section" id="doc-overview">
+              <div class="doc-intro">
+                <figure class="doc-hero-figure">
+                  ${
+                      data.documentation.figure?.src
+                          ? `<img src="${data.documentation.figure.src}" alt="${data.documentation.figure.alt}" loading="lazy" />`
+                          : `<div class="doc-figure__media"><span class="doc-figure__placeholder">Featured visual pending</span></div>`
+                  }
+                </figure>
+                <div class="doc-keyfacts doc-card">
+                  <p class="project-section__label">Key Facts</p>
+                  ${renderList(data.documentation.keyFacts)}
+                </div>
+              </div>
+            </div>
+
+            <div class="doc-section doc-section-grid" id="doc-system-validation">
+              <div class="doc-card doc-validation-grid">
+                <div>
+                  <p class="project-section__label">${data.documentation.continuousCapture.title}</p>
+                  <p class="project-panel__text" style="margin-bottom: 0.65rem;">${data.documentation.continuousCapture.description}</p>
+                  ${renderDocumentationTable(data.documentation.continuousCapture.table)}
+                  <p class="project-panel__text" style="margin-top: 0.65rem; margin-bottom: 0; color: var(--color-text-secondary); font-size: var(--text-small);">
+                    ${data.documentation.continuousCapture.resultNote}
+                  </p>
+                </div>
+                ${
+                    data.documentation.continuousCapture.screenshots?.length
+                        ? `
+                <div class="doc-validation-grid__media doc-validation-grid__media--pair">
+                  ${data.documentation.continuousCapture.screenshots.map((shot) => renderScreenshotCard(shot)).join('')}
+                </div>
+                `
+                        : ''
+                }
+              </div>
+
+              <div class="doc-card doc-validation-grid">
+                <div>
+                  <p class="project-section__label">${data.documentation.distanceValidation.title}</p>
+                  <p class="project-panel__text" style="margin-bottom: 0.65rem;">${data.documentation.distanceValidation.description}</p>
+                  ${renderDocumentationTable(data.documentation.distanceValidation.table)}
+                  <p class="project-panel__text" style="margin-top: 0.65rem; margin-bottom: 0; color: var(--color-text-secondary); font-size: var(--text-small);">
+                    ${data.documentation.distanceValidation.resultNote}
+                  </p>
+                </div>
+                ${
+                    data.documentation.distanceValidation.screenshots?.length
+                        ? `
+                <div class="doc-validation-grid__media doc-validation-grid__media--single">
+                  ${data.documentation.distanceValidation.screenshots.map((shot) => renderScreenshotCard(shot)).join('')}
+                </div>
+                `
+                        : ''
+                }
+              </div>
+            </div>
+
+            <div class="doc-section" id="doc-ui">
+              <div class="doc-interface">
+                <div class="doc-card">
+                  <p class="project-section__label">${data.documentation.interfaceWorkflow.title}</p>
+                  ${renderList(data.documentation.interfaceWorkflow.bullets)}
+                </div>
+                ${
+                    data.documentation.interfaceWorkflow.screenshots?.length
+                        ? `
+                <div class="doc-card">
+                  <p class="project-section__label">Screenshots</p>
+                  <div class="doc-gallery doc-gallery--scroll">
+                    ${data.documentation.interfaceWorkflow.screenshots.map((shot) => renderScreenshotCard(shot)).join('')}
+                  </div>
+                </div>
+                `
+                        : ''
+                }
+              </div>
+            </div>
+
+            <div class="doc-section" id="doc-games">
+              <div class="doc-card">
+                <p class="project-section__label">${data.documentation.motionGames.title}</p>
+                ${data.documentation.motionGames.summaryNote ? `<p class="project-panel__text" style="margin-bottom: 0.65rem;">${data.documentation.motionGames.summaryNote}</p>` : ''}
+                ${renderList(data.documentation.motionGames.bullets)}
+                <div class="doc-benchmark-stack">
+                  ${data.documentation.motionGames.benchmarkTables.map((tbl) => renderDocumentationTable(tbl)).join('')}
+                </div>
+                ${
+                    data.documentation.motionGames.screenshots?.length
+                        ? `
+                <div class="doc-motion-web-grid">
+                  ${data.documentation.motionGames.screenshots.map((shot) => renderScreenshotCard(shot)).join('')}
+                </div>
+                `
+                        : ''
+                }
+              </div>
+            </div>
+
+            ${
+                data.documentation.evidenceScreenshotGroup
+                    ? `
+            <div class="doc-section" id="doc-arcade">
+              <div class="project-panel__divider"></div>
+              ${renderScreenshotGroup(data.documentation.evidenceScreenshotGroup)}
+            </div>
+            `
+                    : ''
+            }
+
+            ${
+                data.documentation.websiteAnalyticsGroup
+                    ? `
+            <div class="doc-section" id="doc-web">
+              <div class="project-panel__divider"></div>
+              ${renderScreenshotGroup(data.documentation.websiteAnalyticsGroup)}
+            </div>
+            `
+                    : ''
+            }
+
+          </div>
+        </section>
+      `
+        : '';
+
     return `
     <div class="project-detail__hero">
       <div class="project-detail__hero-bg" style="background: linear-gradient(140deg, ${data.color}3a, transparent 60%);"></div>
@@ -368,6 +920,8 @@ function renderProjectDetail(data: ProjectData): string {
           <p class="project-section__label">Key Deliverables</p>
           ${renderList(data.deliverables)}
         </section>
+
+        ${documentationMarkup}
       </div>
     </div>
   `;

@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0B1220"/>
+      <stop offset="1" stop-color="#090B14"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <rect x="80" y="90" width="1440" height="720" rx="28" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.10)"/>
+  <text x="120" y="170" fill="rgba(255,255,255,0.92)" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto" font-size="48" font-weight="700">
+    ALL Wheelchair  Fig 4.9 Placeholder
+  </text>
+  <text x="120" y="235" fill="rgba(255,255,255,0.72)" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto" font-size="28">
+    Realtime data collection and plotting (admin mode).
+  </text>
+  <text x="120" y="305" fill="rgba(255,255,255,0.62)" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto" font-size="22">
+    Replace this SVG with your thesis screenshot export (PNG/JPG) named the same file.
+  </text>
+  <g opacity="0.75">
+    <path d="M140 690 C 330 520, 450 740, 620 600 S 980 650, 1100 520 S 1330 600, 1460 470" fill="none" stroke="rgba(167,139,250,0.85)" stroke-width="10" stroke-linecap="round"/>
+    <path d="M140 720 C 320 640, 470 800, 640 700 S 960 760, 1120 640 S 1320 700, 1460 610" fill="none" stroke="rgba(96,165,250,0.65)" stroke-width="8" stroke-linecap="round"/>
+    <path d="M140 755 C 320 710, 500 860, 660 760 S 960 820, 1120 710 S 1340 760, 1460 700" fill="none" stroke="rgba(52,211,153,0.55)" stroke-width="6" stroke-linecap="round"/>
+  </g>
+  <text x="120" y="800" fill="rgba(255,255,255,0.55)" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto" font-size="18">
+    Path: /assets/projects/all-wheelchair/fig-4-9-realtime-graph.svg
+  </text>
+</svg>

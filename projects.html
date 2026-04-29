@@ -355,6 +355,318 @@
             background: linear-gradient(90deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.02));
         }
 
+        /* --- Documentation panel (ALL Wheelchair modal) --- */
+        .project-panel--documentation {
+            --doc-accent: #a78bfa;
+        }
+
+        .doc-stack {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: clamp(1rem, 2vw, 1.25rem);
+        }
+
+        .doc-toc {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.45rem 0.65rem;
+            align-items: center;
+            padding: 0.65rem 0.85rem;
+            border-radius: var(--radius-md);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.03);
+            margin-bottom: 0.25rem;
+        }
+
+        .doc-toc__label {
+            font-size: 0.62rem;
+            letter-spacing: var(--tracking-wider);
+            text-transform: uppercase;
+            color: var(--color-text-tertiary);
+            margin-right: 0.35rem;
+        }
+
+        .doc-toc a {
+            font-size: var(--text-caption);
+            color: var(--color-text-secondary);
+            text-decoration: none;
+            padding: 0.28rem 0.62rem;
+            border-radius: var(--radius-full);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.04);
+            transition: color var(--duration-fast), border-color var(--duration-fast),
+                background var(--duration-fast);
+        }
+
+        .doc-toc a:hover {
+            color: var(--color-text-primary);
+            border-color: color-mix(in srgb, var(--doc-accent) 55%, transparent);
+            background: color-mix(in srgb, var(--doc-accent) 12%, transparent);
+        }
+
+        .doc-section {
+            scroll-margin-top: 5rem;
+            padding-left: 0.65rem;
+            border-left: 3px solid color-mix(in srgb, var(--doc-accent) 45%, transparent);
+        }
+
+        .doc-section + .doc-section {
+            margin-top: 0.15rem;
+        }
+
+        .doc-card {
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-md);
+            padding: clamp(0.75rem, 1.5vw, 1rem);
+            background: rgba(255, 255, 255, 0.025);
+            box-shadow: 0 12px 36px rgba(0, 0, 0, 0.22);
+        }
+
+        .doc-intro {
+            display: grid;
+            grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+            gap: clamp(0.85rem, 2vw, 1.15rem);
+            align-items: stretch;
+        }
+
+        .doc-hero-figure {
+            margin: 0;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: rgba(0, 0, 0, 0.35);
+            box-shadow: 0 18px 48px rgba(0, 0, 0, 0.35);
+        }
+
+        .doc-hero-figure img {
+            display: block;
+            width: 100%;
+            height: auto;
+            vertical-align: middle;
+        }
+
+        .doc-keyfacts.doc-card {
+            display: flex;
+            flex-direction: column;
+            min-height: 100%;
+        }
+
+        .doc-validation-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+            gap: clamp(0.65rem, 1.5vw, 0.9rem);
+            align-items: start;
+        }
+
+        .doc-validation-grid__media {
+            display: grid;
+            gap: 0.65rem;
+        }
+
+        .doc-validation-grid__media--single {
+            grid-template-columns: 1fr;
+        }
+
+        .doc-validation-grid__media--pair {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .doc-interface {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
+            gap: clamp(0.65rem, 1.5vw, 0.9rem);
+            align-items: start;
+        }
+
+        .doc-benchmark-stack {
+            display: grid;
+            gap: 0.75rem;
+            margin-top: 0.75rem;
+        }
+
+        .doc-motion-web-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 0.75rem;
+            margin-top: 0.85rem;
+        }
+
+        .doc-gallery--scroll {
+            display: flex;
+            gap: 0.75rem;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            padding: 0.15rem 0.15rem 0.65rem;
+            margin: 0 -0.15rem;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .doc-gallery--scroll .doc-figure {
+            flex: 0 0 min(300px, 82vw);
+            scroll-snap-align: start;
+            max-width: min(300px, 92vw);
+        }
+
+        .doc-figure {
+            margin: 0;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.11);
+            background: rgba(255, 255, 255, 0.03);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .doc-figure__media {
+            aspect-ratio: 16 / 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.28);
+            overflow: hidden;
+        }
+
+        .doc-figure__media img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            object-position: center center;
+        }
+
+        .doc-figure__placeholder {
+            padding: 1rem;
+            text-align: center;
+            font-size: 0.68rem;
+            letter-spacing: var(--tracking-wide);
+            text-transform: uppercase;
+            color: var(--color-text-tertiary);
+            line-height: 1.45;
+            max-width: 14rem;
+        }
+
+        .doc-figure__caption {
+            padding: 0.55rem 0.7rem;
+            color: var(--color-text-secondary);
+            font-size: var(--text-small);
+            line-height: 1.45;
+        }
+
+        .doc-table-wrap {
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .doc-table__title {
+            padding: 0.6rem 0.75rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+            color: var(--color-text-secondary);
+            font-size: var(--text-small);
+            letter-spacing: var(--tracking-wide);
+            text-transform: uppercase;
+        }
+
+        .doc-table-scroll {
+            overflow-x: auto;
+        }
+
+        table.doc-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: var(--text-small);
+            color: var(--color-text-secondary);
+        }
+
+        table.doc-table thead {
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        table.doc-table th {
+            text-align: left;
+            padding: 0.55rem 0.75rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            font-weight: 600;
+            color: var(--color-text-secondary);
+        }
+
+        table.doc-table td {
+            padding: 0.55rem 0.75rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        table.doc-table tbody tr:nth-child(even) {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .doc-screenshot-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 0.65rem;
+        }
+
+        .doc-screenshot-grid--wide {
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        }
+
+        .doc-group-wrap {
+            display: grid;
+            gap: 0.65rem;
+        }
+
+        .doc-group-title {
+            color: var(--color-text-secondary);
+            font-size: var(--text-small);
+            letter-spacing: var(--tracking-wide);
+            text-transform: uppercase;
+            margin-bottom: 0.35rem;
+        }
+
+        .doc-section-grid {
+            display: grid;
+            gap: 0.85rem;
+        }
+
+        @media (max-width: 960px) {
+            .doc-intro {
+                grid-template-columns: 1fr;
+            }
+
+            .doc-validation-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .doc-interface {
+                grid-template-columns: 1fr;
+            }
+
+            .doc-validation-grid__media--pair {
+                grid-template-columns: 1fr;
+            }
+
+            .doc-screenshot-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 620px) {
+            .doc-screenshot-grid,
+            .doc-screenshot-grid--wide {
+                grid-template-columns: 1fr;
+            }
+
+            .doc-toc {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .doc-toc a {
+                text-align: center;
+            }
+        }
+
         @media (max-width: 768px) {
             .projects-grid {
                 grid-template-columns: 1fr;
@@ -430,6 +742,9 @@
                             <h3 class="project-card__title">ALL Wheelchair</h3>
                             <p class="project-card__subtitle">Motion-controlled exergaming for wheelchair
                                 rehabilitation.</p>
+                            <p class="project-card__subtitle" style="margin-top: calc(var(--space-xs) * -0.25);">
+                                Validated at 10 Hz (continuous capture error: 0.0014–0.04%) and distance estimation
+                                (10–50 m error: 0.007–0.048%).</p>
                             <div class="project-card__tags">
                                 <span class="project-card__tag">Motion Tracking</span>
                                 <span class="project-card__tag">Exergaming</span>

@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0B1220"/>
+      <stop offset="1" stop-color="#090B14"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <rect x="80" y="90" width="1440" height="720" rx="28" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.10)"/>
+  <text x="120" y="170" fill="rgba(255,255,255,0.92)" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto" font-size="48" font-weight="700">
+    ALL Wheelchair  Fig 4.11 Placeholder
+  </text>
+  <text x="120" y="235" fill="rgba(255,255,255,0.72)" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto" font-size="28">
+    Controller mode UI for motion-to-input mapping during exergaming sessions.
+  </text>
+  <text x="120" y="305" fill="rgba(255,255,255,0.62)" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto" font-size="22">
+    Replace this SVG with your thesis screenshot export (PNG/JPG) named the same file.
+  </text>
+  <g opacity="0.9">
+    <rect x="140" y="380" width="650" height="360" rx="22" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.10)"/>
+    <rect x="830" y="380" width="610" height="170" rx="22" fill="rgba(52,211,153,0.08)" stroke="rgba(52,211,153,0.25)"/>
+    <rect x="830" y="570" width="610" height="170" rx="22" fill="rgba(96,165,250,0.08)" stroke="rgba(96,165,250,0.25)"/>
+    <text x="170" y="430" fill="rgba(255,255,255,0.78)" font-family="ui-sans-serif, system-ui" font-size="22">Connection Status</text>
+    <circle cx="260" cy="500" r="12" fill="rgba(34,197,94,0.9)"/>
+    <text x="290" y="507" fill="rgba(255,255,255,0.85)" font-family="ui-sans-serif, system-ui" font-size="22">Ready</text>
+    <text x="860" y="435" fill="rgba(255,255,255,0.78)" font-family="ui-sans-serif, system-ui" font-size="22">Mapping</text>
+    <text x="860" y="625" fill="rgba(255,255,255,0.78)" font-family="ui-sans-serif, system-ui" font-size="22">Calibration</text>
+  </g>
+  <text x="120" y="800" fill="rgba(255,255,255,0.55)" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto" font-size="18">
+    Path: /assets/projects/all-wheelchair/fig-4-11-controller-mode.svg
+  </text>
+</svg>
