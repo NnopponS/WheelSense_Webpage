@@ -386,9 +386,10 @@ const projectData: Record<string, ProjectData> = {
                             'Controller mapping: wheel-triggered keys with configurable directional palettes.',
                     },
                     {
+                        src: '/assets/projects/all-wheelchair/fig-4-12-street-view.png',
                         alt: 'Street View mode',
                         caption:
-                            'Street View AR: Google Maps panoramas in-app for seated exploration (add capture to assets when available).',
+                            'Street View AR: Google Maps panoramas in-app for seated exploration.',
                     },
                 ],
             },
