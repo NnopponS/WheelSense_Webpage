@@ -79,6 +79,17 @@ type ProjectDocumentation = {
     motionGames: ProjectDocumentationGamesSection;
 };
 
+type ProjectPaper = {
+    title: string;
+    venue: string;
+    authors: string;
+    pageRange: string;
+    fileUrl: string;
+    previewUrl: string;
+    note: string;
+    ctaLabel?: string;
+};
+
 type ProjectData = {
     era: string;
     color: string;
@@ -94,6 +105,7 @@ type ProjectData = {
     deliverables: string[];
     metrics: ProjectMetric[];
     documentation?: ProjectDocumentation;
+    paper?: ProjectPaper;
     /** Optional hero CTA (e.g. Google Drive folder for prototype download). */
     downloadUrl?: string;
     downloadLabel?: string;
@@ -514,6 +526,16 @@ const projectData: Record<string, ProjectData> = {
             'Smart-home assistant integration with MCP workflows.',
             'Context-aware automation and control dashboard.',
         ],
+        paper: {
+            title: 'Comparative Performance Evaluation of BLE-Based Indoor Motion Tracking Using Machine Learning and Large Language Models',
+            venue: 'ECTI-CON 2026 Proceedings',
+            authors: 'Worapon Sangsasri, Suppawit Ausawalaithong, Darawadee Panich, Sairag Saadprai, and Supachai Vorapojpisut',
+            pageRange: 'Full proceedings - starts at page 805',
+            fileUrl: '/assets/projects/wheelsense/ecti-con2026-proceedings-full.pdf',
+            previewUrl: '/assets/projects/wheelsense/ecti-con2026-proceedings-full.pdf#page=805&zoom=page-width',
+            note: 'The full ECTI-CON 2026 proceedings are embedded here so readers start at the WheelSense paper and can still scroll through the other papers and titles.',
+            ctaLabel: 'Preview Proceedings',
+        },
         metrics: [
             { label: 'System Focus', value: 'AI Assistive Intelligence' },
             { label: 'Core Modality', value: 'Vision + Voice + Automation' },
@@ -696,6 +718,40 @@ function renderScreenshotGroup(group: ProjectScreenshotGroup): string {
     `;
 }
 
+function renderPaperPreview(paper: ProjectPaper, accentColor: string): string {
+    return `
+        <section class="project-panel project-paper-preview" style="--paper-accent: ${accentColor}">
+          <div class="project-paper-preview__header">
+            <div class="project-paper-preview__copy">
+              <p class="project-section__label">Paper Preview</p>
+              <h2 class="project-paper-preview__title">${paper.title}</h2>
+              <p class="project-paper-preview__meta">${paper.venue} - ${paper.pageRange}</p>
+              <p class="project-paper-preview__authors">${paper.authors}</p>
+              <p class="project-paper-preview__note">${paper.note}</p>
+            </div>
+            <a
+              class="project-detail__download-btn project-detail__download-btn--paper"
+              href="${paper.previewUrl}"
+              target="_blank"
+              rel="noopener noreferrer"
+              style="--download-accent: ${accentColor};"
+              aria-label="${paper.ctaLabel || 'Preview Paper'} - opens the PDF in a new tab"
+            >
+              <svg class="project-detail__download-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg>
+              <span>${paper.ctaLabel || 'Preview Paper'}</span>
+            </a>
+          </div>
+          <div class="project-paper-preview__frame-wrap">
+            <iframe
+              class="project-paper-preview__frame"
+              src="${paper.previewUrl}"
+              title="${paper.title} PDF preview"
+            ></iframe>
+          </div>
+        </section>
+    `;
+}
+
 function renderProjectDetail(data: ProjectData): string {
     const documentationMarkup = data.documentation
         ? `
@@ -851,9 +907,30 @@ function renderProjectDetail(data: ProjectData): string {
             ${data.technology.slice(0, 4).map((item) => `<span class="project-chip">${item}</span>`).join('')}
           </div>
           ${
-              data.downloadUrl
+              data.downloadUrl || data.paper
                   ? `
           <div class="project-detail__hero-actions">
+            ${
+                data.paper
+                    ? `
+            <a
+              class="project-detail__download-btn project-detail__download-btn--paper"
+              href="${data.paper.previewUrl}"
+              target="_blank"
+              rel="noopener noreferrer"
+              style="--download-accent: ${data.color};"
+              aria-label="${data.paper.ctaLabel || 'Preview Paper'} - opens the PDF in a new tab"
+            >
+              <svg class="project-detail__download-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg>
+              <span>${data.paper.ctaLabel || 'Preview Paper'}</span>
+            </a>
+            <p class="project-detail__download-hint">${data.paper.venue} - starts at proceedings page 805</p>
+            `
+                    : ''
+            }
+            ${
+                data.downloadUrl
+                    ? `
             <a
               class="project-detail__download-btn"
               href="${data.downloadUrl}"
@@ -870,6 +947,9 @@ function renderProjectDetail(data: ProjectData): string {
                     ? `<p class="project-detail__download-hint">${data.downloadHint}</p>`
                     : ''
             }
+            `
+                    : ''
+            }
           </div>
           `
                   : ''
@@ -880,6 +960,7 @@ function renderProjectDetail(data: ProjectData): string {
 
     <div class="project-detail__sections">
       <div class="container container-wide">
+        ${data.paper ? renderPaperPreview(data.paper, data.color) : ''}
         <section class="project-detail-layout">
           <article class="project-panel project-panel--video">
             <p class="project-section__label">Project Video</p>
