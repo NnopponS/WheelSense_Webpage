@@ -4,6 +4,10 @@ import { createFooter } from '../components/footer';
 import { initSmoothScroll } from '../components/smooth-scroll';
 import { initScrollAnimations } from '../components/scroll-animations';
 import { applyPageOverrides } from '../components/page-content';
+import * as pdfjsLib from 'pdfjs-dist';
+import pdfWorkerUrl from 'pdfjs-dist/build/pdf.worker.mjs?url';
+
+pdfjsLib.GlobalWorkerOptions.workerSrc = pdfWorkerUrl;
 
 type ProjectMetric = {
     label: string;
@@ -84,6 +88,8 @@ type ProjectPaper = {
     venue: string;
     authors: string;
     pageRange: string;
+    startPage: number;
+    totalPages: number;
     fileUrl: string;
     previewUrl: string;
     note: string;
@@ -531,6 +537,8 @@ const projectData: Record<string, ProjectData> = {
             venue: 'ECTI-CON 2026 Proceedings',
             authors: 'Worapon Sangsasri, Suppawit Ausawalaithong, Darawadee Panich, Sairag Saadprai, and Supachai Vorapojpisut',
             pageRange: 'Full proceedings - starts at page 805',
+            startPage: 805,
+            totalPages: 1143,
             fileUrl: '/assets/projects/wheelsense/ecti-con2026-proceedings-full.pdf',
             previewUrl: '/assets/projects/wheelsense/ecti-con2026-proceedings-full.pdf#page=805&zoom=page-width',
             note: 'The full ECTI-CON 2026 proceedings are embedded here so readers start at the WheelSense paper and can still scroll through the other papers and titles.',
@@ -742,14 +750,160 @@ function renderPaperPreview(paper: ProjectPaper, accentColor: string): string {
             </a>
           </div>
           <div class="project-paper-preview__frame-wrap">
-            <iframe
-              class="project-paper-preview__frame"
-              src="${paper.previewUrl}"
-              title="${paper.title} PDF preview"
-            ></iframe>
+            <div
+              class="project-paper-viewer"
+              data-pdf-viewer
+              data-pdf-url="${paper.fileUrl}"
+              data-pdf-start-page="${paper.startPage}"
+              data-pdf-total-pages="${paper.totalPages}"
+            >
+              <div class="project-paper-viewer__toolbar" aria-label="PDF preview controls">
+                <button class="project-paper-viewer__button" type="button" data-pdf-prev aria-label="Previous page">Prev</button>
+                <label class="project-paper-viewer__page-control">
+                  <span>Page</span>
+                  <input type="number" min="1" max="${paper.totalPages}" value="${paper.startPage}" data-pdf-page-input />
+                  <span data-pdf-page-count>/ ${paper.totalPages}</span>
+                </label>
+                <button class="project-paper-viewer__button" type="button" data-pdf-next aria-label="Next page">Next</button>
+                <a class="project-paper-viewer__open" href="${paper.previewUrl}" target="_blank" rel="noopener noreferrer">Open full PDF</a>
+              </div>
+              <div class="project-paper-viewer__status" data-pdf-status>Loading full proceedings at page ${paper.startPage}...</div>
+              <div class="project-paper-viewer__canvas-wrap">
+                <canvas class="project-paper-viewer__canvas" data-pdf-canvas></canvas>
+              </div>
+            </div>
           </div>
         </section>
     `;
+}
+
+function clampPage(value: number, totalPages: number): number {
+    if (!Number.isFinite(value)) return 1;
+    return Math.min(Math.max(Math.round(value), 1), Math.max(totalPages, 1));
+}
+
+function initPaperPreview(root: ParentNode): void {
+    const viewers = root.querySelectorAll<HTMLElement>('[data-pdf-viewer]');
+
+    viewers.forEach((viewer) => {
+        if (viewer.dataset.pdfInitialized === 'true') return;
+        viewer.dataset.pdfInitialized = 'true';
+
+        const pdfUrl = viewer.dataset.pdfUrl || '';
+        const configuredStartPage = Number(viewer.dataset.pdfStartPage || '1');
+        const configuredTotalPages = Number(viewer.dataset.pdfTotalPages || '1');
+        const canvas = viewer.querySelector<HTMLCanvasElement>('[data-pdf-canvas]');
+        const canvasWrap = viewer.querySelector<HTMLElement>('.project-paper-viewer__canvas-wrap');
+        const status = viewer.querySelector<HTMLElement>('[data-pdf-status]');
+        const pageInput = viewer.querySelector<HTMLInputElement>('[data-pdf-page-input]');
+        const pageCount = viewer.querySelector<HTMLElement>('[data-pdf-page-count]');
+        const prevButton = viewer.querySelector<HTMLButtonElement>('[data-pdf-prev]');
+        const nextButton = viewer.querySelector<HTMLButtonElement>('[data-pdf-next]');
+
+        if (!pdfUrl || !canvas || !canvasWrap || !status || !pageInput || !pageCount) {
+            return;
+        }
+
+        const context = canvas.getContext('2d');
+        if (!context) {
+            status.textContent = 'PDF preview is unavailable in this browser.';
+            return;
+        }
+
+        let totalPages = Math.max(configuredTotalPages, 1);
+        let currentPage = clampPage(configuredStartPage, totalPages);
+        let renderToken = 0;
+        let pdfDocument: any = null;
+
+        const setControlsDisabled = (isDisabled: boolean): void => {
+            pageInput.disabled = isDisabled;
+            if (prevButton) prevButton.disabled = isDisabled || currentPage <= 1;
+            if (nextButton) nextButton.disabled = isDisabled || currentPage >= totalPages;
+        };
+
+        const syncControls = (): void => {
+            pageInput.value = String(currentPage);
+            pageInput.max = String(totalPages);
+            pageCount.textContent = `/ ${totalPages}`;
+            if (prevButton) prevButton.disabled = currentPage <= 1;
+            if (nextButton) nextButton.disabled = currentPage >= totalPages;
+        };
+
+        const renderPage = async (pageNumber: number): Promise<void> => {
+            if (!pdfDocument) return;
+
+            const token = ++renderToken;
+            currentPage = clampPage(pageNumber, totalPages);
+            syncControls();
+            setControlsDisabled(true);
+            status.textContent = `Loading page ${currentPage} of ${totalPages}...`;
+
+            try {
+                const page = await pdfDocument.getPage(currentPage);
+                if (token !== renderToken) return;
+
+                const viewport = page.getViewport({ scale: 1 });
+                const availableWidth = Math.max(canvasWrap.clientWidth - 24, 320);
+                const scale = Math.min(Math.max(availableWidth / viewport.width, 0.35), 2.2);
+                const scaledViewport = page.getViewport({ scale });
+                const pixelRatio = window.devicePixelRatio || 1;
+
+                canvas.width = Math.floor(scaledViewport.width * pixelRatio);
+                canvas.height = Math.floor(scaledViewport.height * pixelRatio);
+                canvas.style.width = `${Math.floor(scaledViewport.width)}px`;
+                canvas.style.height = `${Math.floor(scaledViewport.height)}px`;
+
+                await page.render({
+                    canvasContext: context,
+                    viewport: scaledViewport,
+                    transform: pixelRatio !== 1 ? [pixelRatio, 0, 0, pixelRatio, 0, 0] : undefined,
+                }).promise;
+
+                if (token !== renderToken) return;
+                status.textContent = `Showing page ${currentPage} of ${totalPages}.`;
+            } catch (error) {
+                status.textContent = 'Failed to render this PDF page. Use Open full PDF to view the source file.';
+                console.error('PDF preview render failed', error);
+            } finally {
+                if (token === renderToken) {
+                    setControlsDisabled(false);
+                    syncControls();
+                }
+            }
+        };
+
+        const loadingTask = pdfjsLib.getDocument({
+            url: pdfUrl,
+            rangeChunkSize: 1024 * 1024,
+            disableAutoFetch: false,
+        });
+
+        setControlsDisabled(true);
+        loadingTask.promise
+            .then((loadedDocument: any) => {
+                pdfDocument = loadedDocument;
+                totalPages = loadedDocument.numPages || totalPages;
+                currentPage = clampPage(configuredStartPage, totalPages);
+                syncControls();
+                return renderPage(currentPage);
+            })
+            .catch((error: unknown) => {
+                status.textContent = 'Failed to load PDF preview. Use Open full PDF to view the source file.';
+                console.error('PDF preview load failed', error);
+            });
+
+        prevButton?.addEventListener('click', () => {
+            void renderPage(currentPage - 1);
+        });
+
+        nextButton?.addEventListener('click', () => {
+            void renderPage(currentPage + 1);
+        });
+
+        pageInput.addEventListener('change', () => {
+            void renderPage(Number(pageInput.value));
+        });
+    });
 }
 
 function renderProjectDetail(data: ProjectData): string {
@@ -1067,6 +1221,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         detail.classList.add('is-open');
         document.body.style.overflow = 'hidden';
         detail.scrollTop = 0;
+        initPaperPreview(detailContent);
     };
 
     cards.forEach((card) => {
