@@ -125,6 +125,14 @@ type EmbedOptions = {
     controls?: boolean;
 };
 
+const projectRoutes: Record<string, string> = {
+    'yes-wheelchair': '/projects/yes-wheelchair',
+    'all-wheelchair': '/projects/all-wheelchair',
+    'marathon-racing': '/projects/marathon-racing',
+    wheelsense: '/projects/wheelsense',
+    easeai: '/projects/easeai',
+};
+
 const projectData: Record<string, ProjectData> = {
     'yes-wheelchair': {
         era: 'Era 01 - Digitization',
@@ -660,6 +668,17 @@ function initVideoPreview(card: Element): void {
         placeholder.innerHTML = '<span>Coming Soon</span>';
         visual.prepend(placeholder);
     }
+}
+
+function getProjectRoute(projectId: string): string {
+    return projectRoutes[projectId] || `/projects.html?project=${encodeURIComponent(projectId)}`;
+}
+
+function getProjectIdFromPath(pathname: string): string {
+    const normalizedPath = pathname.replace(/\/+$/, '');
+    const match = normalizedPath.match(/^\/projects\/([^/]+)$/);
+    const projectId = match?.[1] || '';
+    return projectData[projectId] ? projectId : '';
 }
 
 function renderList(items: string[]): string {
@@ -1213,15 +1232,31 @@ document.addEventListener('DOMContentLoaded', async () => {
     const detailContent = document.getElementById('projectDetailContent');
     const detailClose = document.getElementById('projectDetailClose');
 
-    const openProjectDetail = (projectId: string): void => {
+    const openProjectDetail = (projectId: string, options: { updateUrl?: boolean } = {}): void => {
         const data = projectData[projectId];
         if (!data || !detail || !detailContent) return;
+
+        if (options.updateUrl && window.location.pathname !== getProjectRoute(projectId)) {
+            window.history.pushState({ projectId }, data.title, getProjectRoute(projectId));
+        }
 
         detailContent.innerHTML = renderProjectDetail(data);
         detail.classList.add('is-open');
         document.body.style.overflow = 'hidden';
         detail.scrollTop = 0;
+        document.title = `${data.title} - WheelSense Project`;
         initPaperPreview(detailContent);
+    };
+
+    const closeProjectDetail = (): void => {
+        if (!detail) return;
+        detail.classList.remove('is-open');
+        document.body.style.overflow = '';
+        document.title = 'Projects - WheelSense';
+
+        if (getProjectIdFromPath(window.location.pathname) || new URLSearchParams(window.location.search).get('project')) {
+            window.history.pushState({}, 'Projects - WheelSense', '/projects.html');
+        }
     };
 
     cards.forEach((card) => {
@@ -1229,30 +1264,44 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
 
     cards.forEach((card) => {
-        card.addEventListener('click', () => {
+        card.addEventListener('click', (event) => {
+            if (
+                event instanceof MouseEvent &&
+                (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0)
+            ) {
+                return;
+            }
+
+            event.preventDefault();
             const projectId = (card as HTMLElement).dataset.project || '';
-            openProjectDetail(projectId);
+            openProjectDetail(projectId, { updateUrl: true });
         });
     });
 
-    detailClose?.addEventListener('click', () => {
-        if (!detail) return;
-        detail.classList.remove('is-open');
-        document.body.style.overflow = '';
-    });
+    detailClose?.addEventListener('click', closeProjectDetail);
 
     document.addEventListener('keydown', (event) => {
         if (event.key === 'Escape' && detail) {
-            detail.classList.remove('is-open');
-            document.body.style.overflow = '';
+            closeProjectDetail();
         }
     });
 
     const params = new URLSearchParams(window.location.search);
-    const initialProject = params.get('project') || '';
+    const initialProject = params.get('project') || getProjectIdFromPath(window.location.pathname);
     if (initialProject && projectData[initialProject]) {
         openProjectDetail(initialProject);
     }
+
+    window.addEventListener('popstate', () => {
+        const projectId = getProjectIdFromPath(window.location.pathname) || new URLSearchParams(window.location.search).get('project') || '';
+        if (projectId && projectData[projectId]) {
+            openProjectDetail(projectId);
+        } else if (detail?.classList.contains('is-open')) {
+            detail.classList.remove('is-open');
+            document.body.style.overflow = '';
+            document.title = 'Projects - WheelSense';
+        }
+    });
 
     await applyPageOverrides('projects');
     initScrollAnimations();

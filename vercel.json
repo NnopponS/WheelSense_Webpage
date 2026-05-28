@@ -1,0 +1,9 @@
+{
+  "rewrites": [
+    { "source": "/projects/yes-wheelchair", "destination": "/projects.html?project=yes-wheelchair" },
+    { "source": "/projects/all-wheelchair", "destination": "/projects.html?project=all-wheelchair" },
+    { "source": "/projects/marathon-racing", "destination": "/projects.html?project=marathon-racing" },
+    { "source": "/projects/wheelsense", "destination": "/projects.html?project=wheelsense" },
+    { "source": "/projects/easeai", "destination": "/projects.html?project=easeai" }
+  ]
+}

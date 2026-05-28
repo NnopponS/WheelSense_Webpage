@@ -5,7 +5,36 @@ import { defineConfig } from 'vite';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
+const projectRoutePattern = /^\/projects\/(yes-wheelchair|all-wheelchair|marathon-racing|wheelsense|easeai)\/?$/;
+
+function rewriteProjectRoute(url = ''): string {
+  const [pathname, search = ''] = url.split('?');
+  const match = pathname.match(projectRoutePattern);
+  if (!match) return url;
+
+  const query = new URLSearchParams(search);
+  query.set('project', match[1]);
+  return `/projects.html?${query.toString()}`;
+}
+
 export default defineConfig({
+  plugins: [
+    {
+      name: 'wheelsense-project-route-rewrite',
+      configureServer(server) {
+        server.middlewares.use((req, _res, next) => {
+          req.url = rewriteProjectRoute(req.url);
+          next();
+        });
+      },
+      configurePreviewServer(server) {
+        server.middlewares.use((req, _res, next) => {
+          req.url = rewriteProjectRoute(req.url);
+          next();
+        });
+      },
+    },
+  ],
   build: {
     rollupOptions: {
       input: {

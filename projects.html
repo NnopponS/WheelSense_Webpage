@@ -25,6 +25,7 @@
         }
 
         .project-card {
+            display: block;
             position: relative;
             border-radius: var(--radius-lg);
             overflow: hidden;
@@ -32,6 +33,8 @@
             border: 1px solid rgba(255, 255, 255, 0.04);
             transition: all var(--duration-normal) var(--ease-out-quart);
             cursor: pointer;
+            color: inherit;
+            text-decoration: none;
         }
 
         .project-card:hover {
@@ -943,7 +946,7 @@
             <div class="container container-wide">
                 <div class="projects-grid stagger-children" id="projectsGrid">
                     <!-- YES Wheelchair -->
-                    <div class="project-card" data-project="yes-wheelchair">
+                    <a class="project-card" data-project="yes-wheelchair" href="/projects/yes-wheelchair">
                         <div class="project-card__visual">
                             <div class="project-card__gradient"
                                 style="background: linear-gradient(135deg, var(--color-era-1), transparent);"></div>
@@ -960,10 +963,10 @@
                                 <span class="project-card__tag">Health Monitoring</span>
                             </div>
                         </div>
-                    </div>
+                    </a>
 
                     <!-- ALL Wheelchair -->
-                    <div class="project-card" data-project="all-wheelchair">
+                    <a class="project-card" data-project="all-wheelchair" href="/projects/all-wheelchair">
                         <div class="project-card__visual">
                             <div class="project-card__gradient"
                                 style="background: linear-gradient(135deg, var(--color-era-2), transparent);"></div>
@@ -982,10 +985,10 @@
                                 <span class="project-card__tag">Rehabilitation</span>
                             </div>
                         </div>
-                    </div>
+                    </a>
 
                     <!-- smartVibe -->
-                    <div class="project-card" data-project="marathon-racing">
+                    <a class="project-card" data-project="marathon-racing" href="/projects/marathon-racing">
                         <div class="project-card__visual">
                             <div class="project-card__gradient"
                                 style="background: linear-gradient(135deg, var(--color-era-3), transparent);"></div>
@@ -1002,10 +1005,10 @@
                                 <span class="project-card__tag">Adaptive Interaction</span>
                             </div>
                         </div>
-                    </div>
+                    </a>
 
                     <!-- WheelSense -->
-                    <div class="project-card" data-project="wheelsense">
+                    <a class="project-card" data-project="wheelsense" href="/projects/wheelsense">
                         <div class="project-card__visual">
                             <div class="project-card__gradient"
                                 style="background: linear-gradient(135deg, var(--color-era-4), transparent);"></div>
@@ -1022,10 +1025,10 @@
                                 <span class="project-card__tag">ECTI-CON Paper</span>
                             </div>
                         </div>
-                    </div>
+                    </a>
 
                     <!-- EASE AI -->
-                    <div class="project-card" data-project="easeai">
+                    <a class="project-card" data-project="easeai" href="/projects/easeai">
                         <div class="project-card__visual">
                             <div class="project-card__gradient"
                                 style="background: linear-gradient(135deg, var(--color-era-5), transparent);"></div>
@@ -1041,7 +1044,7 @@
                                 <span class="project-card__tag">Continuous Monitoring</span>
                             </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
             </div>
         </section>
