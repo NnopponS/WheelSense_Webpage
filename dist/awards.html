@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
+        content="Awards, publications, and activity records of the WheelSense team based on official project files." />
+    <title>Awards - WheelSense</title>
+  <script type="module" crossorigin src="/assets/awards-BBwwg9F7.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/page-content-CrDTnGsh.js">
+  <link rel="modulepreload" crossorigin href="/assets/scroll-animations-YVwvv1SP.js">
+  <link rel="stylesheet" crossorigin href="/assets/page-content-B_L-P2B7.css">
+  <link rel="stylesheet" crossorigin href="/assets/awards-BYDOGHFn.css">
+</head>
+
+<body>
+    <div class="loader" id="loader">
+        <div class="loader__spinner"></div>
+    </div>
+
+    <main id="main">
+        <section class="awards-hero" id="awardsHero">
+            <div class="awards-hero__bg"></div>
+            <div class="awards-hero__content reveal">
+                <p class="awards-hero__label">Recognition Archive</p>
+                <h1 class="awards-hero__title">Awards</h1>
+                <p class="awards-hero__subtitle">Compiled from official files in the WheelSense Team document set.</p>
+                <div class="awards-hero__stats">
+                    <div class="awards-hero__stat">
+                        <span class="awards-hero__stat-number" id="statAwards" data-counter="0" data-suffix="">0</span>
+                        <span class="awards-hero__stat-label">Verified Milestones</span>
+                    </div>
+                    <div class="awards-hero__stat">
+                        <span class="awards-hero__stat-number" id="statMedia" data-counter="0" data-suffix="">0</span>
+                        <span class="awards-hero__stat-label">Publications and IP</span>
+                    </div>
+                </div>
+            </div>
+            <div class="scroll-indicator">
+                <div class="scroll-indicator__line"></div>
+                <span class="scroll-indicator__text">Explore</span>
+            </div>
+        </section>
+
+        <section class="section" id="awardsSection">
+            <div class="container container-wide">
+                <div class="reveal" style="text-align: center; margin-bottom: var(--space-3xl);">
+                    <p class="text-small text-tertiary"
+                        style="letter-spacing: var(--tracking-wider); text-transform: uppercase; margin-bottom: var(--space-sm);">
+                        Event Gallery</p>
+                    <h2 class="h2" style="margin-bottom: var(--space-xl);">Verified Awards and Milestones</h2>
+                    <div class="awards-filter" id="awardsFilter" role="tablist" aria-label="Filter awards by project">
+                        <button class="awards-filter__tab is-active" type="button" role="tab" data-era="all"
+                            aria-selected="true">
+                            <span class="awards-filter__dot awards-filter__dot--all"></span>
+                            All Projects
+                        </button>
+                        <button class="awards-filter__tab" type="button" role="tab" data-era="wheelsense"
+                            aria-selected="false">
+                            <span class="awards-filter__dot awards-filter__dot--era4"></span>
+                            WheelSense
+                        </button>
+                        <button class="awards-filter__tab" type="button" role="tab" data-era="all-wheelchair"
+                            aria-selected="false">
+                            <span class="awards-filter__dot awards-filter__dot--era2"></span>
+                            ALL Wheelchair
+                        </button>
+                        <button class="awards-filter__tab" type="button" role="tab" data-era="yes-wheelchair"
+                            aria-selected="false">
+                            <span class="awards-filter__dot awards-filter__dot--era1"></span>
+                            YES Wheelchair
+                        </button>
+                    </div>
+                </div>
+
+                <div class="awards-grid" id="awardsGrid"></div>
+            </div>
+        </section>
+
+        <section class="section" id="publicationsSection">
+            <div class="container">
+                <div class="reveal" style="text-align: center; margin-bottom: var(--space-3xl);">
+                    <p class="text-small text-tertiary"
+                        style="letter-spacing: var(--tracking-wider); text-transform: uppercase; margin-bottom: var(--space-sm);">
+                        Research and IP</p>
+                    <h2 class="h2">Publications and Intellectual Property</h2>
+                </div>
+                <div class="publications-grid stagger-children" id="publicationsGrid"></div>
+            </div>
+        </section>
+
+        <section class="section" id="teamPhotoSection">
+            <div class="container container-wide">
+                <div class="reveal" style="text-align: center; margin-bottom: var(--space-3xl);">
+                    <p class="text-small text-tertiary"
+                        style="letter-spacing: var(--tracking-wider); text-transform: uppercase; margin-bottom: var(--space-sm);">
+                        Team Photo</p>
+                    <h2 class="h2">Team Photo Gallery</h2>
+                </div>
+                <div class="media-grid stagger-children" id="teamPhotoGrid"></div>
+            </div>
+        </section>
+
+    </main>
+
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox__close" id="lightboxClose">&times;</button>
+        <img class="lightbox__img" id="lightboxImg" src="" alt="Evidence" />
+    </div>
+
+</body>
+
+</html>

@@ -1,7 +1,11 @@
+```
+# Dependencies
 node_modules/
+
+# Build artifacts
 dist/
-.env
-.DS_Store
-coverage/
-.vscode/
-tmp/
+
+# Logs
+*.log
+
+```

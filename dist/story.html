@@ -1,0 +1,1203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
+        content="The WheelSense journey: from YES Wheelchair to AI-powered intelligent mobility and smart living." />
+    <title>Our Story - WheelSense</title>
+    <style>
+        .story-layout {
+            display: flex;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        .story-visual {
+            position: sticky;
+            top: 0;
+            width: 52%;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            perspective: 1400px;
+            background:
+                radial-gradient(circle at 25% 20%, rgba(52, 211, 153, 0.1), transparent 45%),
+                radial-gradient(circle at 75% 75%, rgba(96, 165, 250, 0.1), transparent 55%);
+        }
+
+        .story-visual__stage {
+            position: relative;
+            width: min(680px, 90%);
+            aspect-ratio: 1 / 1;
+            transform-style: preserve-3d;
+        }
+
+        .story-visual__label {
+            position: absolute;
+            bottom: 3rem;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: var(--text-caption);
+            color: var(--color-text-muted);
+            letter-spacing: var(--tracking-wider);
+            text-transform: uppercase;
+            white-space: nowrap;
+            transition: all 0.6s var(--ease-out-expo);
+        }
+
+        .story-narrative {
+            width: 48%;
+            padding: 0 var(--space-xl);
+        }
+
+        .story-phase {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: var(--space-3xl) 0;
+            opacity: 0.3;
+            transition: opacity 0.8s var(--ease-out-expo);
+        }
+
+        .story-phase.is-active {
+            opacity: 1;
+        }
+
+        .story-phase__number {
+            font-family: var(--font-display);
+            font-size: var(--text-caption);
+            font-weight: 500;
+            letter-spacing: var(--tracking-wider);
+            text-transform: uppercase;
+            margin-bottom: var(--space-sm);
+        }
+
+        .story-phase__accent {
+            width: 40px;
+            height: 2px;
+            border-radius: 1px;
+            margin-bottom: var(--space-lg);
+        }
+
+        .story-phase__title {
+            font-family: var(--font-display);
+            font-size: var(--text-h2);
+            font-weight: 700;
+            letter-spacing: var(--tracking-tight);
+            margin-bottom: var(--space-xs);
+        }
+
+        .story-phase__subtitle {
+            font-size: var(--text-h4);
+            color: var(--color-text-secondary);
+            margin-bottom: var(--space-lg);
+        }
+
+        .story-phase__text {
+            font-size: var(--text-body-lg);
+            color: var(--color-text-secondary);
+            line-height: var(--leading-relaxed);
+            max-width: 500px;
+            margin-bottom: var(--space-md);
+        }
+
+        .story-phase__specs {
+            display: flex;
+            gap: var(--space-lg);
+            margin-top: var(--space-lg);
+            padding-top: var(--space-md);
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .story-phase__spec-label {
+            font-size: var(--text-caption);
+            color: var(--color-text-muted);
+            letter-spacing: var(--tracking-wider);
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .story-phase__spec-value {
+            font-size: var(--text-small);
+            font-weight: 500;
+        }
+
+        .story-fx {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            transform-style: preserve-3d;
+        }
+
+        .story-fx__sensor {
+            position: absolute;
+            width: 84px;
+            height: 84px;
+            border-radius: 50%;
+            border: 1px solid rgba(52, 211, 153, 0.7);
+            opacity: 0;
+            transform: scale(0.6);
+            animation: sensorPulse 1.8s ease-out infinite;
+        }
+
+        .story-fx__sensor--left {
+            left: 24%;
+            bottom: 30%;
+        }
+
+        .story-fx__sensor--right {
+            right: 24%;
+            bottom: 26%;
+            animation-delay: 0.4s;
+        }
+
+        .story-fx__joystick {
+            position: absolute;
+            left: 8%;
+            bottom: 13%;
+            width: 150px;
+            height: 130px;
+            opacity: 0;
+            transform: translateZ(120px);
+            transition: opacity 0.6s var(--ease-out-quart);
+        }
+
+        .story-fx__joystick-base {
+            position: absolute;
+            left: 18px;
+            right: 18px;
+            bottom: 0;
+            height: 52px;
+            border-radius: 20px;
+            border: 1px solid rgba(196, 181, 253, 0.8);
+            background: rgba(51, 21, 72, 0.45);
+        }
+
+        .story-fx__joystick-stick {
+            position: absolute;
+            left: 50%;
+            bottom: 40px;
+            width: 4px;
+            height: 56px;
+            background: linear-gradient(to top, rgba(196, 181, 253, 0.3), rgba(236, 72, 153, 0.95));
+            transform: translateX(-50%) rotate(-10deg);
+            transform-origin: bottom;
+            animation: joystickSwing 1.9s ease-in-out infinite;
+        }
+
+        .story-fx__joystick-knob {
+            position: absolute;
+            left: 50%;
+            top: -12px;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: rgba(236, 72, 153, 0.9);
+            box-shadow: 0 0 18px rgba(236, 72, 153, 0.8);
+            transform: translateX(-50%);
+        }
+
+        .story-fx__game-hud {
+            position: absolute;
+            right: 6%;
+            top: 16%;
+            display: grid;
+            gap: 0.5rem;
+            opacity: 0;
+            transform: translateZ(118px);
+            transition: opacity 0.6s var(--ease-out-quart);
+        }
+
+        .story-fx__game-chip {
+            font-size: 0.64rem;
+            letter-spacing: var(--tracking-wide);
+            text-transform: uppercase;
+            color: rgba(233, 213, 255, 0.95);
+            border: 1px solid rgba(196, 181, 253, 0.45);
+            border-radius: 999px;
+            padding: 0.35rem 0.55rem;
+            background: rgba(40, 18, 62, 0.6);
+        }
+
+        .story-fx__map {
+            position: absolute;
+            inset: 15% 9%;
+            border-radius: var(--radius-lg);
+            background:
+                radial-gradient(circle at 18% 30%, rgba(251, 146, 60, 0.2), transparent 40%),
+                radial-gradient(circle at 78% 70%, rgba(59, 130, 246, 0.22), transparent 45%),
+                linear-gradient(150deg, rgba(15, 24, 42, 0.82), rgba(19, 32, 52, 0.62));
+            border: 1px solid rgba(125, 211, 252, 0.25);
+            opacity: 0;
+            transform: translateZ(40px) rotateX(62deg);
+            transition: opacity 0.7s var(--ease-out-quart);
+            overflow: hidden;
+        }
+
+        .story-fx__map-route {
+            position: absolute;
+            inset: 14% 8%;
+            border-radius: 26px;
+            border: 2px dashed rgba(251, 146, 60, 0.85);
+            box-shadow: 0 0 20px rgba(251, 146, 60, 0.55);
+            animation: routePulse 1.6s ease-in-out infinite;
+        }
+
+        .story-fx__map-marker {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(125, 211, 252, 0.95);
+            box-shadow: 0 0 14px rgba(125, 211, 252, 0.9);
+            animation: markerMove 3.2s linear infinite;
+        }
+
+        .story-fx__indoor-grid {
+            position: absolute;
+            inset: 12% 12%;
+            background-image:
+                linear-gradient(rgba(96, 165, 250, 0.2) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(96, 165, 250, 0.2) 1px, transparent 1px);
+            background-size: 26px 26px;
+            border-radius: var(--radius-lg);
+            opacity: 0;
+            transform: translateZ(22px);
+            transition: opacity 0.7s var(--ease-out-quart);
+        }
+
+        .story-fx__localization {
+            position: absolute;
+            inset: 14%;
+            opacity: 0;
+            transform: translateZ(100px);
+            transition: opacity 0.7s var(--ease-out-quart);
+        }
+
+        .story-fx__beacon {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(147, 197, 253, 1);
+            box-shadow: 0 0 14px rgba(147, 197, 253, 0.95);
+        }
+
+        .story-fx__beacon::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 56px;
+            height: 56px;
+            border: 1px solid rgba(147, 197, 253, 0.45);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            animation: localizationPulse 1.9s ease-out infinite;
+            animation-delay: var(--pulse-delay, 0s);
+        }
+
+        .story-fx__beacon--a {
+            top: 18%;
+            left: 18%;
+        }
+
+        .story-fx__beacon--b {
+            top: 20%;
+            right: 16%;
+            --pulse-delay: 0.35s;
+        }
+
+        .story-fx__beacon--c {
+            bottom: 24%;
+            left: 52%;
+            --pulse-delay: 0.7s;
+        }
+
+        .story-fx__ignition {
+            position: absolute;
+            inset: 28%;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 100px rgba(255, 255, 255, 0.25);
+            opacity: 0;
+            transform: translateZ(50px) scale(0.7);
+            transition: all 0.8s var(--ease-out-expo);
+        }
+
+        .story-fx__grid {
+            position: absolute;
+            inset: 10%;
+            background-image:
+                linear-gradient(rgba(52, 211, 153, 0.2) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(52, 211, 153, 0.2) 1px, transparent 1px);
+            background-size: 28px 28px;
+            border-radius: var(--radius-lg);
+            transform: translateZ(-30px) rotateX(66deg);
+            opacity: 0;
+            transition: opacity 0.7s var(--ease-out-quart);
+        }
+
+        .story-fx__scanline {
+            position: absolute;
+            left: 18%;
+            right: 18%;
+            top: 28%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(52, 211, 153, 0.9), transparent);
+            box-shadow: 0 0 30px rgba(52, 211, 153, 0.8);
+            opacity: 0;
+            animation: scanY 2.8s linear infinite;
+        }
+
+        .story-fx__data {
+            position: absolute;
+            inset: 12% 6%;
+            display: grid;
+            grid-template-columns: repeat(2, minmax(140px, 1fr));
+            align-content: start;
+            gap: 0.75rem;
+            opacity: 0;
+            transition: opacity 0.7s var(--ease-out-quart);
+        }
+
+        .story-fx__chip {
+            padding: 0.5rem 0.7rem;
+            border-radius: 999px;
+            border: 1px solid rgba(52, 211, 153, 0.35);
+            background: rgba(7, 20, 14, 0.6);
+            color: rgba(178, 247, 217, 0.95);
+            font-size: 0.68rem;
+            letter-spacing: 0.03em;
+            transform: translateZ(80px) rotateY(-16deg);
+            animation: chipFloat 3.5s ease-in-out infinite;
+        }
+
+        .story-fx__chip:nth-child(2) {
+            animation-delay: 0.4s;
+        }
+
+        .story-fx__chip:nth-child(3) {
+            animation-delay: 0.8s;
+        }
+
+        .story-fx__chip:nth-child(4) {
+            animation-delay: 1.2s;
+        }
+
+        .story-fx__fiber {
+            position: absolute;
+            inset: 12%;
+            opacity: 0;
+            transition: opacity 0.7s var(--ease-out-quart);
+        }
+
+        .story-fx__fiber-line {
+            position: absolute;
+            height: 1px;
+            width: 58%;
+            background: linear-gradient(90deg, rgba(167, 139, 250, 0), rgba(236, 72, 153, 0.95), rgba(167, 139, 250, 0));
+            left: 18%;
+            box-shadow: 0 0 20px rgba(236, 72, 153, 0.5);
+            transform-origin: left;
+            animation: fiberPulse 2.8s ease-in-out infinite;
+        }
+
+        .story-fx__fiber-line:nth-child(1) {
+            top: 28%;
+            transform: rotate(-16deg) translateZ(80px);
+        }
+
+        .story-fx__fiber-line:nth-child(2) {
+            top: 44%;
+            transform: rotate(9deg) translateZ(100px);
+            animation-delay: 0.35s;
+        }
+
+        .story-fx__fiber-line:nth-child(3) {
+            top: 60%;
+            transform: rotate(-7deg) translateZ(90px);
+            animation-delay: 0.7s;
+        }
+
+        .story-fx__speed {
+            position: absolute;
+            inset: 8% 14%;
+            opacity: 0;
+            transition: opacity 0.7s var(--ease-out-quart);
+            overflow: hidden;
+        }
+
+        .story-fx__speed-line {
+            position: absolute;
+            left: -20%;
+            right: -20%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(251, 146, 60, 0.95), transparent);
+            box-shadow: 0 0 16px rgba(251, 146, 60, 0.8);
+            animation: speedRush 1.2s linear infinite;
+        }
+
+        .story-fx__speed-line:nth-child(1) {
+            top: 20%;
+            animation-delay: 0.05s;
+        }
+
+        .story-fx__speed-line:nth-child(2) {
+            top: 32%;
+            animation-delay: 0.2s;
+        }
+
+        .story-fx__speed-line:nth-child(3) {
+            top: 45%;
+            animation-delay: 0.35s;
+        }
+
+        .story-fx__speed-line:nth-child(4) {
+            top: 58%;
+            animation-delay: 0.5s;
+        }
+
+        .story-fx__speed-line:nth-child(5) {
+            top: 70%;
+            animation-delay: 0.65s;
+        }
+
+        .story-fx__coords {
+            position: absolute;
+            bottom: 16%;
+            left: 50%;
+            transform: translateX(-50%) translateZ(90px);
+            font-family: var(--font-display);
+            font-size: 0.74rem;
+            letter-spacing: var(--tracking-wide);
+            color: rgba(255, 190, 144, 0.95);
+            text-transform: uppercase;
+            opacity: 0;
+            transition: opacity 0.7s var(--ease-out-quart);
+        }
+
+        .story-fx__neural {
+            position: absolute;
+            inset: 16%;
+            opacity: 0;
+            transition: opacity 0.7s var(--ease-out-quart);
+        }
+
+        .story-fx__node {
+            position: absolute;
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: rgba(147, 197, 253, 0.95);
+            box-shadow: 0 0 18px rgba(147, 197, 253, 0.8);
+            animation: nodePulse 2.3s ease-in-out infinite;
+        }
+
+        .story-fx__node::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 56px;
+            height: 1px;
+            background: linear-gradient(90deg, rgba(147, 197, 253, 0.7), rgba(147, 197, 253, 0));
+            transform: rotate(var(--line-rotate, 0deg));
+            transform-origin: left center;
+        }
+
+        .story-fx__node:nth-child(1) {
+            top: 24%;
+            left: 28%;
+            --line-rotate: 26deg;
+        }
+
+        .story-fx__node:nth-child(2) {
+            top: 35%;
+            left: 58%;
+            --line-rotate: 148deg;
+            animation-delay: 0.3s;
+        }
+
+        .story-fx__node:nth-child(3) {
+            top: 52%;
+            left: 32%;
+            --line-rotate: -18deg;
+            animation-delay: 0.6s;
+        }
+
+        .story-fx__node:nth-child(4) {
+            top: 62%;
+            left: 62%;
+            --line-rotate: 190deg;
+            animation-delay: 0.9s;
+        }
+
+        .story-fx__bbox {
+            position: absolute;
+            border: 1px solid rgba(147, 197, 253, 0.6);
+            box-shadow: inset 0 0 20px rgba(147, 197, 253, 0.15);
+            opacity: 0;
+            transition: opacity 0.7s var(--ease-out-quart);
+            animation: bboxPulse 2.2s ease-in-out infinite;
+        }
+
+        .story-fx__bbox--1 {
+            top: 24%;
+            left: 21%;
+            width: 80px;
+            height: 68px;
+        }
+
+        .story-fx__bbox--2 {
+            top: 34%;
+            right: 19%;
+            width: 92px;
+            height: 64px;
+            animation-delay: 0.5s;
+        }
+
+        .story-fx__bbox--3 {
+            bottom: 22%;
+            left: 42%;
+            width: 86px;
+            height: 62px;
+            animation-delay: 0.9s;
+        }
+
+        .story-fx__home {
+            position: absolute;
+            right: 14%;
+            bottom: 15%;
+            display: flex;
+            gap: 0.45rem;
+            opacity: 0;
+            transform: translateZ(120px);
+            transition: opacity 0.7s var(--ease-out-quart);
+        }
+
+        .story-fx__home-pill {
+            font-size: 0.65rem;
+            letter-spacing: var(--tracking-wide);
+            text-transform: uppercase;
+            padding: 0.35rem 0.55rem;
+            border-radius: 999px;
+            border: 1px solid rgba(147, 197, 253, 0.4);
+            color: rgba(191, 219, 254, 0.92);
+            background: rgba(14, 24, 38, 0.7);
+        }
+
+        .story-visual.phase-0 .story-fx__ignition {
+            opacity: 1;
+            transform: translateZ(70px) scale(1);
+        }
+
+        .story-visual.phase-1 .story-fx__grid,
+        .story-visual.phase-1 .story-fx__scanline,
+        .story-visual.phase-1 .story-fx__data {
+            opacity: 1;
+        }
+
+        .story-visual.phase-1 .story-fx__sensor {
+            opacity: 1;
+        }
+
+        .story-visual.phase-2 .story-fx__fiber {
+            opacity: 1;
+        }
+
+        .story-visual.phase-2 .story-fx__joystick,
+        .story-visual.phase-2 .story-fx__game-hud {
+            opacity: 1;
+        }
+
+        .story-visual.phase-3 .story-fx__speed,
+        .story-visual.phase-3 .story-fx__coords,
+        .story-visual.phase-3 .story-fx__map {
+            opacity: 1;
+        }
+
+        .story-visual.phase-4 .story-fx__neural,
+        .story-visual.phase-4 .story-fx__bbox,
+        .story-visual.phase-4 .story-fx__home,
+        .story-visual.phase-4 .story-fx__indoor-grid,
+        .story-visual.phase-4 .story-fx__localization {
+            opacity: 1;
+        }
+
+        .story-fx__cross {
+            position: absolute;
+            inset: 35%;
+            opacity: 0;
+            transition: opacity 0.7s var(--ease-out-quart);
+        }
+
+        .story-fx__cross::before,
+        .story-fx__cross::after {
+            content: '';
+            position: absolute;
+            background: rgba(244, 114, 182, 0.9);
+            border-radius: 4px;
+            box-shadow: 0 0 16px rgba(244, 114, 182, 0.6);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .story-fx__cross::before { width: 40px; height: 12px; }
+        .story-fx__cross::after { width: 12px; height: 40px; }
+
+        .story-fx__vital-sign {
+             position: absolute;
+             bottom: 25%;
+             left: 20%;
+             width: 60%;
+             height: 40px;
+             opacity: 0;
+             transition: opacity 0.7s var(--ease-out-quart);
+             background: linear-gradient(90deg, transparent, rgba(244, 114, 182, 0.5) 50%, transparent);
+             mask-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 100 20" xmlns="http://www.w3.org/2000/svg"><path fill="none" stroke="black" stroke-width="2" d="M0 10 L20 10 L25 2 L35 18 L40 10 L100 10" /></svg>');
+             -webkit-mask-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 100 20" xmlns="http://www.w3.org/2000/svg"><path fill="none" stroke="black" stroke-width="2" d="M0 10 L20 10 L25 2 L35 18 L40 10 L100 10" /></svg>');
+             mask-size: cover;
+             -webkit-mask-size: cover;
+             mask-repeat: repeat-x;
+             -webkit-mask-repeat: repeat-x;
+             animation: vitalScroll 3s linear infinite;
+        }
+
+        .story-visual.phase-5 .story-fx__cross {
+            opacity: 1;
+            transform: translateZ(90px);
+            animation: crossPulse 2s ease-in-out infinite;
+        }
+
+        .story-visual.phase-5 .story-fx__vital-sign {
+            opacity: 1;
+            transform: translateZ(70px);
+        }
+
+        .story-ending {
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: var(--space-3xl) var(--space-lg);
+        }
+
+        .story-ending__title {
+            font-family: var(--font-display);
+            font-size: var(--text-h1);
+            font-weight: 700;
+            margin-bottom: var(--space-lg);
+        }
+
+        .story-ending__cta-group {
+            display: flex;
+            gap: var(--space-md);
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        @keyframes chipFloat {
+
+            0%,
+            100% {
+                transform: translateZ(80px) translateY(0px) rotateY(-16deg);
+            }
+
+            50% {
+                transform: translateZ(88px) translateY(-5px) rotateY(-10deg);
+            }
+        }
+
+        @keyframes sensorPulse {
+            0% {
+                transform: scale(0.55);
+                opacity: 0.85;
+            }
+
+            100% {
+                transform: scale(1.25);
+                opacity: 0;
+            }
+        }
+
+        @keyframes joystickSwing {
+
+            0%,
+            100% {
+                transform: translateX(-50%) rotate(-11deg);
+            }
+
+            50% {
+                transform: translateX(-50%) rotate(13deg);
+            }
+        }
+
+        @keyframes routePulse {
+
+            0%,
+            100% {
+                opacity: 0.55;
+            }
+
+            50% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes markerMove {
+            0% {
+                top: 16%;
+                left: 20%;
+            }
+
+            33% {
+                top: 34%;
+                left: 72%;
+            }
+
+            66% {
+                top: 70%;
+                left: 42%;
+            }
+
+            100% {
+                top: 16%;
+                left: 20%;
+            }
+        }
+
+        @keyframes localizationPulse {
+            0% {
+                transform: translate(-50%, -50%) scale(0.5);
+                opacity: 0.9;
+            }
+
+            100% {
+                transform: translate(-50%, -50%) scale(1.45);
+                opacity: 0;
+            }
+        }
+
+        @keyframes scanY {
+            0% {
+                transform: translateY(-36px);
+            }
+
+            100% {
+                transform: translateY(220px);
+            }
+        }
+
+        @keyframes fiberPulse {
+
+            0%,
+            100% {
+                opacity: 0.45;
+            }
+
+            50% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes speedRush {
+            0% {
+                transform: translateX(-26%);
+                opacity: 0;
+            }
+
+            30% {
+                opacity: 0.9;
+            }
+
+            100% {
+                transform: translateX(32%);
+                opacity: 0;
+            }
+        }
+
+        @keyframes nodePulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.24);
+            }
+        }
+
+        @keyframes bboxPulse {
+
+            0%,
+            100% {
+                box-shadow: inset 0 0 20px rgba(147, 197, 253, 0.15);
+            }
+
+            50% {
+                box-shadow: inset 0 0 28px rgba(147, 197, 253, 0.35);
+            }
+        }
+
+        @keyframes crossPulse {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.15); opacity: 1; }
+        }
+
+        @keyframes vitalScroll {
+             0% { background-position: -200px 0; }
+             100% { background-position: 200px 0; }
+        }
+
+        @media (max-width: 1024px) {
+            .story-visual {
+                width: 50%;
+            }
+
+            .story-narrative {
+                width: 50%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .story-layout {
+                flex-direction: column;
+            }
+
+            .story-visual {
+                width: 100%;
+                height: 46vh;
+                position: sticky;
+                top: 0;
+                z-index: 1;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            }
+
+            .story-visual__stage {
+                width: min(520px, 94%);
+            }
+
+            .story-narrative {
+                width: 100%;
+                padding: 0 var(--space-md);
+                position: relative;
+                z-index: 2;
+            }
+
+            .story-phase {
+                min-height: 80vh;
+                padding-top: var(--space-2xl);
+            }
+
+            .story-fx__data,
+            .story-fx__home,
+            .story-fx__game-hud {
+                display: none;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .story-fx__scanline,
+            .story-fx__chip,
+            .story-fx__fiber-line,
+            .story-fx__speed-line,
+            .story-fx__node,
+            .story-fx__bbox,
+            .story-fx__sensor,
+            .story-fx__joystick-stick,
+            .story-fx__map-route,
+            .story-fx__map-marker,
+            .story-fx__beacon::before {
+                animation: none !important;
+            }
+        }
+    </style>
+  <script type="module" crossorigin src="/assets/story-BZMnxXRd.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/page-content-CrDTnGsh.js">
+  <link rel="modulepreload" crossorigin href="/assets/scroll-animations-YVwvv1SP.js">
+  <link rel="stylesheet" crossorigin href="/assets/page-content-B_L-P2B7.css">
+</head>
+
+<body>
+    <div class="loader" id="loader">
+        <div class="loader__spinner"></div>
+    </div>
+
+    <main id="main">
+        <section class="hero" style="min-height: 60vh;">
+            <div class="hero__content">
+                <p class="text-small text-tertiary"
+                    style="letter-spacing: var(--tracking-wider); text-transform: uppercase; margin-bottom: var(--space-sm);">
+                    Our Story</p>
+                <h1 class="h1">It started with a simple rotation.</h1>
+                <p class="hero__description" style="margin-top: var(--space-md);">Scroll through an interactive timeline of five
+                    connected eras, from digitization to intelligent companionship.</p>
+            </div>
+            <div class="scroll-indicator">
+                <div class="scroll-indicator__line"></div>
+                <span class="scroll-indicator__text">Scroll</span>
+            </div>
+        </section>
+
+        <div class="story-layout" id="storyLayout">
+            <div class="story-visual phase-0" id="storyVisual">
+                <div class="story-visual__stage">
+                    <div class="story-fx" aria-hidden="true">
+                        <span class="story-fx__sensor story-fx__sensor--left"></span>
+                        <span class="story-fx__sensor story-fx__sensor--right"></span>
+
+                        <div class="story-fx__ignition"></div>
+                        <div class="story-fx__grid"></div>
+                        <div class="story-fx__scanline"></div>
+
+                        <div class="story-fx__data">
+                            <span class="story-fx__chip">Speed: 1.8 m/s</span>
+                            <span class="story-fx__chip">Acceleration: 0.42 m/s2</span>
+                            <span class="story-fx__chip">Distance: 5.2 km</span>
+                            <span class="story-fx__chip">Fall Detection: Safe</span>
+                        </div>
+
+                        <div class="story-fx__joystick">
+                            <div class="story-fx__joystick-base"></div>
+                            <div class="story-fx__joystick-stick">
+                                <div class="story-fx__joystick-knob"></div>
+                            </div>
+                        </div>
+
+                        <div class="story-fx__game-hud">
+                            <span class="story-fx__game-chip">Joystick Aim Active</span>
+                            <span class="story-fx__game-chip">Exergame Session: 22 min</span>
+                            <span class="story-fx__game-chip">Calories Burned: 186 kcal</span>
+                        </div>
+
+                        <div class="story-fx__fiber">
+                            <span class="story-fx__fiber-line"></span>
+                            <span class="story-fx__fiber-line"></span>
+                            <span class="story-fx__fiber-line"></span>
+                        </div>
+
+                        <div class="story-fx__speed">
+                            <span class="story-fx__speed-line"></span>
+                            <span class="story-fx__speed-line"></span>
+                            <span class="story-fx__speed-line"></span>
+                            <span class="story-fx__speed-line"></span>
+                            <span class="story-fx__speed-line"></span>
+                        </div>
+
+                        <div class="story-fx__map">
+                            <div class="story-fx__map-route"></div>
+                            <span class="story-fx__map-marker"></span>
+                        </div>
+                        <div class="story-fx__coords" id="storyCoords">Lat 13.7563 | Long 100.5018</div>
+
+                        <div class="story-fx__neural">
+                            <span class="story-fx__node"></span>
+                            <span class="story-fx__node"></span>
+                            <span class="story-fx__node"></span>
+                            <span class="story-fx__node"></span>
+                        </div>
+
+                        <div class="story-fx__bbox story-fx__bbox--1"></div>
+                        <div class="story-fx__bbox story-fx__bbox--2"></div>
+                        <div class="story-fx__bbox story-fx__bbox--3"></div>
+
+                        <div class="story-fx__indoor-grid"></div>
+                        <div class="story-fx__localization">
+                            <span class="story-fx__beacon story-fx__beacon--a"></span>
+                            <span class="story-fx__beacon story-fx__beacon--b"></span>
+                            <span class="story-fx__beacon story-fx__beacon--c"></span>
+                        </div>
+
+                        <div class="story-fx__home">
+                            <span class="story-fx__home-pill">Door</span>
+                            <span class="story-fx__home-pill">Light</span>
+                            <span class="story-fx__home-pill">Air</span>
+                        </div>
+
+                        <!-- Phase 5 specific elements -->
+                        <div class="story-fx__cross"></div>
+                        <div class="story-fx__vital-sign"></div>
+                    </div>
+
+                </div>
+                <div class="story-visual__label" id="storyVisualLabel">Phase 0 - Origin</div>
+            </div>
+
+            <div class="story-narrative">
+                <div class="story-phase" data-phase="0" data-color="#ffffff">
+                    <p class="story-phase__number" style="color: var(--color-text-tertiary);">Phase 00</p>
+                    <div class="story-phase__accent" style="background: rgba(255,255,255,0.2);"></div>
+                    <h2 class="story-phase__title">The Origin</h2>
+                    <p class="story-phase__subtitle">A simple rotation, an infinite vision</p>
+                    <p class="story-phase__text">
+                        It began with one question: what if a wheelchair could be more than metal and wheels? What if
+                        every rotation could become intelligence that protects and empowers its user?
+                    </p>
+                    <p class="story-phase__text">
+                        From that single spark, the WheelSense team formed around one conviction: assistive technology
+                        deserves the same ambition and engineering depth as any frontier innovation.
+                    </p>
+                </div>
+
+                <div class="story-phase" data-phase="1" data-color="#34D399">
+                    <p class="story-phase__number" style="color: var(--color-era-1);">Phase 01 - Digitization</p>
+                    <div class="story-phase__accent" style="background: var(--color-era-1);"></div>
+                    <h2 class="story-phase__title">YES Wheelchair</h2>
+                    <p class="story-phase__subtitle">Physical to Digital</p>
+                    <p class="story-phase__text">
+                        YES Wheelchair installs sensor modules on both left and right wheels to capture speed,
+                        acceleration, distance, and fall-detection status in real time.
+                    </p>
+                    <p class="story-phase__text">
+                        This turns daily motion into actionable telemetry for users, caregivers, and researchers.
+                    </p>
+                    <div class="story-phase__specs">
+                        <div>
+                            <p class="story-phase__spec-label">Core</p>
+                            <p class="story-phase__spec-value">IoT Sensors</p>
+                        </div>
+                        <div>
+                            <p class="story-phase__spec-label">Feature</p>
+                            <p class="story-phase__spec-value">Speed, Acceleration, Distance, Fall Detection</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="story-phase" data-phase="2" data-color="#A78BFA">
+                    <p class="story-phase__number" style="color: var(--color-era-2);">Phase 02 - Interaction</p>
+                    <div class="story-phase__accent" style="background: var(--color-era-2);"></div>
+                    <h2 class="story-phase__title">ALL Wheelchair</h2>
+                    <p class="story-phase__subtitle">Digital to Interaction</p>
+                    <p class="story-phase__text">
+                        ALL Wheelchair introduces joystick-style control behavior to the wheelchair interaction model,
+                        allowing users to aim and control exercise games directly from movement input.
+                    </p>
+                    <p class="story-phase__text">
+                        Rehabilitation becomes an engaging exergaming experience instead of repetitive training.
+                    </p>
+                    <div class="story-phase__specs">
+                        <div>
+                            <p class="story-phase__spec-label">Core</p>
+                            <p class="story-phase__spec-value">Motion Tracking</p>
+                        </div>
+                        <div>
+                            <p class="story-phase__spec-label">Feature</p>
+                            <p class="story-phase__spec-value">Joystick-style Aim and Exergaming</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="story-phase" data-phase="3" data-color="#FB923C">
+                    <p class="story-phase__number" style="color: var(--color-era-3);">Phase 03 - Expansion</p>
+                    <div class="story-phase__accent" style="background: var(--color-era-3);"></div>
+                    <h2 class="story-phase__title">smartVibe</h2>
+                    <p class="story-phase__subtitle">Room to World</p>
+                    <p class="story-phase__text">
+                        smartVibe extends the system into outdoor environments with connected telemetry,
+                        showing live map routes, coordinates, speed, and pacing analytics.
+                    </p>
+                    <p class="story-phase__text">
+                        Real-world marathon tracking becomes visible end-to-end across the full race path.
+                    </p>
+                    <div class="story-phase__specs">
+                        <div>
+                            <p class="story-phase__spec-label">Core</p>
+                            <p class="story-phase__spec-value">GPS and 4G LTE</p>
+                        </div>
+                        <div>
+                            <p class="story-phase__spec-label">Feature</p>
+                            <p class="story-phase__spec-value">Outdoor Route Tracking and Telemetry</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="story-phase" data-phase="4" data-color="#60A5FA">
+                    <p class="story-phase__number" style="color: var(--color-era-4);">Phase 04 - Intelligence</p>
+                    <div class="story-phase__accent" style="background: var(--color-era-4);"></div>
+                    <h2 class="story-phase__title">WheelSense</h2>
+                    <p class="story-phase__subtitle">Vehicle to Companion</p>
+                    <p class="story-phase__text">
+                        WheelSense combines AI with computer vision and indoor localization to understand context and
+                        guide wheelchair users inside complex indoor spaces.
+                    </p>
+                    <p class="story-phase__text">
+                        It acts as an intelligent wheelchair companion connected to smart-home systems and proactive assistance.
+                    </p>
+                    <div class="story-phase__specs">
+                        <div>
+                            <p class="story-phase__spec-label">Core</p>
+                            <p class="story-phase__spec-value">AI and Computer Vision</p>
+                        </div>
+                        <div>
+                            <p class="story-phase__spec-label">Feature</p>
+                            <p class="story-phase__spec-value">Indoor Localization and AI Assistance</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="story-phase" data-phase="5" data-color="#F472B6">
+                    <p class="story-phase__number" style="color: var(--color-era-5);">Phase 05 - Integration</p>
+                    <div class="story-phase__accent" style="background: var(--color-era-5);"></div>
+                    <h2 class="story-phase__title">EASE AI</h2>
+                    <p class="story-phase__subtitle">Vehicle to Caregiver</p>
+                    <p class="story-phase__text">
+                        EASE AI transforms the wheelchair from a smart vehicle into a proactive health assistant. By integrating wearable sensors, indoor localization, and smart home automation, it creates a continuous monitoring ecosystem.
+                    </p>
+                    <p class="story-phase__text">
+                        It bridges the gap between patient and caregiver, orchestrating the environment for preventive health and emergency response.
+                    </p>
+                    <div class="story-phase__specs">
+                        <div>
+                            <p class="story-phase__spec-label">Core</p>
+                            <p class="story-phase__spec-value">HealthTech & AI Ecosystem</p>
+                        </div>
+                        <div>
+                            <p class="story-phase__spec-label">Feature</p>
+                            <p class="story-phase__spec-value">Continuous Monitoring & Smart Home Orchestration</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="story-progress" id="storyProgress">
+            <div class="story-progress__dot is-active" data-label="Origin" data-index="0"></div>
+            <div class="story-progress__line"></div>
+            <div class="story-progress__dot" data-label="Digitization" data-index="1"></div>
+            <div class="story-progress__line"></div>
+            <div class="story-progress__dot" data-label="Interaction" data-index="2"></div>
+            <div class="story-progress__line"></div>
+            <div class="story-progress__dot" data-label="Expansion" data-index="3"></div>
+            <div class="story-progress__line"></div>
+            <div class="story-progress__dot" data-label="Intelligence" data-index="4"></div>
+            <div class="story-progress__line"></div>
+            <div class="story-progress__dot" data-label="Integration" data-index="5"></div>
+        </div>
+
+        <section class="story-ending" id="storyEnding">
+            <div class="reveal">
+                <p class="text-small text-tertiary"
+                    style="letter-spacing: var(--tracking-wider); text-transform: uppercase; margin-bottom: var(--space-md);">
+                    The Next Step</p>
+                <h2 class="story-ending__title">The wheel keeps turning.</h2>
+                <div class="story-ending__cta-group">
+                    <a href="/projects.html" class="btn btn-primary">Explore Our Projects</a>
+                    <a href="/team.html" class="btn btn-secondary">Meet the Team</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+</body>
+
+</html>
